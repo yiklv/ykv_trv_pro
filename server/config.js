@@ -11,6 +11,9 @@ const CONF = {
     // 是否使用腾讯云代理登录小程序
     useQcloudLogin: false,
 
+    // knex client
+    knexClient: 'mysql', 
+
     /**
      * MySQL 配置，用来存储 session 和用户信息
      * 若使用了腾讯云微信小程序解决方案
@@ -22,7 +25,9 @@ const CONF = {
         user: 'trvdata',
         db: 'cAuth',
         pass: 'trvdata1234',
-        char: 'utf8mb4'
+        char: 'utf8mb4',
+        poolMinSize: 0,
+        poolMaxSize: 100
     },
 
     cos: {

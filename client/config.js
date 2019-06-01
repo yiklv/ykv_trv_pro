@@ -21,7 +21,14 @@ var config = {
         tunnelUrl: `${host}/weapp/tunnel`,
 
         // 上传图片接口
-        uploadUrl: `${host}/weapp/upload`
+        uploadUrl: `${host}/weapp/upload`,
+
+        // common
+        common: {
+            // 获取首页广告接口
+            advUrl: `${host}/weapp/advice/list`
+        }
+            
     }
 };
 
