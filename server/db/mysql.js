@@ -29,15 +29,17 @@ const mysqlKhex = require('knex')({
  *  @version 1.0.0
  *  @param   {[tring}                 table     表名
  *  @param   {String}                 columns   字段名
- *  @param   {Object }                 condition [description]
- *  @return  {[type]}                           [description]
+ *  @param   {Object }                condition 条件字段{a:a,b:b}
+ *  @return  {object }                returnVal 查询结果
  */
 const query = (table, columns, condition) => {
+    
     table = table || '';
-    if (table || table == '') {
-        myError.myError('query table is empty, please check it again');
+    if (!table || table == '') {
+        myError.myError('sql error--------->query table is empty, please check it again');
     }
-
+    columns = columns || '*';
+    condition = condition ||{'1':'1'};
     return new Promise((resolve, reject) => {
         mysqlKhex.from(table).select(columns).where(condition)
             .then(res => {
@@ -48,9 +50,105 @@ const query = (table, columns, condition) => {
     });
 }
 
+/**
+ *  查询库中数据排序
+ *  @author yiklv_yanguo
+ *  @date    2019-06-05T22:51:48+0800
+ *  @version [version]
+ *  @param   {[tring}                 table     表名
+ *  @param   {String}                 columns   字段名
+ *  @param   {Object }                condition 条件字段{a:a,b:b}
+ *  @param   {Array}                  sortCond  排序字段[{ column: 'a' }, { column: 'ab', order: 'desc' }]
+ *  @return  {[type]}                           [description]
+ */
+const querySort = (table, columns, condition, sortCond) => {
+    
+    table = table || '';
+    if (!table || table == '') {
+        myError.myError('sql error--------->query table is empty, please check it again');
+    }
+    columns = columns || '*';
+    condition = condition ||{'1':'1'};
+    return new Promise((resolve, reject) => {
+        mysqlKhex.from(table).select(columns).where(condition).orderBy(sortCond)
+            .then(res => {
+                resolve(res);
+            }, err => {
+                reject(err);
+            });
+    });
+}
+
+
+/**
+ *  查询库中数据排序
+ *  @author yiklv_yanguo
+ *  @date    2019-06-05T22:51:48+0800
+ *  @version [version]
+ *  @param   {[tring}                 table     表名
+ *  @param   {Array}                 columns   字段名
+ *  @param   {Object }                condition 条件字段{a:a,b:b}
+ *  @param   {Array}                  sortCond  排序字段[{ column: 'a' }, { column: 'ab', order: 'desc' }]
+ *  @return  {[type]}                           [description]
+ */
+const querySortLimit = (table, columns, condition, sortCond, limit, offset) => {
+    
+    table = table || '';
+    offset = offset || 0;
+    if (!table || table == '') {
+        myError.myError('sql error--------->query table is empty, please check it again');
+    }
+    columns = columns || '*';
+    condition = condition ||{'1':'1'};
+    offset = offset || 0;
+    limit = limit || 9999999999999999;
+    console.log(sortCond);
+    return new Promise((resolve, reject) => {
+        mysqlKhex.from(table).select(columns).where(condition).orderByRaw(sortCond).limit(limit).offset(offset)
+            .then(res => {
+                resolve(res);
+            }, err => {
+                reject(err);
+            });
+    });
+}
+
+
+/**
+ *  查询库中数据
+ *  @author yiklv_yanguo
+ *  @date    2019-06-01T22:24:38+0800
+ *  @version 1.0.0
+ *  @param   {[tring}                 table     表名
+ *  @param   {Array }                 condition 条件  [{id: 'aa'}, {id:'bbb'}]
+ *  @return  {[type]}                           [description]
+ */
+const insert = (table, condition) => {
+    
+    table = table || '';
+    if (!table || table == '') {
+        myError.myError('sql error--------->insert table is empty, please check it again');
+    }
+    condition = condition ||[];
+    return new Promise((resolve, reject) => {
+        mysqlKhex(table).insert(condition).returning('id_key')
+            .then(res => {
+                console.log(res);
+                resolve(res);
+            }, err => {
+                reject(err);
+            });
+    });
+}
+
+
+
 
 module.exports = {
-    query: query
+    query: query,
+    querySortLimit:querySortLimit,
+    querySort:querySort,
+    insert:insert
 }
 
 

@@ -1,2 +1,14 @@
-<!--pages/search/search.wxml-->
-<text>pages/search/search.wxml</text>
+<!--index.wxml-->
+<import src="../../component/wxSearch/wxSearch.wxml" />
+
+<view class="container">
+    <view class="wxSearch-section">
+        <view class="wxSearch-pancel">
+            <input class="wxSearch-input" placeholder="搜索" value="{{wxSearchData.value}}" 
+                bindinput="wxSearchInput" bindfocus="wxSerchFocus"  bindblur="wxSearchBlur"/>
+            <button class="wxSearch-button" bindtap="wxSearchFn" size="mini" plain="true">搜索</button>
+        </view>
+    </view>
+    <template is="wxSearch" data="{{wxSearchData}}" />
+
+</view>

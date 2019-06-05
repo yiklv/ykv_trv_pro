@@ -2,7 +2,9 @@
 //index.js
 var qcloud = require('../../vendor/wafer2-client-sdk/index')
 var config = require('../../config')
-var util = require('../../utils/util.js')
+var util = require('../../utils/util.js');
+
+
 
 Page({
     /**
@@ -13,12 +15,9 @@ Page({
         autoplay: true,
         interval: 3000,
         duration: 300,
+        imgMode:'scaleToFill',
         circular: true,
-        imgUrls: [
-            'https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640',
-            'https://images.unsplash.com/photo-1551214012-84f95e060dee?w=640',
-            'https://images.unsplash.com/photo-1551446591-142875a901a1?w=640'
-        ]
+        imgUrls: []
     },
 
     /**
@@ -31,15 +30,18 @@ Page({
             login: false,
             method: 'get',
             success(result) {
-                console.log('advice images',result);
-                /* that.setData({
-                    
-                }); */
+                var data = result.data;
+                if(data.retCode == '200'){
+                    that.setData({
+                        imgUrls: data.retValue
+                    });
+                }else{
+                    util.showModel('异常', data.msg);
+                }
             },
 
             fail(error) {
                 util.showModel('请求失败', error);
-                console.log('request fail', error);
             }
         });
     },
@@ -91,5 +93,17 @@ Page({
      */
     onShareAppMessage: function () {
 
+    },
+    goAdviceLink: function(e){
+        console.log(e.target.dataset);
+        var imgUrl = e.target.dataset.imgUrl;
+        if(imgUrl){
+            console.log(1);
+        }
+    },
+    getSearchFocus: function(){
+        wx.navigateTo({
+            url: '/pages/search/search'
+        })
     }
 })

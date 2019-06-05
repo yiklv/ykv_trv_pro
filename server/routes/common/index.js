@@ -11,5 +11,6 @@ module.exports = (config => {
         return copy
     }, [])
 })([
-    'advice'
+    'advice', /**首页广告展示*/
+    'search'  /**搜索信息*/
 ])

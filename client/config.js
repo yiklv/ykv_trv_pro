@@ -26,7 +26,11 @@ var config = {
         // common
         common: {
             // 获取首页广告接口
-            advUrl: `${host}/weapp/advice/list`
+            advUrl: `${host}/weapp/advice/list`,
+            // 获取首页广告接口
+            advAddUrl: `${host}/weapp/advice/add`,
+            // 获取首页广告接口
+            searchKeysUrl: `${host}/weapp/search/keyLists`
         }
             
     }

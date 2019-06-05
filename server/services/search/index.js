@@ -8,7 +8,7 @@ const {random}= require('../../utils/stringutils');
 // const TYPES = {
 //     NORMAL: 0,
 // }
-const { query,insert } = pool
+const { query,insert,querySortLimit } = pool
 
 const queryAllAdvices = () =>{
     const _sql = 'select * from trv_wrk_advice where adv_status = ? order by adv_seq asc';
@@ -38,12 +38,23 @@ const update = (val) => {
     return query('trv_wrk_advise','*', {adv_status: 'Y'});
 }
 
-// 查询管理员
+// 查询搜索的key
 const list = (val) => {
     // const _sql = 'select * from trv_wrk_advise where adv_status = ? order by adv_seq asc';
     // return query(_sql, ['Y']);
     return query('trv_wrk_advise','*', {adv_status: 'Y'});
 }
+// 查询搜索的key
+const keyLists = (val) => {
+    // const _sql = 'select * from trv_wrk_advise where adv_status = ? order by adv_seq asc';
+    // return query(_sql, ['Y']);
+//    let sortColumn = 'word_level asc, date_updated desc';
+    let sortColumn = 'RAND()';
+    return querySortLimit('trv_spot_keyword', ['word_name as wordName'], {word_status: 'Y'}, sortColumn, 6, 0);
+    //  knex('projects').select(['projects.id as projectId','projects.name as projectName','projects.category_id','categories.name as categoryName']).innerJoin('categories','projects.category_id','categories.id') 
+
+}
+
 
 // 删除管理员
 const del = val => {
@@ -58,5 +69,6 @@ module.exports = {
     list,
     add,
     update,
-    del
+    del,
+    keyLists
 }
