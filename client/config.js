@@ -31,8 +31,12 @@ var config = {
             advAddUrl: `${host}/weapp/advice/add`,
             // 获取首页广告接口
             searchKeysUrl: `${host}/weapp/search/keyLists`
-        }
-            
+        }, 
+        // 景点router
+        spot:{
+            spotListUrl: `${host}/weapp/spot/list`, // 查询所有景点
+            spotInfoUrl: `${host}/weapp/spot/querySpot` // 查询景点信息
+        }  
     }
 };
 

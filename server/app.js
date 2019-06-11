@@ -5,6 +5,8 @@ const response = require('./middlewares/response');
 const bodyParser = require('koa-bodyparser');
 const config = require('./config');
 
+const path = require('path');
+const staticFiles = require('koa-static');
 
 
 // 配置跨域
@@ -16,6 +18,9 @@ app.use(async (ctx, next) => {
     ctx.set('Access-Control-Max-Age', 3600 * 24);
     await next();
 });
+
+
+app.use(staticFiles(path.join(__dirname ,'./uploads/')));
 
 // 使用响应处理中间件
 app.use(response);

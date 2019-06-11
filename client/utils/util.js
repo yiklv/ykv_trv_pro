@@ -39,4 +39,13 @@ var showModel = (title, content) => {
     })
 }
 
-module.exports = { formatTime, showBusy, showSuccess, showModel }
+/**
+ * Loading页面
+ */
+var showLoading= text => wx.showLoading({
+    title: text
+})
+
+var hiddenLoading = () => wx.hideLoading();
+
+module.exports = { formatTime, showBusy, showSuccess, showModel, hiddenLoading, showLoading }

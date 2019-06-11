@@ -7,6 +7,7 @@ module.exports = (config, file) => {
             let res;
             try {
                 const val = ctx.request.body;
+                console.log(services[name]);
                 await services[name](val).then(result => {
                     res = success(result);
                 })

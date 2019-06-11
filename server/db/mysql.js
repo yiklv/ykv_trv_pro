@@ -1,195 +1,66 @@
-'use strict';
 const config = require('../config');
 const myError = require('../error/error');
+const debug = require('debug')('koa-weapp-demo')
 
-const mysqlKhex = require('knex')({
-    client: config.knexClient, //指明数据库类型，还可以是mysql，sqlite3等等
-    connection: { //指明连接参数
-        host: config.mysql.host,
-        port: config.mysql.port,
-        user: config.mysql.user,
-        password: config.mysql.pass,
-        database: config.mysql.db,
-        charset: config.mysql.char,
-        multipleStatements: true
-    },
-    debug: true, //指明是否开启debug模式，默认为true表示开启
-    pool: { //指明数据库连接池的大小，默认为{min: 2, max: 10}
-        min: config.mysql.poolMinSize,
-        max: config.mysql.poolMaxSize,
-    },
-    acquireConnectionTimeout: 10 * 1000 //指明连接计时器大小，默认为60000ms
-});
-
-
-/**
- *  查询库中数据
- *  @author yiklv_yanguo
- *  @date    2019-06-01T22:24:38+0800
- *  @version 1.0.0
- *  @param   {[tring}                 table     表名
- *  @param   {String}                 columns   字段名
- *  @param   {Object }                condition 条件字段{a:a,b:b}
- *  @return  {object }                returnVal 查询结果
- */
-const query = (table, columns, condition) => {
-    
-    table = table || '';
-    if (!table || table == '') {
-        myError.myError('sql error--------->query table is empty, please check it again');
-    }
-    columns = columns || '*';
-    condition = condition ||{'1':'1'};
-    return new Promise((resolve, reject) => {
-        mysqlKhex.from(table).select(columns).where(condition)
-            .then(res => {
-                resolve(res);
-            }, err => {
-                reject(err);
-            });
-    });
-}
-
-/**
- *  查询库中数据排序
- *  @author yiklv_yanguo
- *  @date    2019-06-05T22:51:48+0800
- *  @version [version]
- *  @param   {[tring}                 table     表名
- *  @param   {String}                 columns   字段名
- *  @param   {Object }                condition 条件字段{a:a,b:b}
- *  @param   {Array}                  sortCond  排序字段[{ column: 'a' }, { column: 'ab', order: 'desc' }]
- *  @return  {[type]}                           [description]
- */
-const querySort = (table, columns, condition, sortCond) => {
-    
-    table = table || '';
-    if (!table || table == '') {
-        myError.myError('sql error--------->query table is empty, please check it again');
-    }
-    columns = columns || '*';
-    condition = condition ||{'1':'1'};
-    return new Promise((resolve, reject) => {
-        mysqlKhex.from(table).select(columns).where(condition).orderBy(sortCond)
-            .then(res => {
-                resolve(res);
-            }, err => {
-                reject(err);
-            });
-    });
-}
-
-
-/**
- *  查询库中数据排序
- *  @author yiklv_yanguo
- *  @date    2019-06-05T22:51:48+0800
- *  @version [version]
- *  @param   {[tring}                 table     表名
- *  @param   {Array}                 columns   字段名
- *  @param   {Object }                condition 条件字段{a:a,b:b}
- *  @param   {Array}                  sortCond  排序字段[{ column: 'a' }, { column: 'ab', order: 'desc' }]
- *  @return  {[type]}                           [description]
- */
-const querySortLimit = (table, columns, condition, sortCond, limit, offset) => {
-    
-    table = table || '';
-    offset = offset || 0;
-    if (!table || table == '') {
-        myError.myError('sql error--------->query table is empty, please check it again');
-    }
-    columns = columns || '*';
-    condition = condition ||{'1':'1'};
-    offset = offset || 0;
-    limit = limit || 9999999999999999;
-    console.log(sortCond);
-    return new Promise((resolve, reject) => {
-        mysqlKhex.from(table).select(columns).where(condition).orderByRaw(sortCond).limit(limit).offset(offset)
-            .then(res => {
-                resolve(res);
-            }, err => {
-                reject(err);
-            });
-    });
-}
-
-
-/**
- *  查询库中数据
- *  @author yiklv_yanguo
- *  @date    2019-06-01T22:24:38+0800
- *  @version 1.0.0
- *  @param   {[tring}                 table     表名
- *  @param   {Array }                 condition 条件  [{id: 'aa'}, {id:'bbb'}]
- *  @return  {[type]}                           [description]
- */
-const insert = (table, condition) => {
-    
-    table = table || '';
-    if (!table || table == '') {
-        myError.myError('sql error--------->insert table is empty, please check it again');
-    }
-    condition = condition ||[];
-    return new Promise((resolve, reject) => {
-        mysqlKhex(table).insert(condition).returning('id_key')
-            .then(res => {
-                console.log(res);
-                resolve(res);
-            }, err => {
-                reject(err);
-            });
-    });
-}
-
-
-
-
-module.exports = {
-    query: query,
-    querySortLimit:querySortLimit,
-    querySort:querySort,
-    insert:insert
-}
-
-
-/*
 const mysql = require('mysql');
-const config = require('../config')
-
-const pool = mysql.createPool({
-    host: config.host,
-    port: config.port,
-    user: config.user,
-    password: config.pass,
-    database: config.db,
-    charset: config.char,
-    multipleStatements: true,
-    acquireTimeout: 60 * 1000
+/* MySql数据库连接参数说明：
+参数                  描述
+host                    主机地址 （默认：localhost）
+user                    用户名
+password                密码
+port                    端口号 （默认：3306）
+database                数据库名
+charset                 连接字符集（默认：'UTF8_GENERAL_CI'，注意字符集的字母都要大写）
+localAddress            此IP用于TCP连接（可选）
+socketPath              连接到unix域路径，当使用 host 和 port 时会被忽略
+timezone                时区（默认：'local'）
+connectTimeout          连接超时（默认：不限制；单位：毫秒）
+stringifyObjects        是否序列化对象
+typeCast                是否将列值转化为本地JavaScript类型值 （默认：true）
+queryFormat             自定义query语句格式化方法
+supportBigNumbers       数据库支持bigint或decimal类型列时，需要设此option为true （默认：false）
+bigNumberStrings        supportBigNumbers和bigNumberStrings启用 强制bigint或decimal列以JavaScript字符串类型返回（默认：false）
+dateStrings             强制timestamp,datetime,data类型以字符串类型返回，而不是JavaScript Date类型（默认：false）
+debug                   开启调试（默认：false）
+multipleStatements      是否许一个query中有多个MySQL语句 （默认：false）
+flags                   用于修改连接标志
+ssl                     使用ssl参数（与crypto.createCredenitals参数格式一至）或一个包含ssl配置文件名称的字符串，目前只捆绑Amazon RDS的配置文件
+ */
+const mysqlPool = mysql.createPool({
+    host: config.mysql.host,
+    port: config.mysql.port,
+    user: config.mysql.user,
+    localAddress: config.mysql.host,
+    password: config.mysql.pass,
+    database: config.mysql.db,
+    charset: config.mysql.char,
+    connectTimeout: 10 * 1000,
+    connectionLimit: 100,
+    queueLimit: 90
 });
 
-const query = function (sql, values) {
+const query = (sql, condition) => {
+	if (!sql || sql == '') {
+        return myError.myError('sql error--------->query sql is empty');
+    }
+	condition = condition || [];
+
     return new Promise((resolve, reject) => {
-        pool.getConnection(function (err, connection) {
-            if (err) {
-                console.log(err)
-                resolve(err)
-            } else {
-                connection.query(sql, values, (err, rows) => {
-                    if (err) {
-                        reject(err)
-                    } else {
-                        resolve(rows)
-                    }
-                    connection.release()
-                })
-            }
-        })
-    })
-
+        mysqlPool.getConnection(function(err, connection) {
+            connection.query(sql, condition, function(err, rows) {
+            	debug('query_sql: %o', sql);
+            	debug('query_sql param: %o', condition);
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(rows);
+                }
+            });
+            connection.release();
+        });
+    });
 }
-
 
 module.exports = {
-    query
+    query: query
 }
-*/

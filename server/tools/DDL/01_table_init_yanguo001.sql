@@ -92,13 +92,15 @@ create table `trv_spot_info`(
 	`spot_old_price` DECIMAL(10,2) not null comment '景点原价',
 	`spot_level` varchar(16) comment '景区级别  3A景区，4A景区，5A景区',
 	`spot_address` varchar(500) not null comment '景区地址',
+	`spot_status` varchar(3) default 'Y'not null comment '景区状态 Y有效 N无效',
 	`date_created` timestamp  default CURRENT_TIMESTAMP,
 	`created_by` varchar(64) default 'SYSTEM',
 	`date_updated` timestamp  default CURRENT_TIMESTAMP,
 	`updated_by` varchar(64) default 'SYSTEM',
 	 PRIMARY KEY (`id_key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='景点表';
-create unique INDEX `trv_spot_info_sid` on `trv_spot_info`(`spot_id`);
+create unique INDEX `pk_trv_spot_info` on `trv_spot_info`(`id_key`);
+create INDEX `ix_trv_spot_info_sid` on `trv_spot_info`(`spot_id`);
 
 drop table if exists `trv_spot_info_desc`;
 create table `trv_spot_info_desc`(
@@ -264,6 +266,20 @@ create table `trv_syc_user`(
 	PRIMARY KEY (`id_key`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='小程序用户信息';
 create unique INDEX `trv_syc_user_sid` on `trv_syc_user`(`user_id`);
+
+
+drop table if exists `trv_syc_spot_level`;
+create table `trv_syc_spot_level`(
+  `id_key` varchar(36) not null,
+  `level_id` varchar(16) not null comment '景点等级id',
+  `level_name` varchar(32) not null comment '景点等级名称',
+  `date_created` timestamp  default CURRENT_TIMESTAMP,
+	`created_by` varchar(64) default 'SYSTEM',
+	`date_updated` timestamp  default CURRENT_TIMESTAMP,
+	`updated_by` varchar(64) default 'SYSTEM',
+	PRIMARY KEY (`id_key`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='小程序用户信息';
+create unique INDEX `trv_syc_user_sid` on `trv_syc_spot_level`(`id_key`);
 
 
 

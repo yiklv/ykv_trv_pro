@@ -8,7 +8,7 @@ const {random}= require('../../utils/stringutils');
 // const TYPES = {
 //     NORMAL: 0,
 // }
-const { query,insert } = pool
+const { query } = pool
 
 const queryAllAdvices = () =>{
     const _sql = 'select * from trv_wrk_advice where adv_status = ? order by adv_seq asc';
@@ -23,7 +23,7 @@ const add = (val) => {
     console.log(val);
     let insertParam = val;
     insertParam['id_key'] = random(32);
-    return insert('trv_wrk_advise',insertParam);
+    return null;
 }
 
 
@@ -35,14 +35,17 @@ const update = (val) => {
     // _sql = sql + 'where id = ?'
     // return query(_sql, [...args, id])
     // 
-    return query('trv_wrk_advise','*', {adv_status: 'Y'});
+    return null;
 }
 
 // 查询管理员
 const list = (val) => {
     // const _sql = 'select * from trv_wrk_advise where adv_status = ? order by adv_seq asc';
     // return query(_sql, ['Y']);
-    return query('trv_wrk_advise','*', {adv_status: 'Y'});
+    // return query('trv_wrk_advise','*', {adv_status: 'Y'});
+
+    const _sql = 'select * from trv_wrk_advise where adv_status = ? order by adv_seq asc';
+    return query(_sql, ['Y']);
 }
 
 // 删除管理员
@@ -51,7 +54,7 @@ const del = val => {
     // const sql = 'update lottery_admin set status = ? where id = ?'
     // return query(sql, [STATUS.DEL, id])
     // 
-    return query('trv_wrk_advise','*', {adv_status: 'Y'});
+    return null;
 }
 
 module.exports = {

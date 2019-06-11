@@ -12,5 +12,6 @@ module.exports = (config => {
     }, [])
 })([
     'advice', /**首页广告展示*/
-    'search'  /**搜索信息*/
+    'search',  /**搜索信息*/
+    'spot'    /**景点路由*/
 ])
