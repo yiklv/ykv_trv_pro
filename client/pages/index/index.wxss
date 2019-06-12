@@ -1,14 +1,26 @@
 /**index.wxss**/
 
 page {
+    height: 100%;
+	color: #333;
+  	display: flex;
+  	flex-direction: column;
+ 	font-family:;
+ 	font: normal 30rpx/1.68 -apple-system-font, 'Helvetica Neue', Helvetica, 'Microsoft YaHei', sans-serif;
     background: #f6f6f6;
-    display: flex;
-    flex-direction: column;
     justify-content: flex-start;
 }
 
 /***/
-
+.view_adv{
+    position:relative;
+    z-index:13;
+    margin-top:0;
+    transition:all 0.3s;
+}
+.view_adv.tophide{
+	margin-top: -336rpx;
+}
 .view_swiper {
     width: 100%;
     border-radius: 100rpx;
@@ -101,32 +113,6 @@ view.searchItem input {
     display: block;
 }
 
-
-
-/*
-.service-price {
-    flex: 1;
-    margin-left: 20rpx;
-    width: 100%;
-}
-
-.service-price .service-pnew {
-    color: #FF4500;
-    text-align: right;
-}
-
-.service-pnew text{
-     font-size: 20rpx;
-}
-
-.service-price .service-pold {
-    color: #A9A9A9;
-    font-size: 24rpx;
-    float:right;
-    text-decoration:line-through;
-}
-*/
-
 .service-tags {
     margin: 6rpx 0;
     display: flex;
@@ -164,11 +150,6 @@ view.searchItem input {
 .service-city {
     color: #666;
     font-size: 28rpx;
-}
-
-
-.search .tophide{
-	margin-top: -117rpx;
 }
 
 .gototop{
