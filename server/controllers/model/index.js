@@ -6,8 +6,16 @@ module.exports = (config, file) => {
         copy[name] = async ctx => {
             let res;
             try {
-                const val = ctx.request.body;
-                console.log(services[name]);
+                let method = ctx.request.method;
+                let val;
+                if('GET' == method){
+                    val = ctx.query;
+                }else if('POST' == method){
+                    val = ctx.request.body;
+                }else{
+                    val = ctx.query;
+                }
+                console.log('-------------------->',val);
                 await services[name](val).then(result => {
                     res = success(result);
                 })

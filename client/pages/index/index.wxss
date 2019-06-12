@@ -59,19 +59,12 @@ view.searchItem input {
     height: 72rpx;
 }
 
-/*******************************************search css*********************************************/
-
-.spotView {
+/*******************************************search css end *********************************************/
+.container-body{
+	flex: 1;
+	overflow-y: auto;
+	overflow-x: hidden;
 }
-
-.spotSingleView {
-}
-
-.spotImg {
-    width: 300rpx;
-    height: 300rpx;
-}
-
 .service-list {
     padding: 0 20rpx;
 }
@@ -95,7 +88,7 @@ view.searchItem input {
 .service-text {
     flex: 1;
     margin-left: 20rpx;
-    width: 100%;
+    width: 475rpx;
 }
 
 .service-text .service-tite {
@@ -105,8 +98,12 @@ view.searchItem input {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    display: block;
 }
 
+
+
+/*
 .service-price {
     flex: 1;
     margin-left: 20rpx;
@@ -114,8 +111,12 @@ view.searchItem input {
 }
 
 .service-price .service-pnew {
-    color: #dc143c;
+    color: #FF4500;
     text-align: right;
+}
+
+.service-pnew text{
+     font-size: 20rpx;
 }
 
 .service-price .service-pold {
@@ -124,20 +125,39 @@ view.searchItem input {
     float:right;
     text-decoration:line-through;
 }
+*/
 
 .service-tags {
     margin: 6rpx 0;
+    display: flex;
+    flex-direction: row;
+    justify-content:space-between;
 }
 
-.service-tags text {
+.service-pnew {
+    color: #ff4500;
+    text-align: right;
+}
+.service-pnew .price-sign{
+    font-size: 20rpx;
+}
+
+.service-pold {
+    color: #A9A9A9;
+    font-size: 24rpx;
+    float:right;
+    text-decoration:line-through;
+}
+
+.service-tags .tag-text {
     padding: 6rpx 16rpx;
-    border: 1rpx solid #f7982a;
+    border: 1rpx solid #09f;
     line-height: 1;
-    color: #f7982a;
-    font-size: 28rpx;
+    color: #09f;
+    font-size: 24rpx;
     border-radius: 4rpx;
     margin-right: 10rpx;
-    margin-bottom: 10rpx;
+    margin-top: 10rpx;
     white-space: nowrap;
 }
 
@@ -145,3 +165,27 @@ view.searchItem input {
     color: #666;
     font-size: 28rpx;
 }
+
+
+.search .tophide{
+	margin-top: -117rpx;
+}
+
+.gototop{
+	width: 70rpx;
+	height: 70rpx;
+	/* background: url(../../images/up.png) no-repeat 50% 50% / 100% auto; */
+	position: fixed;
+	bottom: 20rpx;
+	right: 20rpx;
+	transition: all 0.3s;
+	opacity: 0;
+	transform: translateY(200rpx);
+}
+.gototop.active{
+	opacity: 1;
+	transform: translateY(0);
+}
+
+
+

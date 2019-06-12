@@ -65,6 +65,7 @@ Page({
      * 页面相关事件处理函数--监听用户下拉动作
      */
     onPullDownRefresh: function () {
+        console.log(1);
         this.setData({
             page: 0,
             spotLists: []
@@ -80,7 +81,7 @@ Page({
      * 页面上拉触底事件的处理函数
      */
     onReachBottom: function () {
-
+        
     },
 
     /**
@@ -112,6 +113,7 @@ Page({
         })
     },
     scrollLoading: function () { //滚动加载
+        console.log(1);
         this.fetchSpotListData();
     },
     /**
@@ -162,13 +164,15 @@ Page({
                     that.setData({
                         spotLists: that.data.spotLists.concat(newlist)
                     });
-                    util.hiddenLoading();
+                    
                     console.log(that.data.spotLists);
                 } else {
                     util.showModel('异常', data.msg);
                 }
+                util.hiddenLoading();
             },
             fail(error) {
+                util.hiddenLoading();
                 util.showModel('请求失败', error);
             }
         });

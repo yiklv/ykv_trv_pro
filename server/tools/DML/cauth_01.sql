@@ -83,20 +83,117 @@ delete from `sequence` where `seq_name` = 'tour_spot_category';
 INSERT INTO sequence VALUES ('tour_spot_category','景点序列', '0', '1');
 
 INSERT INTO `trv_spot_info`(id_key, spot_id, spot_name, image_url, city_id, area_id, spot_price, spot_old_price,spot_level,spot_address) 
-SELECT rand_string (32), concat('SP',padIntToStr('L',nextval ('tour_spot_category'),16, '0')), 'test3', 'images/498300.jpg', (select city_id from trv_syc_city where city_name ='无锡市') as city_id,
+SELECT rand_string (32), concat('SP',padIntToStr('L',nextval ('tour_spot_category'),16, '0')), 'test3', 'spot/spot_img1.png', (select city_id from trv_syc_city where city_name ='无锡市') as city_id,
 	   (select area_id from trv_syc_area where area_name ='新吴区') as area_id, 55.00, 85.00, (SELECT LEVEL_ID FROM `trv_syc_spot_level` where level_name ='1A级景区'), '啊打发打发打发似的';
 
 INSERT INTO `trv_spot_info`(id_key, spot_id, spot_name, image_url, city_id, area_id, spot_price, spot_old_price,spot_level,spot_address) 
-SELECT rand_string (32), concat('SP',padIntToStr('L',nextval ('tour_spot_category'),16, '0')), 'test4', 'images/829843.jpg', (select city_id from trv_syc_city where city_name ='南京市') as city_id,
+SELECT rand_string (32), concat('SP',padIntToStr('L',nextval ('tour_spot_category'),16, '0')), 'test4', 'spot/spot_img2.png', (select city_id from trv_syc_city where city_name ='南京市') as city_id,
 	   (select area_id from trv_syc_area where area_name ='玄武区') as area_id, 58.00, 892.00, (SELECT LEVEL_ID FROM `trv_syc_spot_level` where level_name ='3A级景区'), '啊打发打发打发似的';
 
 INSERT INTO `trv_spot_info`(id_key, spot_id, spot_name, image_url, city_id, area_id, spot_price, spot_old_price,spot_level,spot_address) 
-SELECT rand_string (32), concat('SP',padIntToStr('L',nextval ('tour_spot_category'),16, '0')), 'test3', 'images/498300.jpg', (select city_id from trv_syc_city where city_name ='南京市') as city_id,
+SELECT rand_string (32), concat('SP',padIntToStr('L',nextval ('tour_spot_category'),16, '0')), 'test3', 'spot/spot_img3.png', (select city_id from trv_syc_city where city_name ='南京市') as city_id,
 	   (select area_id from trv_syc_area where area_name ='鼓楼区') as area_id, 110.00, 150.00, (SELECT LEVEL_ID FROM `trv_syc_spot_level` where level_name ='1A级景区'), '啊打发打发打发似的';
 
 INSERT INTO `trv_spot_info`(id_key, spot_id, spot_name, image_url, city_id, area_id, spot_price, spot_old_price,spot_level,spot_address) 
-SELECT rand_string (32), concat('SP',padIntToStr('L',nextval ('tour_spot_category'),16, '0')), 'test4', 'images/829843.jpg', (select city_id from trv_syc_city where city_name ='无锡市') as city_id,
+SELECT rand_string (32), concat('SP',padIntToStr('L',nextval ('tour_spot_category'),16, '0')), 'test4', 'spot/spot_img4png', (select city_id from trv_syc_city where city_name ='无锡市') as city_id,
 	   (select area_id from trv_syc_area where area_name ='江阴市') as area_id, 140.00, 200.00, (SELECT LEVEL_ID FROM `trv_syc_spot_level` where level_name ='5A级景区'), '啊打发打发打发似的';
+
+INSERT INTO `trv_spot_info`(id_key, spot_id, spot_name, image_url, city_id, area_id, spot_price, spot_old_price,spot_level,spot_address) 
+SELECT rand_string (32), concat('SP',padIntToStr('L',nextval ('tour_spot_category'),16, '0')), 'test3', 'spot/spot_img1.png', (select city_id from trv_syc_city where city_name ='无锡市') as city_id,
+	   (select area_id from trv_syc_area where area_name ='新吴区') as area_id, 55.00, 85.00, (SELECT LEVEL_ID FROM `trv_syc_spot_level` where level_name ='1A级景区'), '啊打发打发打发似的';
+
+INSERT INTO `trv_spot_info`(id_key, spot_id, spot_name, image_url, city_id, area_id, spot_price, spot_old_price,spot_level,spot_address) 
+SELECT rand_string (32), concat('SP',padIntToStr('L',nextval ('tour_spot_category'),16, '0')), 'test4', 'spot/spot_img2.png', (select city_id from trv_syc_city where city_name ='南京市') as city_id,
+	   (select area_id from trv_syc_area where area_name ='玄武区') as area_id, 58.00, 892.00, (SELECT LEVEL_ID FROM `trv_syc_spot_level` where level_name ='3A级景区'), '啊打发打发打发似的';
+
+INSERT INTO `trv_spot_info`(id_key, spot_id, spot_name, image_url, city_id, area_id, spot_price, spot_old_price,spot_level,spot_address) 
+SELECT rand_string (32), concat('SP',padIntToStr('L',nextval ('tour_spot_category'),16, '0')), 'test3', 'spot/spot_img3.png', (select city_id from trv_syc_city where city_name ='南京市') as city_id,
+	   (select area_id from trv_syc_area where area_name ='鼓楼区') as area_id, 110.00, 150.00, (SELECT LEVEL_ID FROM `trv_syc_spot_level` where level_name ='1A级景区'), '啊打发打发打发似的';
+
+INSERT INTO `trv_spot_info`(id_key, spot_id, spot_name, image_url, city_id, area_id, spot_price, spot_old_price,spot_level,spot_address) 
+SELECT rand_string (32), concat('SP',padIntToStr('L',nextval ('tour_spot_category'),16, '0')), 'test4', 'spot/spot_img4.png', (select city_id from trv_syc_city where city_name ='无锡市') as city_id,
+	   (select area_id from trv_syc_area where area_name ='江阴市') as area_id, 140.00, 200.00, (SELECT LEVEL_ID FROM `trv_syc_spot_level` where level_name ='5A级景区'), '啊打发打发打发似的';
+
+INSERT INTO `trv_spot_info`(id_key, spot_id, spot_name, image_url, city_id, area_id, spot_price, spot_old_price,spot_level,spot_address) 
+SELECT rand_string (32), concat('SP',padIntToStr('L',nextval ('tour_spot_category'),16, '0')), 'test3', 'spot/spot_img1.png', (select city_id from trv_syc_city where city_name ='无锡市') as city_id,
+	   (select area_id from trv_syc_area where area_name ='新吴区') as area_id, 55.00, 85.00, (SELECT LEVEL_ID FROM `trv_syc_spot_level` where level_name ='1A级景区'), '啊打发打发打发似的';
+
+INSERT INTO `trv_spot_info`(id_key, spot_id, spot_name, image_url, city_id, area_id, spot_price, spot_old_price,spot_level,spot_address) 
+SELECT rand_string (32), concat('SP',padIntToStr('L',nextval ('tour_spot_category'),16, '0')), 'test4', 'spot/spot_img2.png', (select city_id from trv_syc_city where city_name ='南京市') as city_id,
+	   (select area_id from trv_syc_area where area_name ='玄武区') as area_id, 58.00, 892.00, (SELECT LEVEL_ID FROM `trv_syc_spot_level` where level_name ='3A级景区'), '啊打发打发打发似的';
+
+INSERT INTO `trv_spot_info`(id_key, spot_id, spot_name, image_url, city_id, area_id, spot_price, spot_old_price,spot_level,spot_address) 
+SELECT rand_string (32), concat('SP',padIntToStr('L',nextval ('tour_spot_category'),16, '0')), 'test3', 'spot/spot_img1.png', (select city_id from trv_syc_city where city_name ='南京市') as city_id,
+	   (select area_id from trv_syc_area where area_name ='鼓楼区') as area_id, 110.00, 150.00, (SELECT LEVEL_ID FROM `trv_syc_spot_level` where level_name ='1A级景区'), '啊打发打发打发似的';
+
+INSERT INTO `trv_spot_info`(id_key, spot_id, spot_name, image_url, city_id, area_id, spot_price, spot_old_price,spot_level,spot_address) 
+SELECT rand_string (32), concat('SP',padIntToStr('L',nextval ('tour_spot_category'),16, '0')), 'test4', 'spot/spot_img2.png', (select city_id from trv_syc_city where city_name ='无锡市') as city_id,
+	   (select area_id from trv_syc_area where area_name ='江阴市') as area_id, 140.00, 200.00, (SELECT LEVEL_ID FROM `trv_syc_spot_level` where level_name ='5A级景区'), '啊打发打发打发似的';
+
+INSERT INTO `trv_spot_info`(id_key, spot_id, spot_name, image_url, city_id, area_id, spot_price, spot_old_price,spot_level,spot_address) 
+SELECT rand_string (32), concat('SP',padIntToStr('L',nextval ('tour_spot_category'),16, '0')), 'test3', 'spot/spot_img1.png', (select city_id from trv_syc_city where city_name ='无锡市') as city_id,
+	   (select area_id from trv_syc_area where area_name ='新吴区') as area_id, 55.00, 85.00, (SELECT LEVEL_ID FROM `trv_syc_spot_level` where level_name ='1A级景区'), '啊打发打发打发似的';
+
+INSERT INTO `trv_spot_info`(id_key, spot_id, spot_name, image_url, city_id, area_id, spot_price, spot_old_price,spot_level,spot_address) 
+SELECT rand_string (32), concat('SP',padIntToStr('L',nextval ('tour_spot_category'),16, '0')), 'test4', 'spot/spot_img2.png', (select city_id from trv_syc_city where city_name ='南京市') as city_id,
+	   (select area_id from trv_syc_area where area_name ='玄武区') as area_id, 58.00, 892.00, (SELECT LEVEL_ID FROM `trv_syc_spot_level` where level_name ='3A级景区'), '啊打发打发打发似的';
+
+INSERT INTO `trv_spot_info`(id_key, spot_id, spot_name, image_url, city_id, area_id, spot_price, spot_old_price,spot_level,spot_address) 
+SELECT rand_string (32), concat('SP',padIntToStr('L',nextval ('tour_spot_category'),16, '0')), 'test3', 'spot/spot_img1.png', (select city_id from trv_syc_city where city_name ='南京市') as city_id,
+	   (select area_id from trv_syc_area where area_name ='鼓楼区') as area_id, 110.00, 150.00, (SELECT LEVEL_ID FROM `trv_syc_spot_level` where level_name ='1A级景区'), '啊打发打发打发似的';
+
+INSERT INTO `trv_spot_info`(id_key, spot_id, spot_name, image_url, city_id, area_id, spot_price, spot_old_price,spot_level,spot_address) 
+SELECT rand_string (32), concat('SP',padIntToStr('L',nextval ('tour_spot_category'),16, '0')), 'test4', 'spot/spot_img2.png', (select city_id from trv_syc_city where city_name ='无锡市') as city_id,
+	   (select area_id from trv_syc_area where area_name ='江阴市') as area_id, 140.00, 200.00, (SELECT LEVEL_ID FROM `trv_syc_spot_level` where level_name ='5A级景区'), '啊打发打发打发似的';
+
+INSERT INTO `trv_spot_info`(id_key, spot_id, spot_name, image_url, city_id, area_id, spot_price, spot_old_price,spot_level,spot_address) 
+SELECT rand_string (32), concat('SP',padIntToStr('L',nextval ('tour_spot_category'),16, '0')), 'test3', 'spot/spot_img1.png', (select city_id from trv_syc_city where city_name ='无锡市') as city_id,
+	   (select area_id from trv_syc_area where area_name ='新吴区') as area_id, 55.00, 85.00, (SELECT LEVEL_ID FROM `trv_syc_spot_level` where level_name ='1A级景区'), '啊打发打发打发似的';
+
+INSERT INTO `trv_spot_info`(id_key, spot_id, spot_name, image_url, city_id, area_id, spot_price, spot_old_price,spot_level,spot_address) 
+SELECT rand_string (32), concat('SP',padIntToStr('L',nextval ('tour_spot_category'),16, '0')), 'test4', 'spot/spot_img2.png', (select city_id from trv_syc_city where city_name ='南京市') as city_id,
+	   (select area_id from trv_syc_area where area_name ='玄武区') as area_id, 58.00, 892.00, (SELECT LEVEL_ID FROM `trv_syc_spot_level` where level_name ='3A级景区'), '啊打发打发打发似的';
+
+INSERT INTO `trv_spot_info`(id_key, spot_id, spot_name, image_url, city_id, area_id, spot_price, spot_old_price,spot_level,spot_address) 
+SELECT rand_string (32), concat('SP',padIntToStr('L',nextval ('tour_spot_category'),16, '0')), 'test3', 'spot/spot_img1.png', (select city_id from trv_syc_city where city_name ='南京市') as city_id,
+	   (select area_id from trv_syc_area where area_name ='鼓楼区') as area_id, 110.00, 150.00, (SELECT LEVEL_ID FROM `trv_syc_spot_level` where level_name ='1A级景区'), '啊打发打发打发似的';
+
+INSERT INTO `trv_spot_info`(id_key, spot_id, spot_name, image_url, city_id, area_id, spot_price, spot_old_price,spot_level,spot_address) 
+SELECT rand_string (32), concat('SP',padIntToStr('L',nextval ('tour_spot_category'),16, '0')), 'test4', 'spot/spot_img2.png', (select city_id from trv_syc_city where city_name ='无锡市') as city_id,
+	   (select area_id from trv_syc_area where area_name ='江阴市') as area_id, 140.00, 200.00, (SELECT LEVEL_ID FROM `trv_syc_spot_level` where level_name ='5A级景区'), '啊打发打发打发似的';
+
+INSERT INTO `trv_spot_info`(id_key, spot_id, spot_name, image_url, city_id, area_id, spot_price, spot_old_price,spot_level,spot_address) 
+SELECT rand_string (32), concat('SP',padIntToStr('L',nextval ('tour_spot_category'),16, '0')), 'test3', 'spot/spot_img1.png', (select city_id from trv_syc_city where city_name ='无锡市') as city_id,
+	   (select area_id from trv_syc_area where area_name ='新吴区') as area_id, 55.00, 85.00, (SELECT LEVEL_ID FROM `trv_syc_spot_level` where level_name ='1A级景区'), '啊打发打发打发似的';
+
+INSERT INTO `trv_spot_info`(id_key, spot_id, spot_name, image_url, city_id, area_id, spot_price, spot_old_price,spot_level,spot_address) 
+SELECT rand_string (32), concat('SP',padIntToStr('L',nextval ('tour_spot_category'),16, '0')), 'test4', 'spot/spot_img2.png', (select city_id from trv_syc_city where city_name ='南京市') as city_id,
+	   (select area_id from trv_syc_area where area_name ='玄武区') as area_id, 58.00, 892.00, (SELECT LEVEL_ID FROM `trv_syc_spot_level` where level_name ='3A级景区'), '啊打发打发打发似的';
+
+INSERT INTO `trv_spot_info`(id_key, spot_id, spot_name, image_url, city_id, area_id, spot_price, spot_old_price,spot_level,spot_address) 
+SELECT rand_string (32), concat('SP',padIntToStr('L',nextval ('tour_spot_category'),16, '0')), 'test3', 'spot/spot_img1.png', (select city_id from trv_syc_city where city_name ='南京市') as city_id,
+	   (select area_id from trv_syc_area where area_name ='鼓楼区') as area_id, 110.00, 150.00, (SELECT LEVEL_ID FROM `trv_syc_spot_level` where level_name ='1A级景区'), '啊打发打发打发似的';
+
+INSERT INTO `trv_spot_info`(id_key, spot_id, spot_name, image_url, city_id, area_id, spot_price, spot_old_price,spot_level,spot_address) 
+SELECT rand_string (32), concat('SP',padIntToStr('L',nextval ('tour_spot_category'),16, '0')), 'test4', 'spot/spot_img2.png', (select city_id from trv_syc_city where city_name ='无锡市') as city_id,
+	   (select area_id from trv_syc_area where area_name ='江阴市') as area_id, 140.00, 200.00, (SELECT LEVEL_ID FROM `trv_syc_spot_level` where level_name ='5A级景区'), '啊打发打发打发似的';
+
+INSERT INTO `trv_spot_info`(id_key, spot_id, spot_name, image_url, city_id, area_id, spot_price, spot_old_price,spot_level,spot_address) 
+SELECT rand_string (32), concat('SP',padIntToStr('L',nextval ('tour_spot_category'),16, '0')), 'test3', 'spot/spot_img1.png', (select city_id from trv_syc_city where city_name ='无锡市') as city_id,
+	   (select area_id from trv_syc_area where area_name ='新吴区') as area_id, 55.00, 85.00, (SELECT LEVEL_ID FROM `trv_syc_spot_level` where level_name ='1A级景区'), '啊打发打发打发似的';
+
+INSERT INTO `trv_spot_info`(id_key, spot_id, spot_name, image_url, city_id, area_id, spot_price, spot_old_price,spot_level,spot_address) 
+SELECT rand_string (32), concat('SP',padIntToStr('L',nextval ('tour_spot_category'),16, '0')), 'test4', 'spot/spot_img2.png', (select city_id from trv_syc_city where city_name ='南京市') as city_id,
+	   (select area_id from trv_syc_area where area_name ='玄武区') as area_id, 58.00, 892.00, (SELECT LEVEL_ID FROM `trv_syc_spot_level` where level_name ='3A级景区'), '啊打发打发打发似的';
+
+INSERT INTO `trv_spot_info`(id_key, spot_id, spot_name, image_url, city_id, area_id, spot_price, spot_old_price,spot_level,spot_address) 
+SELECT rand_string (32), concat('SP',padIntToStr('L',nextval ('tour_spot_category'),16, '0')), 'test3', 'spot/spot_img1.png', (select city_id from trv_syc_city where city_name ='南京市') as city_id,
+	   (select area_id from trv_syc_area where area_name ='鼓楼区') as area_id, 110.00, 150.00, (SELECT LEVEL_ID FROM `trv_syc_spot_level` where level_name ='1A级景区'), '啊打发打发打发似的';
+
+INSERT INTO `trv_spot_info`(id_key, spot_id, spot_name, image_url, city_id, area_id, spot_price, spot_old_price,spot_level,spot_address) 
+SELECT rand_string (32), concat('SP',padIntToStr('L',nextval ('tour_spot_category'),16, '0')), 'test4', 'spot/spot_img2.png', (select city_id from trv_syc_city where city_name ='无锡市') as city_id,
+	   (select area_id from trv_syc_area where area_name ='江阴市') as area_id, 140.00, 200.00, (SELECT LEVEL_ID FROM `trv_syc_spot_level` where level_name ='5A级景区'), '啊打发打发打发似的';
+
 
 
 commit;

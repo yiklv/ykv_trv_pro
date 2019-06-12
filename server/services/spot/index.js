@@ -27,6 +27,7 @@ const list = (val) => {
     // let whereCond = {spot_status: 'Y'};
     // let joinCond = [{first: 'trv_spot_info.city_id', operator:'=', second: 'trv_syc_city.city_id'}, {first: 'trv_spot_info.city_id', operator:'=', second: 'trv_syc_city.city_id', conn: 'and'}];
     // return queryJoin(tableName, column, whereCond, 'trv_syc_city', 'inner',joinCond);
+    console.log('============',val);
     let sql_str = 'select spot.spot_id as spotId, spot.spot_name as spotName, ' + 
                          '(select city_name from trv_syc_city c where c.city_id = spot.city_id) as cityName,' + 
                          '(select area_name from trv_syc_area c where c.area_id = spot.area_id) as areaName, ' + 
@@ -34,8 +35,11 @@ const list = (val) => {
                          '(select s.level_name from trv_syc_spot_level s where s.level_id = spot.spot_level) as spotLvlDesc ' + 
                    ' from trv_spot_info spot ' + 
                    ' where spot.spot_status = ? ' +
-                   ' order by spot.date_created desc';
-    let param = ['Y'];
+                   ' order by spot.date_created desc ' +
+                   'limit ? , ?';
+    let _rows = val.rows * 1;
+    let _page = (val.page * 1) - 1;
+    let param = ['Y', _page * _rows, _rows];
     return query(sql_str, param);
 }
 

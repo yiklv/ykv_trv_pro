@@ -2,8 +2,8 @@
     "pages": [
         "pages/index/index",
         "pages/search/search",
-        "pages/my/index/index"
-
+        "pages/my/index/index",
+        "pages/test/test"
     ],
     "window": {
         "backgroundColor": "#f6f6f6",
@@ -15,7 +15,7 @@
     },
     "tabBar": {
         "color": "#7A7E83",
-        "selectedColor": "0099ff",
+        "selectedColor": "#0099ff",
         "backgroundColor": "#f6f6f6",
         "borderStyle": "black",
         "position": "bottom",

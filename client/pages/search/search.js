@@ -26,7 +26,6 @@ Page({
             success(result) {
                 var data = result.data;
                 if (data.retCode == '200') {
-                    console.log(data);
                     //初始化的时候渲染wxSearchdata
                     if(data.retValue.length > 0){
                         WxSearch.init(that, 47, data.retValue);
