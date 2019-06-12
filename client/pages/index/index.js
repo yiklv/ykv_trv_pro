@@ -65,7 +65,6 @@ Page({
      * 页面相关事件处理函数--监听用户下拉动作
      */
     onPullDownRefresh: function () {
-        console.log(1);
         this.setData({
             page: 0,
             spotLists: []
@@ -113,7 +112,6 @@ Page({
         })
     },
     scrollLoading: function () { //滚动加载
-        console.log(1);
         this.fetchSpotListData();
     },
     /**
@@ -165,7 +163,6 @@ Page({
                         spotLists: that.data.spotLists.concat(newlist)
                     });
                     
-                    console.log(that.data.spotLists);
                 } else {
                     util.showModel('异常', data.msg);
                 }
