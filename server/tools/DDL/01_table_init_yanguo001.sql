@@ -92,6 +92,7 @@ create table `trv_spot_info`(
 	`spot_old_price` DECIMAL(10,2) not null comment '景点原价',
 	`spot_level` varchar(16) comment '景区级别  3A景区，4A景区，5A景区',
 	`spot_address` varchar(500) not null comment '景区地址',
+	`open_time_desc` varchar(128) not null comment '景区图路径',
 	`spot_status` varchar(3) default 'Y'not null comment '景区状态 Y有效 N无效',
 	`date_created` timestamp  default CURRENT_TIMESTAMP,
 	`created_by` varchar(64) default 'SYSTEM',
@@ -128,7 +129,7 @@ create table `trv_spot_img`(
 	 PRIMARY KEY (`id_key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='景点对应的轮播图表';
 create INDEX `trv_spot_img_sid` on  `trv_spot_img`(`spot_id`);
-
+/**
 drop table if exists `trv_spot_opentime`;
 create table `trv_spot_opentime`(
 	`id_key` varchar(36) not null,
@@ -155,6 +156,7 @@ create table `trv_spot_tkt_type`(
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='景点和票务类型对应表';
 create unique INDEX `trv_spot_tkt_type_uk` on `trv_spot_tkt_type`(`spot_id`, `tkt_type`);
 create INDEX `trv_spot_tkt_type_sid` on  `trv_spot_tkt_type`(`spot_id`);
+*/
 
 drop table if exists `trv_syc_tkttype`;
 create table `trv_syc_tkttype`(
@@ -162,6 +164,7 @@ create table `trv_syc_tkttype`(
 	`type_id` varchar(18) not null comment '票务类型',
 	`type_name` varchar(128) not null comment '票务类型名称',
 	`type_image` varchar(200) not null comment '类型对应图片名称',
+	`type_level` INTEGER(2) not null comment '类型对应优先级',
 	`date_created` timestamp  default CURRENT_TIMESTAMP,
 	`created_by` varchar(64) default 'SYSTEM',
 	`date_updated` timestamp  default CURRENT_TIMESTAMP,
@@ -184,7 +187,9 @@ create table `trv_tkt_info`(
 	`updated_by` varchar(64) default 'SYSTEM',
 	 PRIMARY KEY (`id_key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='门票表';
-create INDEX `trv_tkt_info_sid` on `trv_tkt_info`(`tkt_id`);
+create unique INDEX `pk_trv_tkt_info_sid` on `trv_tkt_info`(`tkt_id`);
+create INDEX `ix_trv_tkt_info_spid` on `trv_tkt_info`(`spot_id`);
+
 
 drop table if exists `trv_tkt_info_desc`;
 create table `trv_tkt_info_desc`(

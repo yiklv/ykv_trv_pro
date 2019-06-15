@@ -6,7 +6,9 @@ const m = model([
     'add',
     'update',
     'del',
-    'querySpot'
+    'querySpot',
+    'querySpotImgs',
+    'querySpotTktList'
 ], 'spot')
 
 module.exports = {

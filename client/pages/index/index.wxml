@@ -21,7 +21,7 @@
     </view>
     <scroll-view class="container-body" scroll-y="true" scroll-top="{{scrolltop}}" bindscroll="scrollHandle" lower-threshold="50" bindscrolltolower="scrollLoading">
         <view class="service-list">
-            <navigator class="service-item" wx:for="{{spotLists}}" wx:key="{{item.spotId}}" url="../servicedetail/servicedetail?id={{item.spotId}}">
+            <navigator class="service-item" wx:for="{{spotLists}}" wx:key="{{item.spotId}}" url="../spot/spotdetail/spotdetail?spotId={{item.spotId}}">
                 <view class="service-img">
                     <image src="{{host}}/{{item.imageUrl}}" mode="aspectFill"></image>
                 </view>

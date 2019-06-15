@@ -1,0 +1,93 @@
+<!--logs.wxml-->
+<view class="container">
+    <view class="container-body space-content">
+        <view class="space-top">
+            <view class="space-banner" bindtap="imgPreview">
+                <swiper autoplay="{{true}}" interval="{{4000}}" duration="{{1000}}" bindchange="setCurrent">
+                    <block wx:for="{{spotImgs}}" wx:key="{{item.index}}">
+                        <swiper-item>
+                            <image src="{{host}}/{{item.imgUrl}}" mode="aspectFill" class="slide-image" />
+                        </swiper-item>
+                    </block>
+                </swiper>
+                <view class="number-banner">
+                    <text>{{currentIndex>9?currentIndex:'0'+currentIndex}}</text>
+                    <text>/{{spotImgs.length>9?spotImgs.length:'0'+spotImgs.length}}</text>
+                </view>
+            </view>
+            <view class="space-info">
+                <view class="space-title">{{spotData.spotName}}</view>
+                <view class="space-list">
+                    <view class="space-item">
+                        <text class="text-left">开放时间：</text>
+                        <text class="text-mid-de">
+  	  				        <text class="text-orange">{{spotData.openTime}}</text>
+                        </text>
+                        <view class="text-right">
+                            <image src="../../../images/icons/btn_jiantou_01.png" class="img_right"></image>
+                        </view>
+                    </view>
+                    <view class="space-item">
+                        <text class="text-left">景点地址：</text>
+                        <text class="text-mid-de" data-address="{{spacedata.Address}}" data-latitude="{{spacedata.latitude}}" data-longitude="{{spacedata.longitude}}" bindtap="getAddress">{{spotData.spotAddress}}</text>
+                        <view class="text-right">
+                            <image src="../../../images/icons/btn_jiantou_01.png" class="img_right"></image>
+                        </view>
+                    </view>
+                    <view class="space-item">
+                        <text class="text-left">入园须知：</text>
+                        <view class="text-mid-de">
+                            <image src="../../../images/icons/btn_right_01.png" class="img_right"></image>
+                            <text class="spot_know_txt">入园保障</text>
+
+                            <image src="../../../images/icons/btn_right_01.png" class="img_right img_space"></image>
+                            <text class="spot_know_txt">如实描述</text>
+                            <image src="../../../images/icons/btn_right_01.png" class="img_right img_space"></image>
+                            <text class="spot_know_txt">贵就赔</text>
+                        </view>
+                        <view class="text-right">
+                            <image src="../../../images/icons/btn_jiantou_01.png" class="img_right"></image>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view class="space-block">
+            <view class="space-block-title">门票</view>
+            <view class="tkt-list">
+                <block wx:for="{{spotTicket}}" wx:key="tktKey">
+                    <view class="tkt-item" bindtap="showTicketDetail" data-type-id="{{item.typeId}}">
+                        <view class="tkt_img_view">
+                            <image src="{{host}}/{{item.tktTypeImg}}" class="tkt_type_img"></image>
+                        </view>
+                        <view class="tkt_name_view">{{item.typeName}}</view>
+                        <view class="text-right">
+                            <view class="{{choseId == item.typeId && showView? 'hidden':'show'}}">
+                                <image src="../../../images/icons/btn_down_jiantou_01.png" class="img_right"></image>
+                            </view>
+                            <view class="{{choseId == item.typeId && showView? 'show':'hidden'}}">
+                                <image src="../../../images/icons/btn_up_jiantou_01.png" class="img_right "></image>
+                            </view>
+                        </view>
+                    </view>
+                    <view class=" {{choseId == item.typeId && showView ? 'show':'hidden'}}">
+                        <block wx:for="{{item.tktInfo}}" wx:key="tktInfoKey" wx:for-item="tktInfo">
+                            {{tktInfo.tktName}}
+                        </block>
+                    </view>
+                </block>
+            </view>
+        </view>
+        <view class="space-block">
+            <view class="space-block-title">优惠政策</view>
+            <view class="space-block-content">
+                <view class="space-passage">{{spacedata.Policy}}</view>
+            </view>
+        </view>
+    </view>
+    <view class="container-footer">
+        <text>联系责任人</text>
+        <text bindtap="reserveHandle">预约看房</text>
+        <text class="apply-btn" bindtap="goApply">入驻申请</text>
+    </view>
+</view>

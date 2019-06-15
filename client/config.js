@@ -34,8 +34,14 @@ var config = {
         }, 
         // 景点router
         spot:{
-            spotListUrl: `${host}/weapp/spot/list`, // 查询所有景点
-            spotInfoUrl: `${host}/weapp/spot/querySpot` // 查询景点信息
+            // 查询所有景点
+            spotListUrl: `${host}/weapp/spot/list`, 
+            // 查询景点信息
+            spotInfoUrl: `${host}/weapp/spot/querySpot`, 
+            // 查询景点信息
+            spotImgsUrl: `${host}/weapp/spot/querySpotImgs`,
+            // 查询景点门票信息
+            spotTicketsUrl: `${host}/weapp/spot/querySpotTktList` 
         }  
     }
 };

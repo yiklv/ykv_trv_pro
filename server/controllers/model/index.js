@@ -16,7 +16,6 @@ module.exports = (config, file) => {
                     val = ctx.query;
                 }
                 await services[name](val).then(result => {
-                    console.log(result);
                     res = success(result);
                 })
             } catch (err) {
