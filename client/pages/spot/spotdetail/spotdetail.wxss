@@ -1,5 +1,9 @@
 /* pages/spot/spotdetail/spotdetail.wxss */
 
+/*在使用的Wxss中引入WxParse.css,可以在app.wxss*/
+@import "../../../vendor/wxParse-richText/wxParse.wxss";
+
+
 .space-content {
     background: #f9f9f9;
 }
@@ -171,15 +175,14 @@
 .tkt_type_img {
     width: 24rpx;
     height: 24rpx;
-    padding-left: 12rpx;
 }
 
 .tkt_img_view {
-    width: 7%;
+    width: 5%;
 }
 
 .tkt_name_view {
-    width: 88%;
+    width: 90%;
 }
 
 .show {
@@ -188,4 +191,61 @@
 
 .hidden {
     display: none;
+}
+
+
+.tkt-info-text {
+    border-top: 1rpx solid #eee;
+}
+
+.tkt-info-tags {
+    margin: 6rpx 0;
+    
+    display: flex;
+    flex-direction: row;
+    justify-content:space-between;
+}
+
+
+.tkt-info-tags .tag-text {
+    padding-top: 16rpx;
+    line-height: 1;
+    font-size: 28rpx;
+    color: rgb(85, 85, 85);
+}
+
+.tkt-info-city {
+    color: #666;
+    font-size: 24rpx;
+}
+.tkt-info-pnew {
+    color: #ff4500;
+    text-align: right;
+    font-size: 32rpx;
+}
+.tkt-info-pnew .price-sign{
+    font-size: 20rpx;
+}
+
+.tkt-info-pold {
+    color: #A9A9A9;
+    font-size: 24rpx;
+    float:right;
+    text-decoration:line-through;
+}
+
+.tkt_book_view .img_right {
+    width: 24rpx;
+    height: 24rpx;
+}
+
+.tkt-info-btn-view{
+    height:78rpx;
+}
+
+.tkt-info-btn{
+    background-color: #09f;
+    color: #fff;
+    float:right;
+    padding: 8rpx 8rpx;
 }

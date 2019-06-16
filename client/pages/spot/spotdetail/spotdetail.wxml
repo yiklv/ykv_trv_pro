@@ -1,9 +1,11 @@
 <!--logs.wxml-->
+<!-- 引入模板 -->
+<import src="../../../vendor/wxParse-richText/wxParse.wxml" />
 <view class="container">
     <view class="container-body space-content">
         <view class="space-top">
             <view class="space-banner" bindtap="imgPreview">
-                <swiper autoplay="{{true}}" interval="{{4000}}" duration="{{1000}}" bindchange="setCurrent">
+                <swiper autoplay="{{true}}" interval="{{4000}}" duration="{{1000}}" circular="{{true}}" bindchange="setCurrent">
                     <block wx:for="{{spotImgs}}" wx:key="{{item.index}}">
                         <swiper-item>
                             <image src="{{host}}/{{item.imgUrl}}" mode="aspectFill" class="slide-image" />
@@ -72,22 +74,48 @@
                     </view>
                     <view class=" {{choseId == item.typeId && showView ? 'show':'hidden'}}">
                         <block wx:for="{{item.tktInfo}}" wx:key="tktInfoKey" wx:for-item="tktInfo">
-                            {{tktInfo.tktName}}
+                            <view class="tkt-info-text">
+                                <view class="tkt-info-tags">
+                                    <text class="tag-text">[门票]{{tktInfo.tktName}}</text>
+                                    <view class="tkt-info-pnew">
+                                        <text class="price-sign">￥</text>{{tktInfo.tktPrice}}
+                                        <text class="price-sign">起</text>
+                                    </view>
+                                </view>
+                                <view class="tkt_book_view">
+                                    <image src="../../../images/icons/btn_right_01.png" class="img_right"></image>
+                                    <text class="tkt-info-city">
+                                        <block wx:if="{{tktInfo.tktBookTime == 0}}">当天23点前可预订</block>
+                                        <block wx:if="{{tktInfo.tktBookTime > 0}}">提前{{tktInfo.tktBookTime}}天23点前可预订</block>
+                                    </text>
+                                    <text class="tkt-info-pold">票面价￥{{tktInfo.tktOldPrice}}</text>
+                                </view>
+                                <view class="tkt-info-btn-view">
+                                    <text class="tkt-info-city" data-tkt-id="{{tktInfo.tktId}}" bindtap='noticeTicket'>购票须知></text>
+
+                                    <view class="tkt-info-btn" data-tkt-id="{{tktInfo.tktId}}" bindtap='bookTicket'>预定</view>
+                                </view>
+
+                            </view>
                         </block>
                     </view>
                 </block>
             </view>
         </view>
         <view class="space-block">
-            <view class="space-block-title">优惠政策</view>
+            <view class="space-block-title">景区须知</view>
             <view class="space-block-content">
-                <view class="space-passage">{{spacedata.Policy}}</view>
+                <view class="space-passage">
+                    <!-- 这里data中article为bindName -->
+                    <template is="wxParse" data="{{wxParseData:noticContent.nodes}}" />
+                </view>
             </view>
+
         </view>
     </view>
-    <view class="container-footer">
+    <!-- <view class="container-footer">
         <text>联系责任人</text>
         <text bindtap="reserveHandle">预约看房</text>
         <text class="apply-btn" bindtap="goApply">入驻申请</text>
-    </view>
+    </view> -->
 </view>

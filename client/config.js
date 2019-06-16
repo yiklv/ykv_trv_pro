@@ -41,7 +41,11 @@ var config = {
             // 查询景点信息
             spotImgsUrl: `${host}/weapp/spot/querySpotImgs`,
             // 查询景点门票信息
-            spotTicketsUrl: `${host}/weapp/spot/querySpotTktList` 
+            spotTicketsUrl: `${host}/weapp/spot/querySpotTktList`,
+            // 查询景点须知
+            spotContentUrl: `${host}/weapp/spot/querySpotContentList` ,
+            // 查询票务须知
+            spotTktContUrl: `${host}/weapp/spot/querySpotTktContList`,
         }  
     }
 };

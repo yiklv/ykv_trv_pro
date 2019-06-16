@@ -181,6 +181,7 @@ create table `trv_tkt_info`(
 	`tkt_old_price` decimal(18, 2) not null comment '票原价',
 	`spot_id` varchar(128) not null comment '景点id',
 	`tkt_type` varchar(18) not null comment '票务类型',
+	`tkt_book_time` INTEGER(2) not null default '0' comment '需要提前预定的时间',
 	`date_created` timestamp  default CURRENT_TIMESTAMP,
 	`created_by` varchar(64) default 'SYSTEM',
 	`date_updated` timestamp  default CURRENT_TIMESTAMP,

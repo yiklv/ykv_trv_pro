@@ -111,13 +111,14 @@ const querySpotTktList = async (val) => {
         tktTypeLIst = res;
     });
 
-    let sql_tkt_info = 'select ti.tkt_id tktId, ti.tkt_name tktName, ti.tkt_old_price tktOldPrice, ti.tkt_price tktPrice from trv_tkt_info ti where ti.spot_id = ? and ti.tkt_type = ?';
+    let sql_tkt_info = 'select ti.tkt_id tktId, ti.tkt_name tktName, ti.tkt_old_price tktOldPrice, ti.tkt_price tktPrice, ti.tkt_book_time as tktBookTime from trv_tkt_info ti where ti.spot_id = ? and ti.tkt_type = ?';
 
     for (var i = 0; i < tktTypeLIst.length; i++) {
         let obj = new Object();
         obj.typeName = tktTypeLIst[i].tktTypeName;
         obj.typeId = tktTypeLIst[i].tktType;
         obj.tktTypeImg = tktTypeLIst[i].tktTypeImg;
+        obj.tktBookTime = tktTypeLIst[i].tktBookTime;
 
         let tktparam = [spotId, tktTypeLIst[i].tktType];
         await query(sql_tkt_info, tktparam).then(res => {
@@ -129,6 +130,36 @@ const querySpotTktList = async (val) => {
     return new Promise((resolve, reject) => { resolve(tktInfoList); });
 }
 
+/**
+ *  查询景点须知
+ *  @author yiklv_yanguo
+ *  @date    2019-06-16T15:20:15+0800
+ *  @version [version]
+ *  @param   {[type]}                 val [description]
+ *  @return  {[type]}                     [description]
+ */
+const querySpotContentList= val =>{
+    let spotId = val.spotId;
+    let sql_tkt_type = 'select tt.spot_intr_desc as spotIntrDesc,tt.spot_note_desc as spotNoteDesc from trv_spot_info_desc tt where tt.spot_id = ?' ;
+    let typeparam = [spotId];
+    return query(sql_tkt_type, typeparam);
+}
+
+
+/**
+ *  查询门票须知
+ *  @author yiklv_yanguo
+ *  @date    2019-06-16T15:20:15+0800
+ *  @version [version]
+ *  @param   {[type]}                 val [description]
+ *  @return  {[type]}                     [description]
+ */
+const querySpotTktContList= val =>{
+    let tktId = val.tktId;
+    let sql_tkt_type = 'select tt.tkt_note_desc as spotIntrDesc from trv_tkt_info_desc tt where tt.tkt_id = ?' ;
+    let typeparam = [tktId];
+    return query(sql_tkt_type, typeparam);
+}
 
 module.exports = {
     list,
@@ -137,5 +168,7 @@ module.exports = {
     del,
     querySpot,
     querySpotImgs,
-    querySpotTktList
+    querySpotTktList,
+    querySpotContentList,
+    querySpotTktContList
 }

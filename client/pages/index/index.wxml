@@ -37,9 +37,7 @@
                     <text class="service-city">{{item.areaName}}</text>
                     <text class="service-pold">￥{{item.spotOldPrice}}</text>
                 </view>
-                <view class="service-price">
-
-                </view>
+                <!-- <view class="service-price"></view> -->
             </navigator>
         </view>
         <view class="gototop {{scrolltop>200?'active':''}}" bindtap="goToTop"></view>

@@ -8,7 +8,9 @@ const m = model([
     'del',
     'querySpot',
     'querySpotImgs',
-    'querySpotTktList'
+    'querySpotTktList',
+    'querySpotContentList',
+    'querySpotTktContList'
 ], 'spot')
 
 module.exports = {
