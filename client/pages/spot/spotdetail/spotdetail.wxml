@@ -91,7 +91,7 @@
                                     <text class="tkt-info-pold">票面价￥{{tktInfo.tktOldPrice}}</text>
                                 </view>
                                 <view class="tkt-info-btn-view">
-                                    <text class="tkt-info-city" data-tkt-id="{{tktInfo.tktId}}" bindtap='noticeTicket'>购票须知></text>
+                                    <text class="tkt-info-city" data-tkt-id="{{tktInfo.tktId}}" bindtap='noticeTicket'>购票须知 ></text>
 
                                     <view class="tkt-info-btn" data-tkt-id="{{tktInfo.tktId}}" bindtap='bookTicket'>预定</view>
                                 </view>
@@ -110,12 +110,14 @@
                     <template is="wxParse" data="{{wxParseData:noticContent.nodes}}" />
                 </view>
             </view>
-
         </view>
     </view>
-    <!-- <view class="container-footer">
-        <text>联系责任人</text>
-        <text bindtap="reserveHandle">预约看房</text>
-        <text class="apply-btn" bindtap="goApply">入驻申请</text>
-    </view> -->
+    <!--  规则提示  -->
+    <view class="ruleZhezhao {{isRuleTrue?'isRuleShow':'isRuleHide'}}">
+        <scroll-view class='ruleZhezhaoContent' scroll-y="true">
+            <template is="wxParse" data="{{wxParseData:tktNoteDesc.nodes}}" />
+        </scroll-view>
+        <image src='../../../images/icons/btn_rule_hide.png' class='ruleHide' bindtap='hideRule'></image>
+    </view>
+    <!--  end  -->
 </view>

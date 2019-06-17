@@ -21,7 +21,9 @@ Page({
         host: config.service.host,
         spotData: {}, // 景点详情
         spotImgs: [], // 景点图片
-        spotTicket: []
+        spotTicket: [],
+        tktNoteDesc: {}, //门票须知
+        isRuleTrue: false
     },
 
     /**
@@ -289,10 +291,58 @@ Page({
         //     complete: function(res) {},
         // })
     },
+    fetchTicketNoticeDesc: function(tktId){
+        var that = this;
+
+        qcloud.request({
+            url: config.service.spot.spotTktContUrl,
+            login: false,
+            method: 'get',
+            data: {
+                tktId: tktId
+            },
+            success(result) {
+                var data = result.data;
+                if (data.retCode == '200') {
+                    console.log(data.retValue);
+                    var content = data.retValue[0].tktNoteDesc;
+                    /**
+                     * WxParse.wxParse(bindName , type, data, target,imagePadding)
+                     * 1.bindName绑定的数据名(必填)
+                     * 2.type可以为html或者md(必填)
+                     * 3.data为传入的具体数据(必填)
+                     * 4.target为Page对象,一般为this(必填)
+                     * 5.imagePadding为当图片自适应是左右的单一padding(默认为0,可选)
+                     */
+                    WxParse.wxParse('tktNoteDesc', 'html', content, that, 5);
+                    console.log(that.data.tktNoteDesc);
+                    that.setData({
+                        tktNoteDesc: that.data.tktNoteDesc,
+                        isRuleTrue: true
+                    });
+
+                } else {
+                    util.showModel('异常', data.msg);
+                }
+
+            },
+            fail(error) {
+                util.showModel('请求失败', error);
+            }
+        });
+    },
     /**
      * 购票须知
      */
-    noticeTicket: function(e){
-
+    noticeTicket: function(event){
+        var tktId = event.currentTarget.dataset.tktId;
+        var _that = this;
+        _that.fetchTicketNoticeDesc(tktId);
+        
+    },
+    hideRule:function(){
+        this.setData({
+            isRuleTrue: false
+        });
     }
 })

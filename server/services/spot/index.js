@@ -156,7 +156,7 @@ const querySpotContentList= val =>{
  */
 const querySpotTktContList= val =>{
     let tktId = val.tktId;
-    let sql_tkt_type = 'select tt.tkt_note_desc as spotIntrDesc from trv_tkt_info_desc tt where tt.tkt_id = ?' ;
+    let sql_tkt_type = 'select tt.tkt_note_desc as tktNoteDesc from trv_tkt_info_desc tt where tt.tkt_id = ?' ;
     let typeparam = [tktId];
     return query(sql_tkt_type, typeparam);
 }
