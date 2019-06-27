@@ -209,7 +209,6 @@ Page({
             success(result) {
                 var data = result.data;
                 if (data.retCode == '200') {
-                    console.log(data.retValue);
                     that.setData({
                         spotTicket: data.retValue
                     });
@@ -255,7 +254,6 @@ Page({
             success(result) {
                 var data = result.data;
                 if (data.retCode == '200') {
-                    console.log(data.retValue);
                     var content = data.retValue[0].spotNoteDesc;
                     /**
                      * WxParse.wxParse(bindName , type, data, target,imagePadding)
@@ -282,14 +280,19 @@ Page({
      */
     bookTicket: function(event) {
         var _that = this;
-        var tktId = event.currentTarget.dataset.tktId;
-        console.log(tktId);
-        // wx.navigateTo({
-        //     url: '',
-        //     success: function(res) {},
-        //     fail: function(res) {},
-        //     complete: function(res) {},
-        // })
+        var tktInfo = event.currentTarget.dataset.tktInfo;
+        wx.navigateTo({
+            url: '/pages/spot/spotBook/spotBook?tktInfo=' + JSON.stringify(tktInfo),
+            success: function(res) {
+
+            },
+            fail: function(res) {
+
+            }, 
+            complete: function(res) {
+
+            },
+        })
     },
     fetchTicketNoticeDesc: function(tktId){
         var that = this;
@@ -304,7 +307,6 @@ Page({
             success(result) {
                 var data = result.data;
                 if (data.retCode == '200') {
-                    console.log(data.retValue);
                     var content = data.retValue[0].tktNoteDesc;
                     /**
                      * WxParse.wxParse(bindName , type, data, target,imagePadding)
@@ -315,7 +317,6 @@ Page({
                      * 5.imagePadding为当图片自适应是左右的单一padding(默认为0,可选)
                      */
                     WxParse.wxParse('tktNoteDesc', 'html', content, that, 5);
-                    console.log(that.data.tktNoteDesc);
                     that.setData({
                         tktNoteDesc: that.data.tktNoteDesc,
                         isRuleTrue: true

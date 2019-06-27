@@ -1,0 +1,4 @@
+ <!--pages/spot/calender/calender.wxml
+<text>pages/spot/calender/calender.wxml</text>-->
+
+<calendar calendar="{{calendar}}" gesture="{{gesture}}"></calendar>

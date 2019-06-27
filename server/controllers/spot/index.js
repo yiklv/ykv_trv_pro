@@ -10,7 +10,8 @@ const m = model([
     'querySpotImgs',
     'querySpotTktList',
     'querySpotContentList',
-    'querySpotTktContList'
+    'querySpotTktContList',
+    'queryTktDatePriceList'
 ], 'spot')
 
 module.exports = {

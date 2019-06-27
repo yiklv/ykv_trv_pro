@@ -93,7 +93,7 @@
                                 <view class="tkt-info-btn-view">
                                     <text class="tkt-info-city" data-tkt-id="{{tktInfo.tktId}}" bindtap='noticeTicket'>购票须知 ></text>
 
-                                    <view class="tkt-info-btn" data-tkt-id="{{tktInfo.tktId}}" bindtap='bookTicket'>预定</view>
+                                    <view class="tkt-info-btn" data-tkt-info="{{tktInfo}}" bindtap='bookTicket'>预定</view>
                                 </view>
 
                             </view>

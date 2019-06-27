@@ -161,6 +161,21 @@ const querySpotTktContList= val =>{
     return query(sql_tkt_type, typeparam);
 }
 
+/**
+ *  查询门票特殊日期价格
+ *  @author yiklv_yanguo
+ *  @date    2019-06-16T15:20:15+0800
+ *  @version [version]
+ *  @param   {[type]}                 val [description]
+ *  @return  {[type]}                     [description]
+ */
+const queryTktDatePriceList= val =>{
+    let tktId = val.tktId;
+    let sql_tkt_type = 'select tt.tkt_id as tktId, tt.spc_date as spcDate, tt.spc_price as spcPrice from trv_tkt_price_date tt where tt.tkt_id = ?' ;
+    let typeparam = [tktId];
+    return query(sql_tkt_type, typeparam);
+}
+
 module.exports = {
     list,
     add,
@@ -170,5 +185,6 @@ module.exports = {
     querySpotImgs,
     querySpotTktList,
     querySpotContentList,
-    querySpotTktContList
+    querySpotTktContList,
+    queryTktDatePriceList
 }

@@ -288,5 +288,19 @@ create table `trv_syc_spot_level`(
 create unique INDEX `trv_syc_user_sid` on `trv_syc_spot_level`(`id_key`);
 
 
+drop table if exists `trv_tkt_price_date`;
+create table `trv_tkt_price_date`(
+    `id_key` varchar(36) not null,
+    `tkt_id` varchar(18) not null comment '票务id',
+    `spc_date` varchar(8) not null comment '日期',
+    `spc_price` decimal(18, 2) not null comment '价格',
+    `date_created` timestamp  default CURRENT_TIMESTAMP,
+	`created_by` varchar(64) default 'SYSTEM',
+	`date_updated` timestamp  default CURRENT_TIMESTAMP,
+	`updated_by` varchar(64) default 'SYSTEM',
+	PRIMARY KEY (`id_key`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='门票日期特殊价格表';
+create unique INDEX `trv_tkt_price_date_id` on `trv_tkt_price_date`(`id_key`);
+create INDEX `trv_tkt_price_date_td` on `trv_tkt_price_date`(`tkt_id`,`spc_date`);
 
 SET FOREIGN_KEY_CHECKS = 1;

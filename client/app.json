@@ -4,6 +4,8 @@
         "pages/search/search",
         "pages/my/index/index",
         "pages/spot/spotdetail/spotdetail",
+        "pages/spot/spotBook/spotBook",
+        "pages/spot/calender/calender",
         "pages/test/test"
     ],
     "window": {

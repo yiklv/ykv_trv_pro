@@ -10,6 +10,8 @@ var host = 'http://localhost:5757';
 
 
 var config = {
+    // 金钱标志
+    currency:'￥',
 
     // 下面的地址配合云端 Demo 工作
     service: {
@@ -50,6 +52,8 @@ var config = {
             spotContentUrl: `${host}/weapp/spot/querySpotContentList` ,
             // 查询票务须知
             spotTktContUrl: `${host}/weapp/spot/querySpotTktContList`,
+            // 查询特定的日期价格
+            spotTktDatePriceUrl: `${host}/weapp/spot/queryTktDatePriceList`,
         }  
     }
 };

@@ -9,5 +9,6 @@ module.exports = {
     'querySpotImgs': { method: methods.get },
     'querySpotTktList': { method: methods.get },
     'querySpotTktContList': { method: methods.get },
-    'querySpotContentList': { method: methods.get }
+    'querySpotContentList': { method: methods.get },
+    'queryTktDatePriceList':{ method: methods.get},
 }
