@@ -292,7 +292,8 @@ drop table if exists `trv_tkt_price_date`;
 create table `trv_tkt_price_date`(
     `id_key` varchar(36) not null,
     `tkt_id` varchar(18) not null comment '票务id',
-    `spc_date` varchar(8) not null comment '日期',
+    `spc_date` varchar(8) not null comment '年月',
+    `spc_day` varchar(8) not null comment '日',
     `spc_price` decimal(18, 2) not null comment '价格',
     `date_created` timestamp  default CURRENT_TIMESTAMP,
 	`created_by` varchar(64) default 'SYSTEM',

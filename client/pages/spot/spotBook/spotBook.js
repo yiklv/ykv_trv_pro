@@ -13,41 +13,50 @@ Page({
      * 页面的初始数据
      */
     data: {
+        currencyFlag: config.currency,
         industryarr: [],
         industryindex: 0,
         statusarr: [],
         statusindex: 0,
         jobarr: [],
         jobindex: 0,
-        hasfinancing: false,  //是否已融资
-        isorg: false,  //是否是机构
+        hasfinancing: false, //是否已融资
+        isorg: false, //是否是机构
         tktInfo: null,
         isRuleTrue: false,
         goodskinds: [],
-        restnumber: 5,
+        restnumber: 20,
         clickId: 0,
+        trvDate: [],
+        defalutDate: {},
+        checkable: true,
+        sumMoney: 0,  // 总金额
         bookNumber: 1, // 初始购买数量
-        trvDate:[],
-        defalutDate:{}
+        choPrice: null // 最终票金额
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
-    onLoad: function (options) {
+    onLoad: function(options) {
+        var _that = this;
         console.log(options);
-        this.setData({
+        _that.setData({
             tktInfo: JSON.parse(options.tktInfo),
-            
+
         });
         // this.fetchData();
-        this.setTravelDate(options);
-        this.setData({
+        let _price = _that.data.tktInfo.tktPrice * 1;
+        let _sumMoney = _price * _that.data.bookNumber;
+        _that.setTravelDate(options);
+        _that.setData({
             defalutDate: {
                 trv_date: '更多日期 >',
-                price: this.data.tktInfo.tktPrice + '起',
+                price: _that.data.tktInfo.tktPrice + '起',
                 isChoseable: true
-            }
+            },
+            choPrice: _price,
+            sumMoney: _sumMoney
         });
     },
     // fetchData: function () {
@@ -57,7 +66,7 @@ Page({
     //         jobarr: ["请选择", "创始人", "联合创始人", "产品", "技术", "营销", "运营", "设计", "行政", "其他"]
     //     })
     // },
-    bindPickerChange: function (e) { //下拉选择
+    bindPickerChange: function(e) { //下拉选择
         const eindex = e.detail.value;
         const name = e.currentTarget.dataset.pickername;
         // this.setData(Object.assign({},this.data,{name:eindex}))
@@ -81,26 +90,26 @@ Page({
                 return
         }
     },
-    setFinance: function (e) { //选择融资
+    setFinance: function(e) { //选择融资
         this.setData({
             hasfinancing: e.detail.value == "已融资" ? true : false
         })
     },
-    setIsorg: function (e) { //选择投资主体
+    setIsorg: function(e) { //选择投资主体
         this.setData({
             isorg: e.detail.value == "机构" ? true : false
         })
     },
-    applySubmit: function () {
+    applySubmit: function() {
         wx.navigateTo({
             url: '../service/service'
         })
     },
 
     /**
-         * 购票须知
-         */
-    noticeTicket: function (event) {
+     * 购票须知
+     */
+    noticeTicket: function(event) {
         var tktId = event.currentTarget.dataset.tktId;
         var _that = this;
         console.log(tktId);
@@ -110,7 +119,7 @@ Page({
     /**
      * 获取订票须知
      */
-    fetchTicketNoticeDesc: function (tktId) {
+    fetchTicketNoticeDesc: function(tktId) {
         var that = this;
 
         qcloud.request({
@@ -147,120 +156,193 @@ Page({
             }
         });
     },
-    hideRule: function () {
+    hideRule: function() {
         this.setData({
             isRuleTrue: false
         });
     },
     // 选择类型
-    clickkind: function (e) {
+    clickkind: function(e) {
         var choseId = e.currentTarget.id;
+        let datePrice  =  e.currentTarget.dataset.datePrice;
         this.setData({
-            clickId: choseId
+            clickId: choseId,
+            choPrice: datePrice,
+            sumMoney: this.data.bookNumber * datePrice
         });
     },
-    clickChoseDate: function(e){
-        console.log(1);
-        var choseParam = {
+    clickChoseDate: function(e) {
+        let choseParam = {
             id: e.currentTarget.id,
             price: e.currentTarget.dataset.price,
-            tktInfo: this.data.tktInfo
+            tktInfo: this.data.tktInfo,
+            bookNumber: this.data.bookNumber
         };
+
         wx.navigateTo({
             url: '/pages/spot/calender/calender?choseParam=' + JSON.stringify(choseParam),
-        })
+        });
     },
     // 数量增加
-    addNumber: function () {
+    addNumber: function() {
         var num = this.data.bookNumber;
+        let lPrice = this.data.choPrice;
         if (num < this.data.restnumber) {
             num++;
             this.setData({
-                bookNumber: num
+                bookNumber: num,
+                sumMoney: num * lPrice
             })
         } else {
             console.log('您的购买数量已达到上限')
         }
     },
     // 数量减少
-    reduceNumber: function () {
+    reduceNumber: function() {
+        let lPrice = this.data.choPrice;
         var num = this.data.bookNumber;
         if (num > 1) {
             num--;
             this.setData({
-                bookNumber: num
-            })
+                bookNumber: num,
+                sumMoney: num * lPrice
+            });
         }
     },
     // 设置游玩时间
-    setTravelDate:function(options){
+    setTravelDate: function(options) {
         var _this = this;
-        var tktBookTime = _this.data.tktInfo.tktBookTime;
-        var tktBookDate = null;
-        var currDate = new Date();
-        if (!tktBookTime && tktBookTime > 0){
-            tktBookDate = util.formatDate(util.addDate(currDate, tktBookTime)) + '23:00:00';
-        }else{
-            tktBookDate = util.formatDate(currDate) + '23:00:00';
-        }
-        
-        console.log('currDate',currDate);
-        var _trvDate = [
-            { trv_date: util.formatDate(currDate ), price: _this.data.tktInfo.tktPrice, isChoseable: currDate > util.parserDate(tktBookDate) },
-            { trv_date: util.formatDate(util.addDate(currDate, 1)), price: _this.data.tktInfo.tktPrice, isChoseable: util.addDate(currDate, 1) > util.parserDate(tktBookDate)},
-            { trv_date: util.formatDate(util.addDate(currDate, 1)), price: _this.data.tktInfo.tktPrice, isChoseable: util.addDate(currDate, 2) > util.parserDate(tktBookDate)},
-        ];
-        _this.setData({
-            trvDate: _trvDate
-        });
-        
+        _this.fetchSpcDateThrdDay(_this.data.tktInfo, 3);
+    },
+    fetchSpcDateThrdDay: function(tktInfo, qryCount) {
+        var _this = this;
+        qcloud.request({
+            url: config.service.spot.spotTktDatePriceUrl,
+            login: false,
+            method: 'get',
+            data: {
+                tktId: tktInfo.tktId,
+                qryCount: qryCount
+            },
+            success(result) {
+                let data = result.data;
+                if (data.retCode == '200') {
+                    // 该门票对应的特殊票价
+                    let content = data.retValue;
+                    console.log(content);
+                    var tktBookTime = _this.data.tktInfo.tktBookTime;
+                    var tktBookDate = null;
+                    var currDate = new Date();
+                    if (!tktBookTime && tktBookTime > 0) {
+                        tktBookDate = util.formatDate(util.addDate(currDate, tktBookTime)) + '23:00:00';
+                    } else {
+                        tktBookDate = util.formatDate(currDate) + '23:00:00';
+                    }
+                    var _trvDate = [{
+                            trv_date: util.formatDate(new Date()),
+                            price: _this.data.tktInfo.tktPrice,
+                            isChoseable: new Date() > util.parserDate(tktBookDate)
+                        },
+                        {
+                            trv_date: util.formatDate(util.addDate(new Date(), 1)),
+                            price: _this.data.tktInfo.tktPrice,
+                            isChoseable: util.addDate(new Date(), 1) > util.parserDate(tktBookDate)
+                        },
+                        {
+                            trv_date: util.formatDate(util.addDate(new Date(), 2)),
+                            price: _this.data.tktInfo.tktPrice,
+                            isChoseable: util.addDate(new Date(), 2) > util.parserDate(tktBookDate)
+                        },
+                    ];
+                    console.log(util.formatDate(new Date(), ''));
+                    console.log(util.formatDate(util.addDate(new Date(), 1), ''));
+                    console.log(util.formatDate(util.addDate(new Date(), 2), ''));
+                    for (let i = 0; i < content.length; i++) {
+                        
+                        // 当天
+                        if (util.formatDate(new Date(), '') == (content[i].spcDate + content[i].spcDay)) {
+                            _trvDate.splice(0, 1, {
+                                trv_date: util.formatDate(new Date()),
+                                price: content[i].spcPrice,
+                                isChoseable: new Date() > util.parserDate(tktBookDate)
+                            })
+                        }
+                        // 明天
+                        if (util.formatDate(util.addDate(new Date(), 1), '') == (content[i].spcDate + content[i].spcDay)) {
+                            _trvDate.splice(1, 1, {
+                                trv_date: util.formatDate(util.addDate(new Date(), 1)),
+                                price: content[i].spcPrice,
+                                isChoseable: util.addDate(new Date(), 1) > util.parserDate(tktBookDate)
+                            })
+                        }
+                        // 后天
+                        if (util.formatDate(util.addDate(new Date(), 2), '') == (content[i].spcDate + content[i].spcDay)) {
+                            _trvDate.splice(2, 1, {
+                                trv_date: util.formatDate(util.addDate(new Date(), 1)),
+                                price: content[i].spcPrice,
+                                isChoseable: util.addDate(new Date(), 1) > util.parserDate(tktBookDate)
+                            })
+                        }
+                    }
+                    _this.setData({
+                        trvDate: _trvDate
+                    });
+                } else {
+                    util.showModel('异常', data.msg);
+                }
+
+            },
+            fail(error) {
+                util.showModel('请求失败', error);
+            }
+        })
     },
     /**
      * 生命周期函数--监听页面初次渲染完成
      */
-    onReady: function () {
+    onReady: function() {
 
     },
 
     /**
      * 生命周期函数--监听页面显示
      */
-    onShow: function () {
+    onShow: function() {
 
     },
 
     /**
      * 生命周期函数--监听页面隐藏
      */
-    onHide: function () {
+    onHide: function() {
 
     },
 
     /**
      * 生命周期函数--监听页面卸载
      */
-    onUnload: function () {
+    onUnload: function() {
 
     },
 
     /**
      * 页面相关事件处理函数--监听用户下拉动作
      */
-    onPullDownRefresh: function () {
+    onPullDownRefresh: function() {
 
     },
 
     /**
      * 页面上拉触底事件的处理函数
      */
-    onReachBottom: function () {
+    onReachBottom: function() {
 
     },
 
     /**
      * 用户点击右上角分享
      */
-    onShareAppMessage: function () {
+    onShareAppMessage: function() {
 
     }
 })

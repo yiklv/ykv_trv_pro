@@ -29,20 +29,23 @@ const list = async (val) => {
     // 第几页
     let _page = (val.page * 1) - 1;
 
-    let sql_count = ' select count(1) cntNum from trv_spot_info spot where spot.spot_status = ? ';
+    let sql_count = ` select count(1) cntNum from trv_spot_info spot where spot.spot_status = ? `;
     await query(sql_count, ['Y']).then(result => {
         _totalNum = result[0].cntNum;
     });
     if (_totalNum > _rows * _page) {
-        let sql_str = 'select spot.spot_id as spotId, spot.spot_name as spotName, ' +
-            '(select city_name from trv_syc_city c where c.city_id = spot.city_id) as cityName,' +
-            '(select area_name from trv_syc_area c where c.area_id = spot.area_id) as areaName, ' +
-            'spot.image_url as imageUrl, FORMAT(spot.spot_old_price, 2) spotOldPrice, FORMAT(spot.spot_price,2) as spotPrice, ' +
-            '(select s.level_name from trv_syc_spot_level s where s.level_id = spot.spot_level) as spotLvlDesc ' +
-            ' from trv_spot_info spot ' +
-            ' where spot.spot_status = ? ' +
-            ' order by spot.date_created desc ' +
-            'limit ? , ?';
+        let sql_str = `select spot.spot_id as spotId, 
+                              spot.spot_name as spotName, 
+                              (select city_name from trv_syc_city c where c.city_id = spot.city_id) as cityName,
+                              (select area_name from trv_syc_area c where c.area_id = spot.area_id) as areaName, 
+                              spot.image_url as imageUrl, 
+                              FORMAT(spot.spot_old_price, 2) spotOldPrice, 
+                              FORMAT(spot.spot_price,2) as spotPrice, 
+                              (select s.level_name from trv_syc_spot_level s where s.level_id = spot.spot_level) as spotLvlDesc 
+                         from trv_spot_info spot 
+                        where spot.spot_status = ? 
+                        order by spot.date_created desc 
+                        limit ? , ?`;
 
         let param = ['Y', _page * _rows, _rows];
         return query(sql_str, param);
@@ -70,9 +73,9 @@ const del = val => {
  */
 const querySpot = val => {
     let spotId = val.spotId;
-    let sql_spot_detail = 'select spot.spot_id as spotId,spot.spot_name as spotName, spot.spot_address as spotAddress, ' +
-        ' spot.open_time_desc as openTime,spot.image_url as imageUrl,(select area_name from trv_syc_area c where c.area_id = spot.area_id) as areaName ' +
-        ' from trv_spot_info spot where spot.spot_id = ? ';
+    let sql_spot_detail = `select spot.spot_id as spotId,spot.spot_name as spotName, spot.spot_address as spotAddress, 
+        spot.open_time_desc as openTime,spot.image_url as imageUrl,(select area_name from trv_syc_area c where c.area_id = spot.area_id) as areaName 
+        from trv_spot_info spot where spot.spot_id = ?`;
     let param = [spotId];
     return query(sql_spot_detail, param);
 }
@@ -100,8 +103,10 @@ const querySpotImgs = val => {
  */
 const querySpotTktList = async (val) => {
     let spotId = val.spotId;
-    let sql_tkt_type = 'select tt.type_id as tktType,tt.type_image tktTypeImg, tt.type_name as tktTypeName from trv_syc_tkttype tt' +
-        ' where exists (select 1 from trv_tkt_info t where t.tkt_type= tt.type_id and t.spot_id = ? ) order by type_level asc ';
+    let sql_tkt_type = `select tt.type_id as tktType,tt.type_image tktTypeImg, tt.type_name as tktTypeName 
+                          from trv_syc_tkttype tt 
+                         where exists (select 1 from trv_tkt_info t where t.tkt_type= tt.type_id and t.spot_id = ? ) 
+                         order by type_level asc `;
     let typeparam = [spotId];
     // 景点所有信息
     let tktInfoList = [];
@@ -111,7 +116,9 @@ const querySpotTktList = async (val) => {
         tktTypeLIst = res;
     });
 
-    let sql_tkt_info = 'select ti.tkt_id tktId, ti.tkt_name tktName, ti.tkt_old_price tktOldPrice, ti.tkt_price tktPrice, ti.tkt_book_time as tktBookTime from trv_tkt_info ti where ti.spot_id = ? and ti.tkt_type = ?';
+    let sql_tkt_info = `select ti.tkt_id tktId, ti.tkt_name tktName, ti.tkt_old_price tktOldPrice, ti.tkt_price tktPrice, ti.tkt_book_time as tktBookTime 
+                          from trv_tkt_info ti 
+                         where ti.spot_id = ? and ti.tkt_type = ?`;
 
     for (var i = 0; i < tktTypeLIst.length; i++) {
         let obj = new Object();
@@ -171,8 +178,18 @@ const querySpotTktContList= val =>{
  */
 const queryTktDatePriceList= val =>{
     let tktId = val.tktId;
-    let sql_tkt_type = 'select tt.tkt_id as tktId, tt.spc_date as spcDate, tt.spc_price as spcPrice from trv_tkt_price_date tt where tt.tkt_id = ?' ;
-    let typeparam = [tktId];
+    let qryDate = val.qryDate;
+    let qryCount = val.qryCount;
+    let sql_tkt_type = null;
+    let typeparam = null;
+    if(qryCount){
+        sql_tkt_type = `select tt.tkt_id as tktId, tt.spc_date as spcDate,tt.spc_day as spcDay, tt.spc_price as spcPrice from trv_tkt_price_date tt 
+                         where tt.tkt_id = ? order by tt.spc_date, tt.spc_day limit ?` ;
+        typeparam = [tktId, qryCount*1];
+    }else{
+        sql_tkt_type = `select tt.tkt_id as tktId, tt.spc_date as spcDate,tt.spc_day as spcDay, tt.spc_price as spcPrice from trv_tkt_price_date tt where tt.tkt_id = ? and tt.spc_date = ? ` ;
+        typeparam = [tktId, qryDate];                 
+    }
     return query(sql_tkt_type, typeparam);
 }
 

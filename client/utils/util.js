@@ -14,12 +14,14 @@ const formatTime = date => {
 /**
  * YYYY/MM/DD
  */
-const formatDate = date => {
+const formatDate = (date, split) => {
     const year = date.getFullYear()
     const month = date.getMonth() + 1
-    const day = date.getDate()
-
-    return [year, month, day].map(formatNumber).join('-')
+    const day = date.getDate();
+    if (split == undefined || split == null){
+        split = '-';
+    }
+    return [year, month, day].map(formatNumber).join(split);
 }
 /**
  * 转换成日期格式  
@@ -94,5 +96,6 @@ module.exports = {
     showSuccess,
     showModel,
     hiddenLoading,
-    showLoading
+    showLoading,
+    formatNumber
 }

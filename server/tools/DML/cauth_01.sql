@@ -282,15 +282,15 @@ commit;
 
 
 delete from `trv_tkt_price_date`;
-insert into `trv_tkt_price_date` values(rand_string(36), 'TKT000000000000007','20190629',125.01, CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM');
-insert into `trv_tkt_price_date` values(rand_string(36), 'TKT000000000000010','20190629',15.01, CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM');
-insert into `trv_tkt_price_date` values(rand_string(36), 'TKT000000000000007','20190628',125.01, CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM');
-insert into `trv_tkt_price_date` values(rand_string(36), 'TKT000000000000009','20190629',18.01, CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM');
-insert into `trv_tkt_price_date` values(rand_string(36), 'TKT000000000000006','20190629',154.01, CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM');
-insert into `trv_tkt_price_date` values(rand_string(36), 'TKT000000000000008','20190629',128.01, CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM');
-insert into `trv_tkt_price_date` values(rand_string(36), 'TKT000000000000004','20190629',128.01, CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM');
-insert into `trv_tkt_price_date` values(rand_string(36), 'TKT000000000000004','20190628',128.01, CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM');
-insert into `trv_tkt_price_date` values(rand_string(36), 'TKT000000000000004','20190627',128.01, CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM');
+insert into `trv_tkt_price_date` values(rand_string(36), 'TKT000000000000007','201906','29',125.01, CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM');
+insert into `trv_tkt_price_date` values(rand_string(36), 'TKT000000000000010','201906','29',15.01, CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM');
+insert into `trv_tkt_price_date` values(rand_string(36), 'TKT000000000000007','201906','28',125.01, CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM');
+insert into `trv_tkt_price_date` values(rand_string(36), 'TKT000000000000009','201906','29',18.01, CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM');
+insert into `trv_tkt_price_date` values(rand_string(36), 'TKT000000000000006','201906','29',154.01, CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM');
+insert into `trv_tkt_price_date` values(rand_string(36), 'TKT000000000000008','201906','29',128.01, CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM');
+insert into `trv_tkt_price_date` values(rand_string(36), 'TKT000000000000004','201906','29',128.01, CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM');
+insert into `trv_tkt_price_date` values(rand_string(36), 'TKT000000000000004','201906','28',128.01, CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM');
+insert into `trv_tkt_price_date` values(rand_string(36), 'TKT000000000000004','201906','27',128.01, CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM');
 
 
 commit;
