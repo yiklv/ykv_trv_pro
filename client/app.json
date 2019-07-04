@@ -6,6 +6,7 @@
         "pages/spot/spotdetail/spotdetail",
         "pages/spot/spotBook/spotBook",
         "pages/spot/calender/calender",
+        "pages/spot/teamservice/teamservice",
         "pages/test/test"
     ],
     "window": {

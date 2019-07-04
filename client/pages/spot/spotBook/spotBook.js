@@ -32,7 +32,9 @@ Page({
         checkable: true,
         sumMoney: 0,  // 总金额
         bookNumber: 1, // 初始购买数量
-        choPrice: null // 最终票金额
+        choPrice: null, // 最终票金额
+        showBookDetail: false,
+        animationData:{}
     },
 
     /**
@@ -296,6 +298,63 @@ Page({
                 util.showModel('请求失败', error);
             }
         })
+    },
+    showTeamService: function(){
+        wx.navigateTo({
+            url: '/pages/spot/teamservice/teamservice',
+            success: function(res) {},
+            fail: function(res) {},
+            complete: function(res) {},
+        })
+    },
+    bindBookDetailFn: function(){
+           
+        let showBookDetail = this.data.showBookDetail;
+        if (showBookDetail){
+            this.hideBookDetailFn();
+        }else{
+            this.showBookDetailFn();
+        }
+    },
+    showBookDetailFn: function () {
+        // 显示遮罩层
+        var animation = wx.createAnimation({
+            duration: 200,
+            timingFunction: "linear",
+            delay: 0
+        })
+        this.animation = animation
+        animation.translateY(300).step()
+        this.setData({
+            animationData: animation.export(),
+            showBookDetail: true
+        })
+        setTimeout(function () {
+            animation.translateY(0).step()
+            this.setData({
+                animationData: animation.export()
+            })
+        }.bind(this), 200)
+    },
+    hideBookDetailFn: function () {
+        // 隐藏遮罩层
+        var animation = wx.createAnimation({
+            duration: 200,
+            timingFunction: "linear",
+            delay: 0
+        })
+        this.animation = animation
+        animation.translateY(300).step()
+        this.setData({
+            animationData: animation.export(),
+        })
+        setTimeout(function () {
+            animation.translateY(0).step()
+            this.setData({
+                animationData: animation.export(),
+                showBookDetail: false
+            })
+        }.bind(this), 200)
     },
     /**
      * 生命周期函数--监听页面初次渲染完成

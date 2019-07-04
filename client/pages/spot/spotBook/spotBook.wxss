@@ -276,7 +276,7 @@ radio-group label.checked:before {
     display: flex;
     padding: 0 20rpx;
     background: #fff;
-    border-top: 20rpx solid #f4f4f4
+    border-top: 20rpx solid #f4f4f4;
 }
 
 .group-body {
@@ -486,8 +486,7 @@ radio-group label.checked:before {
     margin-top: 25rpx;
     margin-left: 14rpx;
     color: #a0a0a0;
-    overflow:hidden;
-
+    overflow: hidden;
 }
 
 .goods-kinds .kind.selected {
@@ -520,7 +519,6 @@ radio-group label.checked:before {
 .kright {
     margin-top: 24rpx;
     font-size: 28rpx;
-
     float: left;
 }
 
@@ -603,7 +601,8 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
     transform: translate(-50%, -50%) scale(1);
     -webkit-transform: translate(-50%, -50%) scale(1);
 }
-.checkboxGroup{
+
+.checkboxGroup {
     font-size: 20rpx;
     color: #a9a9a9;
 }
@@ -623,8 +622,7 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
     font-size: 34rpx;
     width: 65%;
     border-left: 1rpx solid #ddd;
-    display:flex;
-    
+    display: flex;
 }
 
 .totalMoney image {
@@ -636,10 +634,10 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
     font-size: 24rpx;
     width: 12%;
     height: 86rpx;
-    padding-left:10rpx;
-
+    padding-left: 10rpx;
 }
-.totalMoney .sumMoney{
+
+.totalMoney .sumMoney {
     font-size: 34rpx;
     width: 78%;
     color: red;
@@ -653,4 +651,52 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
     color: #fff;
     width: 35%;
     font-size: 34rpx;
+}
+
+/*******************************************************************/
+
+.book_detail_layer {
+    width: 100%;
+    height: 92.5%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #000;
+    opacity: 0.2;
+    overflow: hidden;
+    z-index: 1000;
+    color: #fff;
+}
+
+.book_detail_box {
+    width: 100%;
+    overflow: hidden;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 2000;
+    background: #fff;
+    margin-bottom: 12%;
+    font-size: 32rpx;
+    height: 450rpx;
+    border-radius: 5%;
+}
+
+.detail_title {
+    padding-left: 10rpx;
+    height: 80rpx;
+    line-height: 80rpx;
+    border-bottom: 1rpx solid #ddd;
+}
+
+.detail_title_bse {
+    padding-left: 20rpx;
+    height: 60rpx;
+    line-height: 60rpx;
+}
+
+.detail_title_text {
+    float: right;
+    padding-right: 20rpx;
+    font-size: 28rpx;
 }

@@ -1,0 +1,100 @@
+<view>
+    <view class="serviceTitle">{{weChatProName}}服务条款 \t\n</view >
+    <view class="serviceSubTitle">1.{{weChatShortName}}服务条款的确认</view>
+    <text class="serviceContent"> {{weChatProName}}（以下简称“{{weChatShortName}}”）各项服务的所有权与运作权归景域旅游运营集团所有。本服务条款具有法律约束力。一旦您点选“注册”并激活邮件，即表示您自愿接受本协议之所有条款，并已成为{{weChatShortName}}的注册会员。\t\n</text >
+</view>
+<view>
+    <view class="serviceSubTitle">2．服务内容</view>
+    <text class="serviceContent">2.1 　{{weChatShortName}}服务的具体内容由景域旅游运营集团根据实际情况提供，{{weChatShortName}}对其所提供之服务拥有最终解释权。\t\n</text >
+    <text class="serviceContent">2.2 　景域旅游运营集团在{{weChatShortName}}上向其会员提供相关网络服务。其它与相关网络服务有关的设备（如个人电脑、手机、及其他与接入互联网或移动网有关的装置）及所需的费用（如为接入互联网而支付的电话费及上网费、为使用移动网而支付的手机费等）均由会员自行负担。\t\n</text >
+</view>
+<view>
+    <view class="serviceSubTitle">3．会员账号及密码</view>
+    <text class="serviceContent"> 您一旦注册成功成为用户，您将得到一个账号和密码。如果您不保管好自己的账号和密码安全，因此产生的所有损失将由您全部承担并负相应责任。此外，每个用户都要对其账户中的所有活动和事件负全责。您可随时更改您的密码，也可以重开一个新的账户。用户若发现任何非法使用用户账号或安全漏洞的情况，请立即通告{{weChatShortName}}。\t\n</text >
+</view>
+<view>
+    <view class="serviceSubTitle">4．会员权责 </view>
+    <text class="serviceContent"> 4.1 　会员有权按照{{weChatShortName}}规定的程序和要求使用{{weChatShortName}}向会员提供的各项网络服务，如果会员对该服务有异议，可以与{{weChatShortName}}联系以便得到及时解决。\t\n</text >
+    <text class="serviceContent"> 4.2 　用户在申请使用{{weChatProName}}服务时，必须向{{weChatShortName}}提供准确的个人资料，如个人资料有任何变动，必须及时更新。\t\n</text >
+    <text class="serviceContent"> 4.3 　会员在{{weChatShortName}}的网页上发布信息或者利用{{weChatShortName}}的服务时必须符合国家的法律法规以及国际法的有关规定。\t\n</text >
+    <text class="serviceContent"> 4.4 　对于会员通过{{weChatShortName}}网上消息平台（包括但不限于论坛、 BBS ）上传到{{weChatShortName}}网站上可公开获取区域的任何内容，会员同意授予{{weChatShortName}}在全世界范围内享有完全的、免费的、永久性的、不可撤销的、非独家的权利，以及再许可第三方的权利，以使用、复制、修改、改编、出版、翻译、据以创作衍生作品、传播、表演和展示此等内容（整体或部分），和/或将此等内容编入当前已知的或以后开发的其他任何形式的作品、媒体或技术中。\t\n</text >
+    <text class="serviceContent"> 4.5 　会员承诺不会在{{weChatShortName}}的消息平台（包括但不限于论坛、 BBS ）发布如下信息：\t\n</text >
+    <text class="serviceContent"> (1) 反对宪法所确定的基本原则的；\t\n</text >
+    <text class="serviceContent"> (2) 危害国家安全，泄露国家秘密，颠覆国家政权，破坏国家统一的；\t\n</text >
+    <text class="serviceContent"> (3) 损害国家荣誉和利益的；\t\n</text >
+    <text class="serviceContent"> (4) 煽动民族仇恨、民族歧视，破坏民族团结的；\t\n</text >
+    <text class="serviceContent"> (5) 破坏国家宗教政策，宣扬邪教和封建迷信的；\t\n</text >
+    <text class="serviceContent"> (6) 散布谣言，扰乱社会秩序，破坏社会稳定的；\t\n</text >
+    <text class="serviceContent"> (7) 散布淫秽、色情、赌博、暴力、凶杀、恐怖或者教唆犯罪的；\t\n</text >
+    <text class="serviceContent"> (8) 侮辱或者诽谤他人，侵害他人合法权益的；\t\n</text >
+    <text class="serviceContent"> (9) 含有法律、行政法规禁止的其他内容的。\t\n</text >
+    <text class="serviceContent"> 4.7 　会员单独为其发布在{{weChatShortName}}上的信息承担责任。会员若在{{weChatShortName}}散布和传播违法信息，网络会员服务的系统记录有可能作为会员违法之证据。\t\n</text >
+    <text class="serviceContent"> 4.8 　会员不得利用本站的服务从事以下活动：\t\n</text >
+    <text class="serviceContent"> (1) 未经允许，进入计算机信息网络或者使用计算机信息网络资源；\t\n</text >
+    <text class="serviceContent"> (2) 未经允许，对计算机信息网络功能进行删除、修改或者增加；\t\n</text >
+    <text class="serviceContent"> (3) 未经允许，对进入计算机信息网络中存储、处理或者传输的数据和应用程序进行删除、修改或者增加；\t\n</text >
+    <text class="serviceContent"> (4) 故意制作、传播计算机病毒等破坏性程序；\t\n</text >
+    <text class="serviceContent"> (5) 其他危害计算机信息网络安全的行为。\t\n</text >
+    <text class="serviceContent"> 4.9 　 会员不得以任何方式干扰本站的服务。\t\n</text >
+    <text class="serviceContent"> 4.10 　会员承诺遵守本站的所有其他规定和程序。\t\n</text >
+    <text class="serviceContent"> 4.11 　如果会员违反上述规定，{{weChatShortName}}有权要求其改正或直接采取一切必要措施（包括但不限于更改或删除会员发布的信息、中断或终止会员使用网络的权利等），以减轻会员不当行为所造成的影响。\t\n</text >
+
+</view>
+<view>
+    <view class="serviceSubTitle">5．服务条款的修改 </view>
+    <text class="serviceContent"> {{weChatShortName}}有权在必要时修改本服务条款，服务条款的内容一旦发生变动，{{weChatShortName}}将会通过适当方式向会员提示修改内容。会员如不同意修改，可以主动选择取消会员资格；如果会员继续使用{{weChatShortName}}服务，将被视为接受修改后的服务条款。 \t\n</text >
+</view>
+<view>
+    <view class="serviceSubTitle">6．服务内容的修改或中断</view>
+    <text class="serviceContent"> 鉴于网络服务的特殊性，{{weChatShortName}}保留随时修改或中断其部分或全部网络服务的权利，并无需通知会员或为此对会员及任何第三方负责。\t\n</text >
+</view>
+<view>
+    <view class="serviceSubTitle">7．会员隐私保护 </view>
+    <text class="serviceContent"> {{weChatShortName}}尊重会员的隐私权，不会公开、编辑或泄露任何有关会员的个人资料以及会员在使用网络服务时存储在{{weChatShortName}}的非公开内容，但以下情况除外：\t\n</text >
+    <text class="serviceContent">（1）事先获得会员的明确授权；\t\n</text >
+    <text class="serviceContent">（2）遵守法律规定或{{weChatShortName}}合法服务程序；\t\n</text >
+    <text class="serviceContent">（3）按照相关政府主管部门的合理要求；\t\n</text >
+    <text class="serviceContent">（4）维护社会公众利益；\t\n</text >
+    <text class="serviceContent">（5）维护{{weChatShortName}}的合法权益；\t\n</text >
+    <text class="serviceContent">（6）符合其他合法要求。\t\n</text >
+</view>
+<view>
+    <view class="serviceSubTitle">8．中断或终止服务</view>
+    <text class="serviceContent"> 如发生下列任何一种情形，{{weChatShortName}}有权随时中断或终止向会员提供本协议项下的网络服务，而无需对会员或任何第三方承担任何责任。\t\n</text >
+    <text class="serviceContent">（1）会员向{{weChatShortName}}提供的个人资料不真实。\t\n</text >
+    <text class="serviceContent">（2）会员违反本协议的规则或不履行其所承担的义务。\t\n</text >
+    <text class="serviceContent"> 除此之外，会员可随时根据需要通知{{weChatShortName}}终止向该会员提供服务，会员服务终止后，会员使用服务的权利同时终止。自会员服务终止之时起，{{weChatShortName}}不再对该会员承担任何责任。\t\n</text >
+</view>
+<view>
+    <view class="serviceSubTitle">9．知识产权 </view>
+    <text class="serviceContent"> 9.1 {{weChatShortName}}在网络服务中提供的任何文本、图片、图形、音频和视频资料均受版权、商标权以及其他相关法律法规的保护。未经{{weChatShortName}}事先同意，任何人不能擅自复制、传播这些内容，或用于其他任何商业目的，所有这些资料或资料的任何部分仅可作为个人或非商业用途而保存在某台计算机内。\t\n</text >
+    <text class="serviceContent"> 9.2 {{weChatShortName}}为提供网络服务而使用的任何软件（包括但不限于软件中的任何文字、图形、音频、视频资料及其辅助资料）的一切权利属于该软件的著作权人，未经该著作权人同意，任何人不得对该软件进行反向工程、反向编译或反汇编。\t\n</text >
+</view>
+<view>
+    <view class="serviceSubTitle">10．免责声明</view>
+    <text class="serviceContent">10.1 {{weChatShortName}}对任何因会员不正当或非法使用服务、在网上进行交易、或会员传送信息变动而产生的直接、间接、偶然、特殊及后续的损害不承担责任。\t\n</text >
+    <text class="serviceContent">10.2 {{weChatShortName}}对任何他人的威胁性的、诽谤性的、淫秽的、令人反感的或非法的内容或行为或对他人权利的侵犯（包括知识产权）不承担责任；并对任何第三方通过服务发送或在服务中包含的任何内容不承担责任。\t\n</text >
+    <text class="serviceContent">10.3 会员明确同意其使用{{weChatShortName}}服务所存在的风险以及使用{{weChatProName}}服务产生的一切后果由其自己承担。\t\n</text >
+    <text class="serviceContent"> 10.4 对于因不可抗力或{{weChatShortName}}不能控制的原因造成的网络服务中断或其它缺陷，{{weChatShortName}}不承担任何责任，但将尽力减少因此而给用户造成的损失和影响。\t\n</text >
+    <text class="serviceContent"> 10.5 {{weChatShortName}}不对所提供之网络服务做任何类型之担保，包括但不限于：\t\n</text >
+    <text class="serviceContent"> （1） 网络服务一定能满足会员要求；\t\n</text >
+    <text class="serviceContent">（2） 网络服务不会中断；\t\n</text >
+    <text class="serviceContent">（3） 网络服务的及时性、安全性、准确性。\t\n</text >
+    <text class="serviceContent"> 但是{{weChatShortName}}对不违反规定的特定目的担保不作限制。\t\n</text >
+</view>
+<view>
+    <view class="serviceSubTitle">11．赔偿 </view>
+    <text class="serviceContent"> 因会员对本服务之使用而导致景域旅游运营集团遭受任何来自第三方之纠纷、诉讼及索赔要求，会员同意向{{weChatShortName}}及其关联企业、职员赔偿相应损失（包括合理的律师费），并尽力使之免受损害。\t\n</text >
+</view>
+<view>
+    <view class="serviceSubTitle">12．通告 </view>
+    <text class="serviceContent"> 所有发给会员的通告都可以通过重要页面的公告、电子邮件以及常规信件的形式传送。\t\n</text >
+</view>
+<view>
+    <view class="serviceSubTitle">13．法律 </view>
+    <text class="serviceContent"> 景域旅游运营集团服务条款之效力、解释、执行均适用中华人民共和国法律。如发生争议，应提交至有管辖权之人民法院。\t\n</text >
+</view>
+<view>
+    <view class="serviceSubTitle">14．其他规定 </view>
+    <text class="serviceContent"> 本服务条款中的标题仅为方便而设，在解释本服务条款时应被忽略。\t\n</text >
+</view>

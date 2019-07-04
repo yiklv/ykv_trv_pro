@@ -12,6 +12,10 @@ var host = 'http://localhost:5757';
 var config = {
     // 金钱标志
     currency:'￥',
+    // 小程序名称
+    weChatProName:"易途门票网",
+    // 简称
+    weChatShortName:"易途网",
 
     // 下面的地址配合云端 Demo 工作
     service: {

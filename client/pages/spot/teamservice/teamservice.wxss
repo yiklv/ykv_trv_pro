@@ -1,0 +1,13 @@
+/* pages/spot/teamservice/teamservice.wxss */
+.serviceTitle{
+    font-size: 32rpx;
+    text-align:center;
+    font-weight:bold;
+}
+.serviceSubTitle{
+    font-size: 28rpx;
+    font-weight:bold;
+}
+.serviceContent{
+    font-size: 24rpx;
+}

@@ -96,20 +96,27 @@
         <view class="group-header">
             <checkbox-group bindchange="checkboxChange" class="checkboxGroup">
                 <label class="checkbox">
-                    <checkbox value="checked" checked="{{checkable}}" color="#0099ff"/>
+                    <checkbox value="checked" checked="{{checkable}}" color="#0099ff" />
                 </label>已阅读并同意
-                <label class="checkBoxDesc">《网站预订条款》</label>
+                <label class="checkBoxDesc" bindtap='showTeamService'>《网站预订条款》</label>
             </checkbox-group>
         </view>
     </view>
     <view class="spot-footer">
-		<view class="totalMoney">
+        <view class="totalMoney" bindtap='bindBookDetailFn'>
             <text class="moneyText">应付</text>
             <view class="sumMoney">{{currencyFlag}} {{sumMoney}}</view>
-            <view><image src='../../../images/icons/btn_up_jiantou_01.png'></image></view>
+            <view>
+                <block wx:if="{{!showBookDetail}}">
+                    <image src='../../../images/icons/btn_up_jiantou_01.png'></image>
+                </block>
+                <block wx:if="{{showBookDetail}}">
+                    <image src='../../../images/icons/btn_down_jiantou_01.png'></image>
+                </block>
+            </view>
         </view>
-		<text class="apply-btn" bindtap="goApply">提交订单</text>
-	</view>
+        <text class="apply-btn" bindtap="goApply">提交订单</text>
+    </view>
 
     <!--  规则提示  -->
     <view class="ruleZhezhao {{isRuleTrue?'isRuleShow':'isRuleHide'}}">
@@ -119,4 +126,13 @@
         <image src='../../../images/icons/btn_rule_hide.png' class='ruleHide' bindtap='hideRule'></image>
     </view>
     <!--  end  -->
+
+    <!--隐藏区域  -->
+    <view class='book_detail_layer' wx:if="{{showBookDetail}}" bindtap='hideBookDetailFn'></view>
+    <view class='book_detail_box' wx:if="{{showBookDetail}}" animation='{{animationData}}'>
+        <view class="detail_title">费用明细</view>
+        <view class="detail_title_bse">基本费用
+            <text class="detail_title_text">{{currencyFlag}} {{choPrice}} X {{bookNumber}}</text>
+        </view>
+    </view>
 </view>
