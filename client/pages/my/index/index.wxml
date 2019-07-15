@@ -4,7 +4,7 @@
     <!-- 需要使用 button 来授权登录  -->
 
     <button wx:if="{{canIUse}}" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="login">授权登录</button>
-    <view class="userinfo" bindtap="login">
+    <view class="userinfo">
         <view wx:if="{{logged}}">
             <image class="userinfo-avatar" src="{{logged ? userInfo.avatarUrl : '../../../images/user-unlogin.png'}}" background-size="cover"></image>
             <text class="userinfo-nickname">{{userInfo.nickName}}</text>

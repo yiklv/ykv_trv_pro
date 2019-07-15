@@ -10,31 +10,8 @@ var Session = require('./session');
 /**
  * 微信登录，获取 code 和 encryptData
  */
-function getWxLoginResult(loginRes, cb) {
-    try{
-        if (loginRes.rawData) {
-            wx.login({
-                success(loginResult) {
-                    cb(null, {
-                        code: loginResult.code,
-                        encryptedData: loginRes.encryptedData,
-                        iv: loginRes.iv,
-                        userInfo: loginRes.userInfo
-                    })
-
-                },
-                fail(loginError) {
-                    cb(new Error('微信登录失败，请检查网络状态'), null)
-                }
-            })
-        } else {
-            cb(new Error('获取微信用户信息失败，请检查网络状态'), null)
-        }
-    }catch(e){
-        console.log(e);
-    }
-    
-    /*wx.login({
+function getWxLoginResult(cb) {
+    wx.login({
         success(loginResult) {
             wx.getUserInfo({
                 success(userResult) {
@@ -54,10 +31,9 @@ function getWxLoginResult(loginRes, cb) {
             cb(new Error('微信登录失败，请检查网络状态'), null)
         }
     })
-    */
 }
 
-const noop = function noop() {}
+const noop = function noop() { }
 const defaultOptions = {
     method: 'GET',
     success: noop,
@@ -83,9 +59,8 @@ function login(opts) {
     if (!opts.loginUrl) {
         return opts.fail(new Error('登录错误：缺少登录地址，请通过 setLoginUrl() 方法设置登录地址'))
     }
-    var loginRes = opts.e.detail;
 
-    getWxLoginResult(loginRes, (err, loginResult) => {
+    getWxLoginResult((err, loginResult) => {
         if (err) {
             return opts.fail(err)
         }
@@ -189,8 +164,4 @@ function setLoginUrl(loginUrl) {
     defaultOptions.loginUrl = loginUrl;
 }
 
-module.exports = {
-    login,
-    setLoginUrl,
-    loginWithCode
-}
+module.exports = { login, setLoginUrl, loginWithCode }

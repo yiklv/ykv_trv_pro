@@ -304,4 +304,17 @@ create table `trv_tkt_price_date`(
 create unique INDEX `trv_tkt_price_date_id` on `trv_tkt_price_date`(`id_key`);
 create INDEX `trv_tkt_price_date_td` on `trv_tkt_price_date`(`tkt_id`,`spc_date`);
 
+drop table if exists `trv_syc_pay_banktype`;
+create table `trv_syc_pay_banktype`(
+    `id_key` varchar(36) not null,
+    `banktype_code` varchar(32) not null comment '银行类型编码',
+    `banktype_desc` varchar(128) not null comment '银行类型描述',
+    `date_created` timestamp  default CURRENT_TIMESTAMP,
+	`created_by` varchar(64) default 'SYSTEM',
+	`date_updated` timestamp  default CURRENT_TIMESTAMP,
+	`updated_by` varchar(64) default 'SYSTEM',
+	PRIMARY KEY (`id_key`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='银行类型表';
+create unique INDEX `trv_syc_pay_banktype_id` on `trv_syc_pay_banktype`(`id_key`);
+
 SET FOREIGN_KEY_CHECKS = 1;

@@ -14,17 +14,8 @@ Page({
      */
     data: {
         currencyFlag: config.currency,
-        industryarr: [],
-        industryindex: 0,
-        statusarr: [],
-        statusindex: 0,
-        jobarr: [],
-        jobindex: 0,
-        hasfinancing: false, //是否已融资
-        isorg: false, //是否是机构
         tktInfo: null,
         isRuleTrue: false,
-        goodskinds: [],
         restnumber: 20,
         clickId: 0,
         trvDate: [],
@@ -33,6 +24,7 @@ Page({
         sumMoney: 0,  // 总金额
         bookNumber: 1, // 初始购买数量
         choPrice: null, // 最终票金额
+        choDate: null, // 最终选择日期
         showBookDetail: false,
         animationData:{}
     },
@@ -42,7 +34,6 @@ Page({
      */
     onLoad: function(options) {
         var _that = this;
-        console.log(options);
         _that.setData({
             tktInfo: JSON.parse(options.tktInfo),
 
@@ -61,60 +52,12 @@ Page({
             sumMoney: _sumMoney
         });
     },
-    // fetchData: function () {
-    //     this.setData({
-    //         industryarr: ["请选择", "移动互联网", "手机游戏", "互联网金融", "O2O", "智能硬件", "SNS社交", "旅游", "影视剧", "生活服务", "电子商务", "教育培训", "运动和健康", "休闲娱乐", "现代农业", "文化创意", "节能环保", "新能源", "生物医药", "IT软件", "硬件", "其他"],
-    //         statusarr: ["请选择", "初创时期", "市场扩展期", "已经盈利"],
-    //         jobarr: ["请选择", "创始人", "联合创始人", "产品", "技术", "营销", "运营", "设计", "行政", "其他"]
-    //     })
-    // },
-    bindPickerChange: function(e) { //下拉选择
-        const eindex = e.detail.value;
-        const name = e.currentTarget.dataset.pickername;
-        // this.setData(Object.assign({},this.data,{name:eindex}))
-        switch (name) {
-            case 'industry':
-                this.setData({
-                    industryindex: eindex
-                })
-                break;
-            case 'status':
-                this.setData({
-                    statusindex: eindex
-                })
-                break;
-            case 'job':
-                this.setData({
-                    jobindex: eindex
-                })
-                break;
-            default:
-                return
-        }
-    },
-    setFinance: function(e) { //选择融资
-        this.setData({
-            hasfinancing: e.detail.value == "已融资" ? true : false
-        })
-    },
-    setIsorg: function(e) { //选择投资主体
-        this.setData({
-            isorg: e.detail.value == "机构" ? true : false
-        })
-    },
-    applySubmit: function() {
-        wx.navigateTo({
-            url: '../service/service'
-        })
-    },
-
     /**
      * 购票须知
      */
     noticeTicket: function(event) {
         var tktId = event.currentTarget.dataset.tktId;
         var _that = this;
-        console.log(tktId);
         _that.fetchTicketNoticeDesc(tktId);
 
     },
@@ -167,10 +110,12 @@ Page({
     clickkind: function(e) {
         var choseId = e.currentTarget.id;
         let datePrice  =  e.currentTarget.dataset.datePrice;
+        let _date = this.data.trvDate;
         this.setData({
             clickId: choseId,
             choPrice: datePrice,
-            sumMoney: this.data.bookNumber * datePrice
+            sumMoney: this.data.bookNumber * datePrice,
+            choDate: _date[choseId].trv_date
         });
     },
     clickChoseDate: function(e) {
@@ -194,10 +139,8 @@ Page({
             this.setData({
                 bookNumber: num,
                 sumMoney: num * lPrice
-            })
-        } else {
-            console.log('您的购买数量已达到上限')
-        }
+            });
+        } 
     },
     // 数量减少
     reduceNumber: function() {
@@ -231,7 +174,6 @@ Page({
                 if (data.retCode == '200') {
                     // 该门票对应的特殊票价
                     let content = data.retValue;
-                    console.log(content);
                     var tktBookTime = _this.data.tktInfo.tktBookTime;
                     var tktBookDate = null;
                     var currDate = new Date();
@@ -256,9 +198,6 @@ Page({
                             isChoseable: util.addDate(new Date(), 2) > util.parserDate(tktBookDate)
                         },
                     ];
-                    console.log(util.formatDate(new Date(), ''));
-                    console.log(util.formatDate(util.addDate(new Date(), 1), ''));
-                    console.log(util.formatDate(util.addDate(new Date(), 2), ''));
                     for (let i = 0; i < content.length; i++) {
                         
                         // 当天
@@ -287,7 +226,8 @@ Page({
                         }
                     }
                     _this.setData({
-                        trvDate: _trvDate
+                        trvDate: _trvDate,
+                        choDate: _trvDate[0].trv_date
                     });
                 } else {
                     util.showModel('异常', data.msg);
@@ -299,16 +239,10 @@ Page({
             }
         })
     },
-    showTeamService: function(){
-        wx.navigateTo({
-            url: '/pages/spot/teamservice/teamservice',
-            success: function(res) {},
-            fail: function(res) {},
-            complete: function(res) {},
-        })
-    },
+    /**
+     * 展示订单详细
+     */
     bindBookDetailFn: function(){
-           
         let showBookDetail = this.data.showBookDetail;
         if (showBookDetail){
             this.hideBookDetailFn();
@@ -316,6 +250,9 @@ Page({
             this.showBookDetailFn();
         }
     },
+    /**
+     * 显示遮罩层
+     */
     showBookDetailFn: function () {
         // 显示遮罩层
         var animation = wx.createAnimation({
@@ -336,6 +273,9 @@ Page({
             })
         }.bind(this), 200)
     },
+    /** 
+     * 隐藏遮罩层
+     */
     hideBookDetailFn: function () {
         // 隐藏遮罩层
         var animation = wx.createAnimation({
@@ -355,6 +295,69 @@ Page({
                 showBookDetail: false
             })
         }.bind(this), 200)
+    },
+    /**
+     * 检查是否勾选条款
+     */
+    checkboxChange:function(){
+        let _checkable =  this.data.checkable;
+        this.setData({
+            checkable: !_checkable
+        })
+    },
+    showTeamService: function () {
+        wx.navigateTo({
+            url: '/pages/spot/teamservice/teamservice',
+            success: function (res) { },
+            fail: function (res) { },
+            complete: function (res) { },
+        })
+    },
+    /**
+     * 提交订单
+     */
+    submitOrder:function(e){
+        let _that = this;
+        let getTkt = e.detail.value;
+        /**取票人信息 */
+        let tktUserName = util.trim(getTkt.tktUserName);
+        let tktIdNo = util.trim(getTkt.tktIdNo);
+        let tktMobilephone = util.trim(getTkt.tktMobilephone);
+        if (!tktUserName || '' == tktUserName || (tktUserName).length > 10){
+            util.showModel('取票人信息错误','取票人姓名不能为空或者长度不得超过10个汉字');
+            return false;
+        }
+        if (!tktIdNo || '' == tktIdNo || (tktIdNo).length != 18) {
+            util.showModel('取票人信息错误', '取票人身份证不能为空或者长度必须为18');
+            return false;
+        }
+        if (!tktMobilephone || '' == tktMobilephone || (tktMobilephone).length != 11) {
+            util.showModel('取票人信息错误', '取票人手机号不能为空或者长度必须为11');
+            return false;
+        }
+        if (!util.chineseValidate(tktUserName)) {
+            util.showModel('取票人信息错误', '取票人姓名必须是中文');
+            return false;
+        }
+        if (!util.idCardValidate(tktIdNo)) {
+            util.showModel('取票人信息错误', '取票人身份证不正确');
+            return false;
+        }
+        if (!util.phoneValidate(tktMobilephone)) {
+            util.showModel('取票人信息错误', '取票人手机号不正确');
+            return false;
+        }
+
+        console.log(_that);
+        let checkable = _that.data.checkable;
+        if (!checkable){
+            util.showModel('错误', '必须勾选网站预购条款');
+            return false;
+        }
+
+        
+
+
     },
     /**
      * 生命周期函数--监听页面初次渲染完成

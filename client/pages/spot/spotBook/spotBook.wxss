@@ -651,7 +651,9 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
     color: #fff;
     width: 35%;
     font-size: 34rpx;
+    border-radius:0;
 }
+
 
 /*******************************************************************/
 
@@ -700,3 +702,5 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
     padding-right: 20rpx;
     font-size: 28rpx;
 }
+
+

@@ -2,12 +2,14 @@
     "pages": [
         "pages/index/index",
         "pages/search/search",
-        "pages/my/index/index",
+        "pages/my/my",
         "pages/spot/spotdetail/spotdetail",
         "pages/spot/spotBook/spotBook",
         "pages/spot/calender/calender",
         "pages/spot/teamservice/teamservice",
-        "pages/test/test"
+        "pages/test/test",
+
+        "pages/my/index/index"
     ],
     "window": {
         "backgroundColor": "#f6f6f6",
@@ -30,7 +32,7 @@
                 "iconPath": "images/icons/btn-tabs_01.png",
                 "selectedIconPath":"images/icons/btn-tabs_07.png"
             }, {
-                "pagePath": "pages/my/index/index",
+                "pagePath": "pages/my/my",
                 "text": "我的",
                 "iconPath": "images/icons/btn-tabs_06.png",
                 "selectedIconPath": "images/icons/btn-tabs_10.png"

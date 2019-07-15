@@ -101,15 +101,17 @@ Page({
                 let currPage = pages[pages.length - 1];   //当前页面
                 let prevPage = pages[pages.length - 2];  //上一个页面
                 let cPrice = currentSelect.todoText.replace(config.currency, '');
+                let _trvDate = '' + currentSelect.year + '-' + util.formatNumber(currentSelect.month) + '-' + util.formatNumber(currentSelect.day);
                 prevPage.setData({
                     defalutDate: {
-                        trv_date: '' + currentSelect.year + '-' + util.formatNumber(currentSelect.month) + '-' + util.formatNumber(currentSelect.day),
+                        trv_date: _trvDate,
                         price: cPrice,
                         isChoseable: true
                     },
                     clickId: param.id,
                     choPrice: cPrice * 1,
-                    sumMoney: cPrice * 1 * param.bookNumber
+                    sumMoney: cPrice * 1 * param.bookNumber,
+                    choDate: _trvDate
                 })
                 wx.navigateBack({
                     url: that.route

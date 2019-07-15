@@ -3,7 +3,7 @@ var utils = require('./utils');
 var Session = require('./session');
 var loginLib = require('./login');
 
-var noop = function noop() {};
+var noop = function noop() { };
 
 var buildAuthHeader = function buildAuthHeader(session) {
     var header = {};
@@ -67,12 +67,21 @@ function request(options) {
 
     // 登录后再请求
     function doRequestWithLogin() {
-        loginLib.login({ success: doRequest, fail: callFail });
+        loginLib.loginWithCode({ success: doRequest, fail: callFail });
     }
 
     // 实际进行请求的方法
     function doRequest() {
-        var authHeader = buildAuthHeader(Session.get());
+        var authHeader = {}
+
+        if (requireLogin) {
+            var session = Session.get();
+
+            if (!session) {
+                return doRequestWithLogin();
+            }
+            authHeader = buildAuthHeader(session.skey);
+        }
 
         wx.request(utils.extend({}, options, {
             header: utils.extend({}, originHeader, authHeader),
