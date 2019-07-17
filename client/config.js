@@ -16,7 +16,10 @@ var config = {
     weChatProName:"易途门票网",
     // 简称
     weChatShortName:"易途网",
-
+    expireSessionSession: 30 * 60 * 1000,
+    constant:{
+        CONST_USER_INFO_KEY: "user_info_key"
+    },
     // 下面的地址配合云端 Demo 工作
     service: {
         host,

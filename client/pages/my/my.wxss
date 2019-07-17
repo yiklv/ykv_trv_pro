@@ -61,10 +61,14 @@ page {
 }
 
 .header-left image {
-    width: 150rpx;
-    height: 150rpx;
+    width: 120rpx;
+    height: 120rpx;
     border-radius: 75rpx;
     border: 2rpx solid #aaa;
+}
+
+.header-right button{
+    margin-left: 20rpx;
 }
 
 .gap {

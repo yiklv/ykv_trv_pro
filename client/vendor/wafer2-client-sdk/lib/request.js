@@ -59,11 +59,12 @@ function request(options) {
     // 是否已经进行过重试
     var hasRetried = false;
 
-    if (requireLogin) {
+    /*if (requireLogin) {
         doRequestWithLogin();
     } else {
         doRequest();
-    }
+    }*/
+    doRequest();
 
     // 登录后再请求
     function doRequestWithLogin() {
@@ -82,7 +83,6 @@ function request(options) {
             }
             authHeader = buildAuthHeader(session.skey);
         }
-
         wx.request(utils.extend({}, options, {
             header: utils.extend({}, originHeader, authHeader),
 

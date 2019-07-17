@@ -13,6 +13,14 @@ var Session = {
     clear: function () {
         wx.removeStorageSync(SESSION_KEY);
     },
+    /**设置session的有效时间 */
+    setSessionExpiration: function(expireTime){
+        wx.setStorageSync(constants.WX_SESSION_TIME_EXPIRATION, expireTime);
+    },
+    /**获取session的有效时间 */
+    getSessionExpiration: function () {
+        return wx.getStorageSync(constants.WX_SESSION_TIME_EXPIRATION);
+    },
 };
 
 module.exports = Session;

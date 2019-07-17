@@ -6,6 +6,7 @@
  */
 var constants = require('./constants');
 var Session = require('./session');
+var config = require('../../../config');
 
 /**
  * 微信登录，获取 code 和 encryptData
@@ -89,9 +90,13 @@ function login(opts) {
                 if (!res || !res.userinfo) {
                     return opts.fail(new Error(`登录失败(${data.error})：${data.message}`))
                 }
-
+                
+                let timeStamp = Date.parse(new Date());
+                let expireTime = config.expireSessionSession;
                 // 成功地响应会话信息
-                Session.set(res)
+                Session.set(res);
+                // 设置失效时间
+                Session.setSessionExpiration(timeStamp + expireTime);
                 opts.success(res.userinfo)
             },
             fail(err) {
@@ -116,10 +121,10 @@ function login(opts) {
  * @param {Function} [opts.fail]    可选。登录失败后的回调函数，参数 error 错误信息
  */
 function loginWithCode(opts) {
-    opts = Object.assign({}, defaultOptions, opts)
+    opts = Object.assign({}, defaultOptions, opts);
 
     if (!opts.loginUrl) {
-        return opts.fail(new Error('登录错误：缺少登录地址，请通过 setLoginUrl() 方法设置登录地址'))
+        return opts.fail(new Error('登录错误：缺少登录地址，请通过 setLoginUrl() 方法设置登录地址'));
     }
 
     wx.login({
@@ -138,22 +143,25 @@ function loginWithCode(opts) {
                     const data = result.data;
 
                     if (!data || data.code !== 0 || !data.data || !data.data.skey) {
-                        return opts.fail(new Error(`用户未登录过，请先使用 login() 登录`))
+                        return opts.fail(new Error(`用户未登录过，请先使用 login() 登录`));
                     }
 
-                    const res = data.data
+                    const res = data.data;
 
                     if (!res || !res.userinfo) {
-                        return opts.fail(new Error(`登录失败(${data.error})：${data.message}`))
+                        return opts.fail(new Error(`登录失败(${data.error})：${data.message}`));
                     }
-
+                    let timeStamp = Date.parse(new Date());
+                    let expireTime = config.expireSessionSession;
                     // 成功地响应会话信息
-                    Session.set(res)
-                    opts.success(res.userinfo)
+                    Session.set(res);
+                    // 设置失效时间
+                    Session.setSessionExpiration(timeStamp + expireTime);
+                    opts.success(res.userinfo);
                 },
                 fail(err) {
-                    console.error('登录失败，可能是网络错误或者服务器发生异常')
-                    opts.fail(err)
+                    console.error('登录失败，可能是网络错误或者服务器发生异常');
+                    opts.fail(err);
                 }
             });
         }

@@ -3,7 +3,8 @@
 //index.js
 var qcloud = require('../../../vendor/wafer2-client-sdk/index')
 var config = require('../../../config')
-var util = require('../../../utils/util.js');
+var util = require('../../../utils/util');
+var sessionUtils = require('../../../utils/sessionUtils');
 //在使用的View中引入WxParse模块
 var WxParse = require('../../../vendor/wxParse-richText/wxParse.js');
 
@@ -280,21 +281,29 @@ Page({
      */
     bookTicket: function(event) {
         var _that = this;
-        var tktInfo = event.currentTarget.dataset.tktInfo;
-        wx.navigateTo({
-            url: '/pages/spot/spotBook/spotBook?tktInfo=' + JSON.stringify(tktInfo),
-            success: function(res) {
+        let wxStorageSession = qcloud.getSession();
+        if (!sessionUtils.checkSessionExpire(qcloud)) {
+            wx.switchTab({
+                url: '/pages/my/my'
+            })
+        } else {
+            var tktInfo = event.currentTarget.dataset.tktInfo;
+            wx.navigateTo({
+                url: '/pages/spot/spotBook/spotBook?tktInfo=' + JSON.stringify(tktInfo),
+                success: function (res) {
 
-            },
-            fail: function(res) {
+                },
+                fail: function (res) {
 
-            }, 
-            complete: function(res) {
+                },
+                complete: function (res) {
 
-            },
-        })
+                },
+            })
+        }
+        
     },
-    fetchTicketNoticeDesc: function(tktId){
+    fetchTicketNoticeDesc: function(tktId) {
         var that = this;
 
         qcloud.request({
@@ -335,13 +344,13 @@ Page({
     /**
      * 购票须知
      */
-    noticeTicket: function(event){
+    noticeTicket: function(event) {
         var tktId = event.currentTarget.dataset.tktId;
         var _that = this;
         _that.fetchTicketNoticeDesc(tktId);
-        
+
     },
-    hideRule:function(){
+    hideRule: function() {
         this.setData({
             isRuleTrue: false
         });

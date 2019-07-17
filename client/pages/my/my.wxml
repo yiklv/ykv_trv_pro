@@ -10,7 +10,7 @@
                     </view>
                     <view class='header-right'>
                         <view class='nickname'>{{userInfo.nickName}}</view>
-                        <view class='tag'>最近登录时间：{{userInfo.lastLoginTime}}</view>
+                        <!-- <view class='tag'>最近登录时间：{{userInfo.lastLoginTime}}</view> -->
                     </view>
                 </block>
                 <block wx:else>
