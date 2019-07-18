@@ -76,11 +76,10 @@ function request(options) {
         var authHeader = {}
 
         if (requireLogin) {
-            var session = Session.get();
-
-            if (!session) {
+            if (!utils.checkLoginStatus()) {
                 return doRequestWithLogin();
             }
+            let session = Session.get();
             authHeader = buildAuthHeader(session.skey);
         }
         wx.request(utils.extend({}, options, {

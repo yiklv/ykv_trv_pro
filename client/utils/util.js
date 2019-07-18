@@ -177,7 +177,7 @@ var trim = (str) => {
  * @param phone 手机号码
  * @return true 通过 false 不通过
  */
-var phoneValidate = (phone) => {
+const phoneValidate = (phone) => {
     return (/^1(3|4|5|6|7|8|9)\d{9}$/.test(phone));
 }
 
@@ -186,9 +186,25 @@ var phoneValidate = (phone) => {
  * @param val 参数
  * @return true 是 false 否 
  */
-var chineseValidate = (val) => {
-    let reg = /[\u4e00-\u9fa5]/g;
+const chineseValidate = (val) => {
+    let reg = /^[\u4E00-\u9FA5]+$/;
     return reg.test(val);
+}
+/**
+ * 字符长度 汉字算两个字符
+ */
+const getStrLen = (val) => {
+    var len = 0;
+    for (var i = 0; i < val.length; i++) {
+        var length = val.charCodeAt(i);
+        if (length >= 0 && length <= 128) {
+            len += 1;
+        }
+        else {
+            len += 2;
+        }
+    }
+    return len;
 }
 
 module.exports = {
@@ -205,5 +221,6 @@ module.exports = {
     idCardValidate,
     phoneValidate, 
     chineseValidate,
-    trim
+    trim,
+    getStrLen,
 }

@@ -26,7 +26,8 @@ Page({
         choPrice: null, // 最终票金额
         choDate: null, // 最终选择日期
         showBookDetail: false,
-        animationData:{}
+        animationData:{},
+        getTktInfo: {}
     },
 
     /**
@@ -42,6 +43,8 @@ Page({
         let _price = _that.data.tktInfo.tktPrice * 1;
         let _sumMoney = _price * _that.data.bookNumber;
         _that.setTravelDate(options);
+        let _session = qcloud.getSession();
+        _that.getBookTktInfo(_session.userinfo.openId);
         _that.setData({
             defalutDate: {
                 trv_date: '更多日期 >',
@@ -50,6 +53,33 @@ Page({
             },
             choPrice: _price,
             sumMoney: _sumMoney
+        });
+    },
+
+    getBookTktInfo: function(openId){
+        var that = this;
+
+        qcloud.request({
+            url: config.service.common.getBookTktInfo,
+            login: true,
+            method: 'get',
+            data: { openId: openId },
+            success(result) {
+                var data = result.data;
+                if (data.retCode == '200') {
+                    var booktktInfo = data.retValue[0];
+                    that.setData({
+                        getTktInfo: booktktInfo||{}
+                    });
+
+                } else {
+                    util.showModel('异常', data.msg);
+                }
+
+            },
+            fail(error) {
+                util.showModel('请求失败', error);
+            }
         });
     },
     /**
@@ -319,16 +349,17 @@ Page({
     submitOrder:function(e){
         let _that = this;
         let getTkt = e.detail.value;
+        console.log(getTkt);
         /**取票人信息 */
         let tktUserName = util.trim(getTkt.tktUserName);
         let tktIdNo = util.trim(getTkt.tktIdNo);
         let tktMobilephone = util.trim(getTkt.tktMobilephone);
-        if (!tktUserName || '' == tktUserName || (tktUserName).length > 10){
-            util.showModel('取票人信息错误','取票人姓名不能为空或者长度不得超过10个汉字');
+        if (!tktUserName || '' == tktUserName || util.getStrLen(tktUserName) > 20 || util.getStrLen(tktUserName) < 4){
+            util.showModel('取票人信息错误','取票人姓名不能为空或者长度为2-10个汉字');
             return false;
         }
         if (!tktIdNo || '' == tktIdNo || (tktIdNo).length != 18) {
-            util.showModel('取票人信息错误', '取票人身份证不能为空或者长度必须为18');
+            util.showModel('取票人信息错误', '取票人身份证不能为空或者长度必须或18');
             return false;
         }
         if (!tktMobilephone || '' == tktMobilephone || (tktMobilephone).length != 11) {
@@ -336,7 +367,7 @@ Page({
             return false;
         }
         if (!util.chineseValidate(tktUserName)) {
-            util.showModel('取票人信息错误', '取票人姓名必须是中文');
+            util.showModel('取票人信息错误', '取票人姓名必须中文');
             return false;
         }
         if (!util.idCardValidate(tktIdNo)) {

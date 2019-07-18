@@ -11,4 +11,5 @@ module.exports = {
     'querySpotTktContList': { method: methods.get },
     'querySpotContentList': { method: methods.get },
     'queryTktDatePriceList':{ method: methods.get},
+    'queryBookTktInfo': { method: methods.get},
 }

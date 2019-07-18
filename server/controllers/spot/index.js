@@ -11,7 +11,8 @@ const m = model([
     'querySpotTktList',
     'querySpotContentList',
     'querySpotTktContList',
-    'queryTktDatePriceList'
+    'queryTktDatePriceList',
+    'queryBookTktInfo',
 ], 'spot')
 
 module.exports = {

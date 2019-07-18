@@ -241,7 +241,7 @@ create table `trv_spot_order`(
 drop table if exists `trv_spot_book_info`;
 create table `trv_spot_book_info`(
   `id_key` varchar(36) not null,
-  `user_id` varchar(32) not null comment '订单用户',
+  `open_id` varchar(100) not null comment 'open_id',
   `real_name` varchar(64) not null comment '姓名',
   `mobilePhone` varchar(12) comment '手机号',
   `id_no` varchar(20) not null comment '身份证',
@@ -251,7 +251,7 @@ create table `trv_spot_book_info`(
 	`updated_by` varchar(64) default 'SYSTEM',
 	PRIMARY KEY (`id_key`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='取票人信息';
-
+create unique INDEX `trv_spot_book_info_opid` on `trv_spot_book_info`(`open_id`);
 
 
 drop table if exists `trv_syc_user`;

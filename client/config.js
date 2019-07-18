@@ -43,7 +43,9 @@ var config = {
             // 获取首页广告接口
             advAddUrl: `${host}/weapp/advice/add`,
             // 获取首页广告接口
-            searchKeysUrl: `${host}/weapp/search/keyLists`
+            searchKeysUrl: `${host}/weapp/search/keyLists`,
+            // 获取订单中的取票人信息
+            getBookTktInfo: `${host}/weapp/spot/queryBookTktInfo`
         }, 
         // 景点router
         spot:{
@@ -61,7 +63,7 @@ var config = {
             spotTktContUrl: `${host}/weapp/spot/querySpotTktContList`,
             // 查询特定的日期价格
             spotTktDatePriceUrl: `${host}/weapp/spot/queryTktDatePriceList`,
-        }  
+        }
     }
 };
 

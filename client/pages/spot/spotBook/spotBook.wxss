@@ -378,8 +378,8 @@ radio-group label.checked:before {
 }
 
 .ruleZhezhaoContent {
-    padding: 68rpx 0;
-    width: 90%;
+    padding: 68rpx 30rpx;
+    width: 85%;
     background: #fff;
     margin: 16% auto;
     border-radius: 20rpx;
