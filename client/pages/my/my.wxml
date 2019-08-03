@@ -1,48 +1,48 @@
 <!--pages/my/my.wxml-->
 <view class="personal-contaier">
-    <view class='container'>
+  <view class='container'>
 
-        <view class='header-content'>
-            <view class='header'>
-                <block wx:if="{{logined}}">
-                    <view class='header-left'>
-                        <image src="{{logined ? userInfo.avatarUrl : '../../images/user-unlogin.png'}}" background-size="cover"></image>
-                    </view>
-                    <view class='header-right'>
-                        <view class='nickname'>{{userInfo.nickName}}</view>
-                        <!-- <view class='tag'>最近登录时间：{{userInfo.lastLoginTime}}</view> -->
-                    </view>
-                </block>
-                <block wx:else>
-                    <view class='header-left'>
-                        <image src="{{'../../images/user-unlogin.png'}}" background-size="cover"></image>
-                    </view>
-                    <view class='header-right'>
-                        <button wx:if="{{canIUse}}" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="login">授权登录</button>
-                        <view wx:else>请升级微信版本</view>
-                    </view>
-                </block>
-            </view>
-        </view>
+    <view class='header-content'>
+      <view class='header'>
+        <block wx:if="{{logined}}">
+          <view class='header-left'>
+            <image src="{{logined ? userInfo.avatarUrl : '../../images/user-unlogin.png'}}" background-size="cover"></image>
+          </view>
+          <view class='header-right'>
+            <view class='nickname'>{{userInfo.nickName}}</view>
+            <!-- <view class='tag'>最近登录时间：{{userInfo.lastLoginTime}}</view> -->
+          </view>
+        </block>
+        <block wx:else>
+          <view class='header-left'>
+            <image src="{{'../../images/user-unlogin.png'}}" background-size="cover"></image>
+          </view>
+          <view class='header-right'>
+            <button wx:if="{{canIUse}}" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="login">授权登录</button>
+            <view wx:else>请升级微信版本</view>
+          </view>
+        </block>
+      </view>
+    </view>
 
-        <view class='gap'></view>
+    <view class='gap'></view>
 
-        <view class='content-body'>
-            <view class='gap'></view>
-            <view class='order-info'>
-                <view class='info-header'>
-                    <view>我的订单</view>
-                    <!-- <view class='all-order'>
+    <view class='content-body'>
+      <view class='gap'></view>
+      <view class='order-info'>
+        <view class='info-header'>
+          <view>我的订单</view>
+          <!-- <view class='all-order'>
                         <view>全部订单</view>
                         <image class='turn-right-icon' src='../../images/icons/turn-right.png'></image>
                     </view> -->
-                </view>
-                <view class='order-content'>
-                    <view class='order-item wait-pay'>
-                        <image class='order-icon' src='../../images/icons/wait-pay.png'></image>
-                        <view>待付款</view>
-                    </view>
-                    <!--
+        </view>
+        <view class='order-content'>
+          <view class='order-item wait-pay'>
+            <image class='order-icon' src='../../images/icons/wait-pay.png'></image>
+            <view>待付款</view>
+          </view>
+          <!--
                     <view class='wait-pay order-item'>
                         <image class='order-icon' src='../../images/icons/wait-send.png'></image>
                         <view>待发货</view>
@@ -52,61 +52,61 @@
                         <view>配送中</view>
                     </view> 
                     -->
-                    <view class='wait-pay order-item'>
-                        <image class='order-icon' src='../../images/icons/tuikuang.png'></image>
-                        <view>退款中</view>
-                    </view>
-                    <view class='wait-pay order-item'>
-                        <image class='order-icon' src='../../images/icons/finish.png'></image>
-                        <view>已完成</view>
-                    </view>
-                    <view class='wait-pay order-item'>
-                        <image class='order-icon' src='../../images/icons/btn_all_01.png'></image>
-                        <view>全部</view>
-                    </view>
-                </view>
-            </view>
-
-            <view class='service-content'>
-                <view class='service-item'>
-                    <view class='item-icon'>
-                        <image class='service-icon' src='../../images/icons/comment.png'></image>
-                        <view class='service-title'>优惠券</view>
-                    </view>
-                    <view class='direct'>
-                        <image class='direct-icon' src='../../images/icons/turn-right.png'></image>
-                    </view>
-                </view>
-                <view class='service-item'>
-                    <view class='item-icon'>
-                        <image class='service-icon' src='../../images/icons/view.png'></image>
-                        <view class='service-title'>浏览历史</view>
-                    </view>
-                    <view class='direct'>
-                        <image class='direct-icon' src='../../images/icons/turn-right.png'></image>
-                    </view>
-                </view>
-                <view class='service-item'>
-                    <view class='item-icon'>
-                        <image class='service-icon' src='../../images/icons/address.png'></image>
-                        <view class='service-title'>地址管理</view>
-                    </view>
-                    <view class='direct'>
-                        <image class='direct-icon' src='../../images/icons/turn-right.png'></image>
-                    </view>
-                </view>
-                <view class='service-item'>
-                    <view class='item-icon'>
-                        <image class='service-icon' src='../../images/icons/servicer.png'></image>
-                        <view class='service-title'>联系客服</view>
-                    </view>
-                    <view class='direct'>
-                        <image class='direct-icon' src='../../images/icons/turn-right.png'></image>
-                    </view>
-                </view>
-            </view>
-
+          <view class='wait-pay order-item'>
+            <image class='order-icon' src='../../images/icons/tuikuang.png'></image>
+            <view>退款中</view>
+          </view>
+          <view class='wait-pay order-item'>
+            <image class='order-icon' src='../../images/icons/finish.png'></image>
+            <view>已完成</view>
+          </view>
+          <view class='wait-pay order-item'>
+            <image class='order-icon' src='../../images/icons/btn_all_01.png'></image>
+            <view>全部</view>
+          </view>
         </view>
+      </view>
+
+      <view class='service-content'>
+        <view class='service-item'>
+          <view class='item-icon'>
+            <image class='service-icon' src='../../images/icons/comment.png'></image>
+            <view class='service-title'>优惠券</view>
+          </view>
+          <view class='direct'>
+            <image class='direct-icon' src='../../images/icons/turn-right.png'></image>
+          </view>
+        </view>
+        <view class='service-item'>
+          <view class='item-icon'>
+            <image class='service-icon' src='../../images/icons/view.png'></image>
+            <view class='service-title'>浏览历史</view>
+          </view>
+          <view class='direct'>
+            <image class='direct-icon' src='../../images/icons/turn-right.png'></image>
+          </view>
+        </view>
+        <view class='service-item'>
+          <view class='item-icon'>
+            <image class='service-icon' src='../../images/icons/address.png'></image>
+            <view class='service-title'>地址管理</view>
+          </view>
+          <view class='direct'>
+            <image class='direct-icon' src='../../images/icons/turn-right.png'></image>
+          </view>
+        </view>
+        <view class='service-item'>
+          <view class='item-icon'>
+            <image class='service-icon' src='../../images/icons/servicer.png'></image>
+            <view class='service-title'>联系客服</view>
+          </view>
+          <view class='direct'>
+            <image class='direct-icon' src='../../images/icons/turn-right.png'></image>
+          </view>
+        </view>
+      </view>
 
     </view>
+
+  </view>
 </view>

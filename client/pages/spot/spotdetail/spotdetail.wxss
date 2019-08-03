@@ -3,333 +3,334 @@
 /*在使用的Wxss中引入WxParse.css,可以在app.wxss*/
 @import "../../../vendor/wxParse-richText/wxParse.wxss";
 
-
 .space-content {
-    background: #f9f9f9;
+  background: #f9f9f9;
 }
 
 .space-top, .space-block {
-    padding: 20rpx;
-    background: #fff;
-    margin-bottom: 20rpx;
-    border-bottom: 1rpx solid #ddd;
+  padding: 20rpx;
+  background: #fff;
+  margin-bottom: 20rpx;
+  border-bottom: 1rpx solid #ddd;
 }
 
 .space-block {
-    border-top: 1rpx solid #ddd;
+  border-top: 1rpx solid #ddd;
 }
 
 .space-banner {
-    position: relative;
+  position: relative;
 }
 
 .space-banner swiper {
-    width: 100%;
-    height: 360rpx;
+  width: 100%;
+  height: 360rpx;
 }
 
 .space-banner .slide-image {
-    width: 100%;
-    height: 360rpx;
+  width: 100%;
+  height: 360rpx;
 }
 
 .number-banner {
-    position: absolute;
-    right: 40rpx;
-    margin-top: -80rpx;
-    padding: 0 16rpx;
-    background: rgba(0, 0, 0, 0.3);
-    border-radius: 6rpx;
-    color: #fff;
-    font-size: 36rpx;
+  position: absolute;
+  right: 40rpx;
+  margin-top: -80rpx;
+  padding: 0 16rpx;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 6rpx;
+  color: #fff;
+  font-size: 36rpx;
 }
 
 .number-banner text:last-child {
-    color: rgba(255, 255, 255, 0.6);
-    font-size: 30rpx;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 30rpx;
 }
 
 .space-title {
-    font-size: 44rpx;
-    line-height: 2;
-    color: #000;
+  font-size: 44rpx;
+  line-height: 2;
+  color: #000;
 }
 
 .space-tags {
-    margin-bottom: 10rpx;
+  margin-bottom: 10rpx;
 }
 
 .space-tags text {
-    padding: 6rpx 16rpx;
-    border: 1rpx solid #f7982a;
-    line-height: 1;
-    color: #f7982a;
-    font-size: 28rpx;
-    border-radius: 4rpx;
-    margin-right: 10rpx;
-    margin-bottom: 10rpx;
-    white-space: nowrap;
+  padding: 6rpx 16rpx;
+  border: 1rpx solid #f7982a;
+  line-height: 1;
+  color: #f7982a;
+  font-size: 28rpx;
+  border-radius: 4rpx;
+  margin-right: 10rpx;
+  margin-bottom: 10rpx;
+  white-space: nowrap;
 }
 
 .space-item {
-    display: flex;
-    font-size: 28rpx;
-    color: #555;
-    padding: 16rpx 0;
-    border-bottom: 1rpx solid #eee;
+  display: flex;
+  font-size: 28rpx;
+  color: #555;
+  padding: 16rpx 0;
+  border-bottom: 1rpx solid #eee;
 }
 
 .space-item .text-left {
-    width: 20%;
-    white-space: nowrap;
+  width: 20%;
+  white-space: nowrap;
 }
 
 .space-item .text-orange {
-    font-size: 28rpx;
-    color: #777;
-    line-height: 1;
+  font-size: 28rpx;
+  color: #777;
+  line-height: 1;
 }
 
 .space-item .text-mid {
-    color: #777;
+  color: #777;
 }
 
 .space-item .text-mid-de {
-    width: 76%;
-    color: #777;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: block;
+  width: 76%;
+  color: #777;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
 }
 
 .view-right .text-right {
-    color: #777;
-    
-    flex-direction: column;
+  color: #777;
+  flex-direction: column;
 }
 
 .text-right image {
-    width: 24rpx;
-    height: 24rpx;
-    
+  width: 24rpx;
+  height: 24rpx;
 }
 
 .container-footer text.apply-btn {
-    background: #f7982a;
-    color: #fff;
-    flex: 1.5;
+  background: #f7982a;
+  color: #fff;
+  flex: 1.5;
 }
 
 .space-block-title {
-    font-size: 34rpx;
+  font-size: 34rpx;
 }
 
 .space-block-title:before {
-    content: '';
-    display: inline-block;
-    vertical-align: -6rpx;
-    width: 6rpx;
-    height: 40rpx;
-    background: #09c;
-    margin-right: 8rpx;
+  content: '';
+  display: inline-block;
+  vertical-align: -6rpx;
+  width: 6rpx;
+  height: 40rpx;
+  background: #09c;
+  margin-right: 8rpx;
 }
 
 .space-block-content .space-list {
-    overflow: hidden;
+  overflow: hidden;
 }
 
 .space-block-content .space-list .space-item {
-    width: 50%;
-    float: left;
+  width: 50%;
+  float: left;
 }
 
 .space-passage {
-    font-size: 30rpx;
-    text-indent: 2em;
-    margin-top: 20rpx;
+  font-size: 30rpx;
+  text-indent: 2em;
+  margin-top: 20rpx;
 }
 
 .text-mid-de .img_right {
-    width: 24rpx;
-    height: 24rpx;
+  width: 24rpx;
+  height: 24rpx;
 }
 
 .img_space {
-    padding-left: 20rpx;
+  padding-left: 20rpx;
 }
 
 .tkt-item {
-    display: flex;
-    font-size: 28rpx;
-    color: #555;
-    padding: 14rpx 0;
-    border-top: 1rpx solid #eee;
+  display: flex;
+  font-size: 28rpx;
+  color: #555;
+  padding: 14rpx 0;
+  border-top: 1rpx solid #eee;
 }
 
 .text-mid-de .spot_know_txt {
-    color: #777;
-    font-size: 24rpx;
+  color: #777;
+  font-size: 24rpx;
 }
 
 .tkt_type_img {
-    width: 24rpx;
-    height: 24rpx;
+  width: 24rpx;
+  height: 24rpx;
 }
 
 .tkt_img_view {
-    width: 5%;
+  width: 5%;
 }
 
 .tkt_name_view {
-    width: 90%;
+  width: 90%;
 }
 
 .show {
-    display: block;
+  display: block;
 }
 
 .hidden {
-    display: none;
+  display: none;
 }
 
-
 .tkt-info-text {
-    border-top: 1rpx solid #eee;
+  border-top: 1rpx solid #eee;
 }
 
 .tkt-info-tags {
-    margin: 6rpx 0;
-    
-    display: flex;
-    flex-direction: row;
-    justify-content:space-between;
+  margin: 6rpx 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
-
 .tkt-info-tags .tag-text {
-    padding-top: 16rpx;
-    line-height: 1;
-    font-size: 28rpx;
-    color: rgb(85, 85, 85);
+  padding-top: 16rpx;
+  line-height: 1;
+  font-size: 28rpx;
+  color: rgb(85, 85, 85);
 }
 
 .tkt-info-city {
-    color: #666;
-    font-size: 24rpx;
+  color: #666;
+  font-size: 24rpx;
 }
+
 .tkt-info-pnew {
-    color: #ff4500;
-    text-align: right;
-    font-size: 32rpx;
+  color: #ff4500;
+  text-align: right;
+  font-size: 32rpx;
 }
-.tkt-info-pnew .price-sign{
-    font-size: 20rpx;
+
+.tkt-info-pnew .price-sign {
+  font-size: 20rpx;
 }
 
 .tkt-info-pold {
-    color: #A9A9A9;
-    font-size: 24rpx;
-    float:right;
-    text-decoration:line-through;
+  color: #a9a9a9;
+  font-size: 24rpx;
+  float: right;
+  text-decoration: line-through;
 }
 
 .tkt_book_view .img_right {
-    width: 24rpx;
-    height: 24rpx;
+  width: 24rpx;
+  height: 24rpx;
 }
 
-.tkt-info-btn-view{
-    height:78rpx;
+.tkt-info-btn-view {
+  height: 78rpx;
 }
 
-.tkt-info-btn{
-    background-color: #09f;
-    color: #fff;
-    float:right;
-    padding: 4rpx 20rpx;
-    border-radius: 15%;
-    overflow: hidden;
+.tkt-info-btn {
+  background-color: #09f;
+  color: #fff;
+  float: right;
+  padding: 4rpx 20rpx;
+  border-radius: 15%;
+  overflow: hidden;
 }
-
-
 
 /* 规则提示层  */
-.isRuleShow{
-    display: block;
+
+.isRuleShow {
+  display: block;
 }
-.isRuleHide{
-    display: none;
+
+.isRuleHide {
+  display: none;
 }
-.ruleZhezhao{
-    height: 100%;
-    width: 100%;
-    position: fixed;
-    background-color:rgba(0, 0, 0, .5);
-    z-index: 2;
-    top: 0;
-    left: 0;
+
+.ruleZhezhao {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2;
+  top: 0;
+  left: 0;
 }
-.ruleZhezhaoContent{
-    padding: 68rpx 0;
-    width: 90%;
-    background: #fff;
-    margin: 16% auto;
-    border-radius: 20rpx;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    position: relative;
-    height: 68%;
+
+.ruleZhezhaoContent {
+  padding: 68rpx 0;
+  width: 90%;
+  background: #fff;
+  margin: 16% auto;
+  border-radius: 20rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  position: relative;
+  height: 68%;
 }
-.ruleZhezhaoText{
-    width: 80%;
-    font-size: 30rpx;
-    color: #856d5f;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin: 25rpx 0 25rpx 0;
+
+.ruleZhezhaoText {
+  width: 80%;
+  font-size: 30rpx;
+  color: #856d5f;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 25rpx 0 25rpx 0;
 }
-.ruleZhezhaoText text:nth-child(1){
-    color: #fff;
-    font-size: 40rpx;
-    height: 60rpx;
-    width: 60rpx;
-    background: #664a2c;
-    display: block;
-    text-align: center;
-    line-height: 60rpx;
-    border-radius: 30rpx;
-    margin-right: 10rpx;
+
+.ruleZhezhaoText text:nth-child(1) {
+  color: #fff;
+  font-size: 40rpx;
+  height: 60rpx;
+  width: 60rpx;
+  background: #664a2c;
+  display: block;
+  text-align: center;
+  line-height: 60rpx;
+  border-radius: 30rpx;
+  margin-right: 10rpx;
 }
-.ruleZhezhaoText text:nth-child(2){
-    flex-wrap:wrap;
-    width: 80%;
+
+.ruleZhezhaoText text:nth-child(2) {
+  flex-wrap: wrap;
+  width: 80%;
 }
-.ruleHide{
-    height: 30rpx!important;
-    width: 30rpx!important;
-    position: absolute;
-    top:139rpx;
-    right:58rpx;
+
+.ruleHide {
+  height: 30rpx !important;
+  width: 30rpx !important;
+  position: absolute;
+  top: 139rpx;
+  right: 58rpx;
 }
-.rule{
-    display: block;
-    border: 1px solid #fff;
-    width: 100rpx;
-    text-align: center;
-    line-height: 60rpx;
-    color: #fff;
-    height: 60rpx;
-    font-size: 30rpx;
-    border-radius: 30rpx;
-    position: absolute;
-    top: 10%;
-    right: 5%;
+
+.rule {
+  display: block;
+  border: 1px solid #fff;
+  width: 100rpx;
+  text-align: center;
+  line-height: 60rpx;
+  color: #fff;
+  height: 60rpx;
+  font-size: 30rpx;
+  border-radius: 30rpx;
+  position: absolute;
+  top: 10%;
+  right: 5%;
 }
+
 /*  end  */
-
-
-

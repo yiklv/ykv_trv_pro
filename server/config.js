@@ -8,6 +8,13 @@ const CONF = {
     // 微信小程序 App Secret
     appSecret: '6e7fcc0fbc38f4113af126f49b5e874a',
 
+    mch_id: '10000100', // 小程序商户id
+    pfx_path: './public/crt/wxpay_cert.p12', //微信商户平台证书路径
+    // 通知地址 异步接收微信支付结果通知的回调地址，通知url必须为外网可访问的url，不能携带参数。
+    notify_url: 'http://localhost:5757/weapp/advice/list',
+    // 终端IP  支持IPV4和IPV6两种格式的IP地址。调用微信支付API的机器IP
+    spbill_create_ip:'127.0.0.1',
+
     // 是否使用腾讯云代理登录小程序
     useQcloudLogin: false,
 

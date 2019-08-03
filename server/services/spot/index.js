@@ -2,8 +2,10 @@
 
 const pool = require('../../db/mysql');
 const { random } = require('../../utils/stringutils');
-
+const serviceResponse = require('../response/response');
 const { query, insert } = pool;
+
+
 
 // 新添管理员
 const add = (val) => {
@@ -50,9 +52,7 @@ const list = async (val) => {
         let param = ['Y', _page * _rows, _rows];
         return query(sql_str, param);
     } else {
-        return new Promise((resolve, reject) => {
-            resolve([]);
-        });
+        return serviceResponse.emptyResponse();
     }
 
 }
@@ -134,7 +134,7 @@ const querySpotTktList = async (val) => {
         tktInfoList.push(obj);
     }
 
-    return new Promise((resolve, reject) => { resolve(tktInfoList); });
+    return serviceResponse.setResponse(tktInfoList);//new Promise((resolve, reject) => { resolve(tktInfoList); });
 }
 
 /**
@@ -145,9 +145,9 @@ const querySpotTktList = async (val) => {
  *  @param   {[type]}                 val [description]
  *  @return  {[type]}                     [description]
  */
-const querySpotContentList= val =>{
+const querySpotContentList = val => {
     let spotId = val.spotId;
-    let sql_tkt_type = 'select tt.spot_intr_desc as spotIntrDesc,tt.spot_note_desc as spotNoteDesc from trv_spot_info_desc tt where tt.spot_id = ?' ;
+    let sql_tkt_type = 'select tt.spot_intr_desc as spotIntrDesc,tt.spot_note_desc as spotNoteDesc from trv_spot_info_desc tt where tt.spot_id = ?';
     let typeparam = [spotId];
     return query(sql_tkt_type, typeparam);
 }
@@ -161,11 +161,12 @@ const querySpotContentList= val =>{
  *  @param   {[type]}                 val [description]
  *  @return  {[type]}                     [description]
  */
-const querySpotTktContList= val =>{
+const querySpotTktContList = val => {
     let tktId = val.tktId;
-    let sql_tkt_type = 'select tt.tkt_note_desc as tktNoteDesc from trv_tkt_info_desc tt where tt.tkt_id = ?' ;
+    let sql_tkt_type = 'select tt.tkt_note_desc as tktNoteDesc from trv_tkt_info_desc tt where tt.tkt_id = ?';
     let typeparam = [tktId];
     return query(sql_tkt_type, typeparam);
+
 }
 
 /**
@@ -176,29 +177,31 @@ const querySpotTktContList= val =>{
  *  @param   {[type]}                 val [description]
  *  @return  {[type]}                     [description]
  */
-const queryTktDatePriceList= val =>{
+const queryTktDatePriceList = val => {
     let tktId = val.tktId;
     let qryDate = val.qryDate;
     let qryCount = val.qryCount;
     let sql_tkt_type = null;
     let typeparam = null;
-    if(qryCount){
+    if (qryCount) {
         sql_tkt_type = `select tt.tkt_id as tktId, tt.spc_date as spcDate,tt.spc_day as spcDay, tt.spc_price as spcPrice from trv_tkt_price_date tt 
-                         where tt.tkt_id = ? order by tt.spc_date, tt.spc_day limit ?` ;
-        typeparam = [tktId, qryCount*1];
-    }else{
-        sql_tkt_type = `select tt.tkt_id as tktId, tt.spc_date as spcDate,tt.spc_day as spcDay, tt.spc_price as spcPrice from trv_tkt_price_date tt where tt.tkt_id = ? and tt.spc_date = ? ` ;
-        typeparam = [tktId, qryDate];                 
+                         where tt.tkt_id = ? order by tt.spc_date, tt.spc_day limit ?`;
+        typeparam = [tktId, qryCount * 1];
+    } else {
+        sql_tkt_type = `select tt.tkt_id as tktId, tt.spc_date as spcDate,tt.spc_day as spcDay, tt.spc_price as spcPrice from trv_tkt_price_date tt where tt.tkt_id = ? and tt.spc_date = ? `;
+        typeparam = [tktId, qryDate];
     }
     return query(sql_tkt_type, typeparam);
 }
 
-const queryBookTktInfo = val =>{
+const queryBookTktInfo = val => {
     let openId = val.openId;
-    let sql_tkt_type = `select tt.real_name as tktUserName, tt.mobilePhone as tktMobilephone,tt.id_no as tktIdNo from trv_spot_book_info tt where tt.open_id = ? ` ;
+    let sql_tkt_type = `select tt.real_name as tktUserName, tt.mobilePhone as tktMobilephone,tt.id_no as tktIdNo from trv_spot_book_info tt where tt.open_id = ? `;
     let typeparam = [openId];
     return query(sql_tkt_type, typeparam);
 }
+
+
 
 module.exports = {
     list,

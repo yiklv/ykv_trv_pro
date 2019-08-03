@@ -1,45 +1,45 @@
 <!--index.wxml-->
 
 <view class="container">
-    <view class="view_adv {{scrolltop>200?'tophide':''}}">
-        <view class="view_swiper">
-            <swiper class='swiper_clz' indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" circular="{{circular}}" interval="{{interval}}" duration="{{duration}}">
-                <block wx:for="{{imgUrls}}" wx:key="imgKey">
-                    <swiper-item>
-                        <image src="{{host}}/{{item.adv_img}}" class="slide-image" mode='{{imgMode}}' data-img-url='{{item.adv_url}}' bindtap='goAdviceLink' />
-                    </swiper-item>
-                </block>
-            </swiper>
-        </view>
+  <view class="view_adv {{scrolltop>200?'tophide':''}}">
+    <view class="view_swiper">
+      <swiper class='swiper_clz' indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" circular="{{circular}}" interval="{{interval}}" duration="{{duration}}">
+        <block wx:for="{{imgUrls}}" wx:key="imgKey">
+          <swiper-item>
+            <image src="{{host}}/{{item.adv_img}}" class="slide-image" mode='{{imgMode}}' data-img-url='{{item.adv_url}}' bindtap='goAdviceLink' />
+          </swiper-item>
+        </block>
+      </swiper>
     </view>
-    <view class="search ">
-        <!--  -->
-        <view class='searchItem'>
-            <image src='../../images/icons/btn_search_01.png' />
-            <input placeholder='搜索景点' confirm-type="search" bindfocus='getSearchFocus' name="search"></input>
-        </view>
+  </view>
+  <view class="search ">
+    <!--  -->
+    <view class='searchItem'>
+      <image src='../../images/icons/btn_search_01.png' />
+      <input placeholder='搜索景点' confirm-type="search" bindfocus='getSearchFocus' name="search"></input>
     </view>
-    <scroll-view class="container-body" scroll-y="true" scroll-top="{{scrolltop}}" bindscroll="scrollHandle" lower-threshold="50" bindscrolltolower="scrollLoading">
-        <view class="service-list">
-            <navigator class="service-item" wx:for="{{spotLists}}" wx:key="{{item.spotId}}" url="../spot/spotdetail/spotdetail?spotId={{item.spotId}}">
-                <view class="service-img">
-                    <image src="{{host}}/{{item.imageUrl}}" mode="aspectFill"></image>
-                </view>
-                <view class="service-text">
-                    <view class="service-tite">{{item.spotName}}</view>
-                    <view class="service-tags">
-                        <text class="tag-text">{{item.spotLvlDesc}}</text>
-                        <view class="service-pnew">
-                            <text class="price-sign">￥</text>{{item.spotPrice}}
-                            <text class="price-sign">起</text>
-                        </view>
-                    </view>
-                    <text class="service-city">{{item.areaName}}</text>
-                    <text class="service-pold">￥{{item.spotOldPrice}}</text>
-                </view>
-                <!-- <view class="service-price"></view> -->
-            </navigator>
+  </view>
+  <scroll-view class="container-body" scroll-y="true" scroll-top="{{scrolltop}}" bindscroll="scrollHandle" lower-threshold="50" bindscrolltolower="scrollLoading">
+    <view class="service-list">
+      <navigator class="service-item" wx:for="{{spotLists}}" wx:key="{{item.spotId}}" url="../spot/spotdetail/spotdetail?spotId={{item.spotId}}">
+        <view class="service-img">
+          <image src="{{host}}/{{item.imageUrl}}" mode="aspectFill"></image>
         </view>
-        <view class="gototop {{scrolltop>200?'active':''}}" bindtap="goToTop"></view>
-    </scroll-view>
+        <view class="service-text">
+          <view class="service-tite">{{item.spotName}}</view>
+          <view class="service-tags">
+            <text class="tag-text">{{item.spotLvlDesc}}</text>
+            <view class="service-pnew">
+              <text class="price-sign">￥</text>{{item.spotPrice}}
+              <text class="price-sign">起</text>
+            </view>
+          </view>
+          <text class="service-city">{{item.areaName}}</text>
+          <text class="service-pold">￥{{item.spotOldPrice}}</text>
+        </view>
+        <!-- <view class="service-price"></view> -->
+      </navigator>
+    </view>
+    <view class="gototop {{scrolltop>200?'active':''}}" bindtap="goToTop"></view>
+  </scroll-view>
 </view>

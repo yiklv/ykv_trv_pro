@@ -5,7 +5,6 @@ const success = (result) => {
     }
 }
 const failed = (error) => {
-    console.log(error)
     return {
         retCode: 500,
         msg: error.message || '服务器异常'

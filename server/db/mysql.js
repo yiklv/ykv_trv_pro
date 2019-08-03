@@ -38,18 +38,87 @@ const mysqlPool = mysql.createPool({
     connectionLimit: 100,
     queueLimit: 90
 });
-
+/**
+ *  查询
+ *  @author yiklv_yanguo
+ *  @date    2019-08-03T17:04:13+0800
+ *  @version [version]
+ *  @param   {[type]}                 sql       [description]
+ *  @param   {[type]}                 condition [description]
+ *  @return  {[type]}                           [description]
+ */
 const query = (sql, condition) => {
-	if (!sql || sql == '') {
+    if (!sql || sql == '') {
         return myError.myError('sql error--------->query sql is empty');
     }
-	condition = condition || [];
+    condition = condition || [];
 
     return new Promise((resolve, reject) => {
         mysqlPool.getConnection(function(err, connection) {
             connection.query(sql, condition, function(err, rows) {
-            	debug('query_sql: %o', sql);
-            	debug('query_sql param: %o', condition);
+                debug('query_sql: %o', sql);
+                debug('query_sql param: %o', condition);
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(rows);
+                }
+            });
+            connection.release();
+        });
+    });
+}
+/**
+ *  插入
+ *  @author yiklv_yanguo
+ *  @date    2019-08-03T17:04:06+0800
+ *  @version [version]
+ *  @param   {[type]}                 sql       [description]
+ *  @param   {[type]}                 condition [description]
+ *  @return  {[type]}                           [description]
+ */
+const insert = (sql, condition) => {
+    if (!sql || sql == '') {
+        return myError.myError('sql error--------->insert sql is empty');
+    }
+    condition = condition || [];
+
+    return new Promise((resolve, reject) => {
+        mysqlPool.getConnection(function(err, connection) {
+            connection.query(sql, condition, function(err, rows) {
+                debug('insert_sql: %o', sql);
+                debug('insert_sql param: %o', condition);
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(rows);
+                }
+            });
+            connection.release();
+        });
+    });
+}
+
+/**
+ *  更新
+ *  @author yiklv_yanguo
+ *  @date    2019-08-03T17:04:36+0800
+ *  @version 1.0.0
+ *  @param   {String}                 sql       sql String
+ *  @param   {Array}                  condition sql参数
+ *  @return  {void}                             
+ */
+const update = (sql, condition) => {
+    if (!sql || sql == '') {
+        return myError.myError('sql error--------->update sql is empty');
+    }
+    condition = condition || [];
+
+    return new Promise((resolve, reject) => {
+        mysqlPool.getConnection(function(err, connection) {
+            connection.query(sql, condition, function(err, rows) {
+                debug('update_sql: %o', sql);
+                debug('update_sql param: %o', condition);
                 if (err) {
                     reject(err);
                 } else {
@@ -62,5 +131,7 @@ const query = (sql, condition) => {
 }
 
 module.exports = {
-    query: query
+    query: query,
+    insert: insert,
+    update:update,
 }

@@ -1,50 +1,50 @@
 {
-    "pages": [
-        "pages/index/index",
-        "pages/search/search",
-        "pages/my/my",
-        "pages/spot/spotdetail/spotdetail",
-        "pages/spot/spotBook/spotBook",
-        "pages/spot/calender/calender",
-        "pages/spot/teamservice/teamservice",
-        "pages/test/test",
-
-        "pages/my/index/index"
-    ],
-    "window": {
-        "backgroundColor": "#f6f6f6",
-        "backgroundTextStyle": "dark",
-        "navigationBarBackgroundColor": "#0099ff",
-        "navigationBarTitleText": "xx门票",
-        "navigationBarTextStyle": "black",
-        "enablePullDownRefresh": false
-    },
-    "tabBar": {
-        "color": "#7A7E83",
-        "selectedColor": "#0099ff",
-        "backgroundColor": "#f6f6f6",
-        "borderStyle": "black",
-        "position": "bottom",
-        "list": [
-            {
-                "pagePath": "pages/index/index",
-                "text": "首页",
-                "iconPath": "images/icons/btn-tabs_01.png",
-                "selectedIconPath":"images/icons/btn-tabs_07.png"
-            }, {
-                "pagePath": "pages/my/my",
-                "text": "我的",
-                "iconPath": "images/icons/btn-tabs_06.png",
-                "selectedIconPath": "images/icons/btn-tabs_10.png"
-            }
-        ]
-    },
-    "networkTimeout": {
-        "request": 10000,
-        "downloadFile": 10000,
-        "uploadFile":10000,
-        "connectSocket":10000
-    },
-    "debug": true,
-    "sitemapLocation": "sitemap.json"
+  "pages": [
+    "pages/index/index",
+    "pages/search/search",
+    "pages/my/my",
+    "pages/spot/spotdetail/spotdetail",
+    "pages/spot/spotBook/spotBook",
+    "pages/spot/calender/calender",
+    "pages/spot/teamservice/teamservice",
+    "pages/test/test",
+    "pages/my/index/index"
+  ],
+  "window": {
+    "backgroundColor": "#f6f6f6",
+    "backgroundTextStyle": "dark",
+    "navigationBarBackgroundColor": "#0099ff",
+    "navigationBarTitleText": "xx门票",
+    "navigationBarTextStyle": "black",
+    "enablePullDownRefresh": false
+  },
+  "tabBar": {
+    "color": "#7A7E83",
+    "selectedColor": "#0099ff",
+    "backgroundColor": "#f6f6f6",
+    "borderStyle": "black",
+    "position": "bottom",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "images/icons/btn-tabs_01.png",
+        "selectedIconPath": "images/icons/btn-tabs_07.png"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "text": "我的",
+        "iconPath": "images/icons/btn-tabs_06.png",
+        "selectedIconPath": "images/icons/btn-tabs_10.png"
+      }
+    ]
+  },
+  "networkTimeout": {
+    "request": 10000,
+    "downloadFile": 10000,
+    "uploadFile": 10000,
+    "connectSocket": 10000
+  },
+  "debug": true,
+  "sitemapLocation": "sitemap.json"
 }

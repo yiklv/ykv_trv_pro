@@ -219,39 +219,49 @@ create table `trv_spot_keyword`(
 	PRIMARY KEY (`id_key`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='景点关键词表';
 
+DROP TABLE IF EXISTS `trv_spot_order`;
 
-drop table if exists `trv_spot_order`;
-create table `trv_spot_order`(
-  `id_key` varchar(36) not null,
-  `order_id` varchar(16) not null comment '订单id',
-  `order_info` varchar(100) comment '订单详情',
-  `user_id` varchar(16) not null comment '订单用户',
-  `spot_id` varchar(18) not null comment '景点id',
-  `tkt_id` varchar(18) not null comment '票务id',
-  `trv_time` varchar(10) not null comment '游玩日期',
-  `order_price` decimal(18, 2) not null comment '单价',
-  `tkt_num` tinyint not null comment '购票数量',
-  `date_created` timestamp  default CURRENT_TIMESTAMP,
-	`created_by` varchar(64) default 'SYSTEM',
-	`date_updated` timestamp  default CURRENT_TIMESTAMP,
-	`updated_by` varchar(64) default 'SYSTEM',
+CREATE TABLE `trv_spot_order` (
+	`id_key` VARCHAR (36) NOT NULL,
+	`order_id` VARCHAR (16) NOT NULL COMMENT '订单id',
+	`order_info` VARCHAR (320) COMMENT '订单详情',
+	`open_id` VARCHAR (100) NOT NULL COMMENT '订单用户',
+	`tkt_id` VARCHAR (18) NOT NULL COMMENT '票务id',
+	`trv_time` VARCHAR (10) NOT NULL COMMENT '游玩日期',
+	`order_price` DECIMAL (18, 2) NOT NULL COMMENT '单价',
+	`tkt_num` TINYINT NOT NULL COMMENT '购票数量',
+	`sum_price` DECIMAL (18, 2) NOT NULL COMMENT '总价',
+	`time_start` VARCHAR (16) NOT NULL COMMENT '交易起始时间',
+	`time_expire` VARCHAR (16) NOT NULL COMMENT '交易结束时间',
+	`order_desc` text NOT NULL COMMENT '订单报文详情',
+	`order_status` VARCHAR (5) NOT NULL COMMENT '订单状态  1 待支付， 2 已支付， 3 已取消， 4 已失效， ',
+	`order_end_time` VARCHAR (16) COMMENT '订单支付完成时间',
+	`date_created` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	`created_by` VARCHAR (64) DEFAULT 'SYSTEM',
+	`date_updated` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	`updated_by` VARCHAR (64) DEFAULT 'SYSTEM',
 	PRIMARY KEY (`id_key`)
-)ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='订单信息';
+) ENGINE = INNODB DEFAULT CHARSET = utf8 COMMENT = '订单信息';
 
-drop table if exists `trv_spot_book_info`;
-create table `trv_spot_book_info`(
-  `id_key` varchar(36) not null,
-  `open_id` varchar(100) not null comment 'open_id',
-  `real_name` varchar(64) not null comment '姓名',
-  `mobilePhone` varchar(12) comment '手机号',
-  `id_no` varchar(20) not null comment '身份证',
-  `date_created` timestamp  default CURRENT_TIMESTAMP,
-	`created_by` varchar(64) default 'SYSTEM',
-	`date_updated` timestamp  default CURRENT_TIMESTAMP,
-	`updated_by` varchar(64) default 'SYSTEM',
+CREATE INDEX `trv_spot_order_id` ON `trv_spot_order` (`order_id`);
+
+DROP TABLE IF EXISTS `trv_spot_book_info`;
+
+CREATE TABLE `trv_spot_book_info` (
+	`id_key` VARCHAR (36) NOT NULL,
+	`open_id` VARCHAR (100) NOT NULL COMMENT 'open_id',
+	`real_name` VARCHAR (64) NOT NULL COMMENT '姓名',
+	`mobilePhone` VARCHAR (12) COMMENT '手机号',
+	`id_no` VARCHAR (20) NOT NULL COMMENT '身份证',
+	`date_created` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	`created_by` VARCHAR (64) DEFAULT 'SYSTEM',
+	`date_updated` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	`updated_by` VARCHAR (64) DEFAULT 'SYSTEM',
 	PRIMARY KEY (`id_key`)
-)ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='取票人信息';
-create unique INDEX `trv_spot_book_info_opid` on `trv_spot_book_info`(`open_id`);
+) ENGINE = INNODB DEFAULT CHARSET = utf8 COMMENT = '取票人信息';
+
+CREATE UNIQUE INDEX `trv_spot_book_info_opid` ON `trv_spot_book_info` (`open_id`);
+
 
 
 drop table if exists `trv_syc_user`;

@@ -65,9 +65,9 @@ const del = val => {
 }
 
 module.exports = {
-    list,
-    add,
-    update,
-    del,
+    // list,
+    // add,
+    // update,
+    // del,
     keyLists
 }

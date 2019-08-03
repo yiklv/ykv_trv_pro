@@ -2,122 +2,122 @@
 <!-- 引入模板 -->
 <import src="../../../vendor/wxParse-richText/wxParse.wxml" />
 <view class="container">
-    <view class="container-body space-content">
-        <view class="space-top">
-            <view class="space-banner" bindtap="imgPreview">
-                <swiper autoplay="{{true}}" interval="{{4000}}" duration="{{1000}}" circular="{{true}}" bindchange="setCurrent">
-                    <block wx:for="{{spotImgs}}" wx:key="{{item.index}}">
-                        <swiper-item>
-                            <image src="{{host}}/{{item.imgUrl}}" mode="aspectFill" class="slide-image" />
-                        </swiper-item>
-                    </block>
-                </swiper>
-                <view class="number-banner">
-                    <text>{{currentIndex>9?currentIndex:'0'+currentIndex}}</text>
-                    <text>/{{spotImgs.length>9?spotImgs.length:'0'+spotImgs.length}}</text>
-                </view>
-            </view>
-            <view class="space-info">
-                <view class="space-title">{{spotData.spotName}}</view>
-                <view class="space-list">
-                    <view class="space-item">
-                        <text class="text-left">开放时间：</text>
-                        <text class="text-mid-de">
-  	  				        <text class="text-orange">{{spotData.openTime}}</text>
-                        </text>
-                        <view class="text-right">
-                            <image src="../../../images/icons/btn_jiantou_01.png" class="img_right"></image>
-                        </view>
-                    </view>
-                    <view class="space-item">
-                        <text class="text-left">景点地址：</text>
-                        <text class="text-mid-de" data-address="{{spacedata.Address}}" data-latitude="{{spacedata.latitude}}" data-longitude="{{spacedata.longitude}}" bindtap="getAddress">{{spotData.spotAddress}}</text>
-                        <view class="text-right">
-                            <image src="../../../images/icons/btn_jiantou_01.png" class="img_right"></image>
-                        </view>
-                    </view>
-                    <view class="space-item">
-                        <text class="text-left">入园须知：</text>
-                        <view class="text-mid-de">
-                            <image src="../../../images/icons/btn_right_01.png" class="img_right"></image>
-                            <text class="spot_know_txt">入园保障</text>
-
-                            <image src="../../../images/icons/btn_right_01.png" class="img_right img_space"></image>
-                            <text class="spot_know_txt">如实描述</text>
-                            <image src="../../../images/icons/btn_right_01.png" class="img_right img_space"></image>
-                            <text class="spot_know_txt">贵就赔</text>
-                        </view>
-                        <view class="text-right">
-                            <image src="../../../images/icons/btn_jiantou_01.png" class="img_right"></image>
-                        </view>
-                    </view>
-                </view>
-            </view>
+  <view class="container-body space-content">
+    <view class="space-top">
+      <view class="space-banner" bindtap="imgPreview">
+        <swiper autoplay="{{true}}" interval="{{4000}}" duration="{{1000}}" circular="{{true}}" bindchange="setCurrent">
+          <block wx:for="{{spotImgs}}" wx:key="{{item.index}}">
+            <swiper-item>
+              <image src="{{host}}/{{item.imgUrl}}" mode="aspectFill" class="slide-image" />
+            </swiper-item>
+          </block>
+        </swiper>
+        <view class="number-banner">
+          <text>{{currentIndex>9?currentIndex:'0'+currentIndex}}</text>
+          <text>/{{spotImgs.length>9?spotImgs.length:'0'+spotImgs.length}}</text>
         </view>
-        <view class="space-block">
-            <view class="space-block-title">门票</view>
-            <view class="tkt-list">
-                <block wx:for="{{spotTicket}}" wx:key="tktKey">
-                    <view class="tkt-item" bindtap="showTicketDetail" data-type-id="{{item.typeId}}">
-                        <view class="tkt_img_view">
-                            <image src="{{host}}/{{item.tktTypeImg}}" class="tkt_type_img"></image>
-                        </view>
-                        <view class="tkt_name_view">{{item.typeName}}</view>
-                        <view class="text-right">
-                            <view class="{{choseId == item.typeId && showView? 'hidden':'show'}}">
-                                <image src="../../../images/icons/btn_down_jiantou_01.png" class="img_right"></image>
-                            </view>
-                            <view class="{{choseId == item.typeId && showView? 'show':'hidden'}}">
-                                <image src="../../../images/icons/btn_up_jiantou_01.png" class="img_right "></image>
-                            </view>
-                        </view>
-                    </view>
-                    <view class=" {{choseId == item.typeId && showView ? 'show':'hidden'}}">
-                        <block wx:for="{{item.tktInfo}}" wx:key="tktInfoKey" wx:for-item="tktInfo">
-                            <view class="tkt-info-text">
-                                <view class="tkt-info-tags">
-                                    <text class="tag-text">[门票]{{tktInfo.tktName}}</text>
-                                    <view class="tkt-info-pnew">
-                                        <text class="price-sign">￥</text>{{tktInfo.tktPrice}}
-                                        <text class="price-sign">起</text>
-                                    </view>
-                                </view>
-                                <view class="tkt_book_view">
-                                    <image src="../../../images/icons/btn_right_01.png" class="img_right"></image>
-                                    <text class="tkt-info-city">
+      </view>
+      <view class="space-info">
+        <view class="space-title">{{spotData.spotName}}</view>
+        <view class="space-list">
+          <view class="space-item">
+            <text class="text-left">开放时间：</text>
+            <text class="text-mid-de">
+  	  				        <text class="text-orange">{{spotData.openTime}}</text>
+            </text>
+            <view class="text-right">
+              <image src="../../../images/icons/btn_jiantou_01.png" class="img_right"></image>
+            </view>
+          </view>
+          <view class="space-item">
+            <text class="text-left">景点地址：</text>
+            <text class="text-mid-de" data-address="{{spacedata.Address}}" data-latitude="{{spacedata.latitude}}" data-longitude="{{spacedata.longitude}}" bindtap="getAddress">{{spotData.spotAddress}}</text>
+            <view class="text-right">
+              <image src="../../../images/icons/btn_jiantou_01.png" class="img_right"></image>
+            </view>
+          </view>
+          <view class="space-item">
+            <text class="text-left">入园须知：</text>
+            <view class="text-mid-de">
+              <image src="../../../images/icons/btn_right_01.png" class="img_right"></image>
+              <text class="spot_know_txt">入园保障</text>
+
+              <image src="../../../images/icons/btn_right_01.png" class="img_right img_space"></image>
+              <text class="spot_know_txt">如实描述</text>
+              <image src="../../../images/icons/btn_right_01.png" class="img_right img_space"></image>
+              <text class="spot_know_txt">贵就赔</text>
+            </view>
+            <view class="text-right">
+              <image src="../../../images/icons/btn_jiantou_01.png" class="img_right"></image>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="space-block">
+      <view class="space-block-title">门票</view>
+      <view class="tkt-list">
+        <block wx:for="{{spotTicket}}" wx:key="tktKey">
+          <view class="tkt-item" bindtap="showTicketDetail" data-type-id="{{item.typeId}}">
+            <view class="tkt_img_view">
+              <image src="{{host}}/{{item.tktTypeImg}}" class="tkt_type_img"></image>
+            </view>
+            <view class="tkt_name_view">{{item.typeName}}</view>
+            <view class="text-right">
+              <view class="{{choseId == item.typeId && showView? 'hidden':'show'}}">
+                <image src="../../../images/icons/btn_down_jiantou_01.png" class="img_right"></image>
+              </view>
+              <view class="{{choseId == item.typeId && showView? 'show':'hidden'}}">
+                <image src="../../../images/icons/btn_up_jiantou_01.png" class="img_right "></image>
+              </view>
+            </view>
+          </view>
+          <view class=" {{choseId == item.typeId && showView ? 'show':'hidden'}}">
+            <block wx:for="{{item.tktInfo}}" wx:key="tktInfoKey" wx:for-item="tktInfo">
+              <view class="tkt-info-text">
+                <view class="tkt-info-tags">
+                  <text class="tag-text">[门票]{{tktInfo.tktName}}</text>
+                  <view class="tkt-info-pnew">
+                    <text class="price-sign">￥</text>{{tktInfo.tktPrice}}
+                    <text class="price-sign">起</text>
+                  </view>
+                </view>
+                <view class="tkt_book_view">
+                  <image src="../../../images/icons/btn_right_01.png" class="img_right"></image>
+                  <text class="tkt-info-city">
                                         <block wx:if="{{tktInfo.tktBookTime == 0}}">当天23点前可预订</block>
                                         <block wx:if="{{tktInfo.tktBookTime > 0}}">提前{{tktInfo.tktBookTime}}天23点前可预订</block>
                                     </text>
-                                    <text class="tkt-info-pold">票面价￥{{tktInfo.tktOldPrice}}</text>
-                                </view>
-                                <view class="tkt-info-btn-view">
-                                    <text class="tkt-info-city" data-tkt-id="{{tktInfo.tktId}}" bindtap='noticeTicket'>购票须知 ></text>
-
-                                    <view class="tkt-info-btn" data-tkt-info="{{tktInfo}}" bindtap='bookTicket'>预定</view>
-                                </view>
-
-                            </view>
-                        </block>
-                    </view>
-                </block>
-            </view>
-        </view>
-        <view class="space-block">
-            <view class="space-block-title">景区须知</view>
-            <view class="space-block-content">
-                <view class="space-passage">
-                    <!-- 这里data中article为bindName -->
-                    <template is="wxParse" data="{{wxParseData:noticContent.nodes}}" />
+                  <text class="tkt-info-pold">票面价￥{{tktInfo.tktOldPrice}}</text>
                 </view>
-            </view>
+                <view class="tkt-info-btn-view">
+                  <text class="tkt-info-city" data-tkt-id="{{tktInfo.tktId}}" bindtap='noticeTicket'>购票须知 ></text>
+
+                  <view class="tkt-info-btn" data-tkt-info="{{tktInfo}}" bindtap='bookTicket'>预定</view>
+                </view>
+
+              </view>
+            </block>
+          </view>
+        </block>
+      </view>
+    </view>
+    <view class="space-block">
+      <view class="space-block-title">景区须知</view>
+      <view class="space-block-content">
+        <view class="space-passage">
+          <!-- 这里data中article为bindName -->
+          <template is="wxParse" data="{{wxParseData:noticContent.nodes}}" />
         </view>
+      </view>
     </view>
-    <!--  规则提示  -->
-    <view class="ruleZhezhao {{isRuleTrue?'isRuleShow':'isRuleHide'}}">
-        <scroll-view class='ruleZhezhaoContent' scroll-y="true">
-            <template is="wxParse" data="{{wxParseData:tktNoteDesc.nodes}}" />
-        </scroll-view>
-        <image src='../../../images/icons/btn_rule_hide.png' class='ruleHide' bindtap='hideRule'></image>
-    </view>
-    <!--  end  -->
+  </view>
+  <!--  规则提示  -->
+  <view class="ruleZhezhao {{isRuleTrue?'isRuleShow':'isRuleHide'}}">
+    <scroll-view class='ruleZhezhaoContent' scroll-y="true">
+      <template is="wxParse" data="{{wxParseData:tktNoteDesc.nodes}}" />
+    </scroll-view>
+    <image src='../../../images/icons/btn_rule_hide.png' class='ruleHide' bindtap='hideRule'></image>
+  </view>
+  <!--  end  -->
 </view>

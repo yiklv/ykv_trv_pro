@@ -1,7 +1,4 @@
 
-commit;
-
-
 delete from `trv_syc_pay_banktype`；
 insert into `trv_syc_pay_banktype` (`id_key`,`banktype_code`,`banktype_desc`)values(rand_string(36),'ICBC_DEBIT', '工商银行(借记卡)');
 insert into `trv_syc_pay_banktype` (`id_key`,`banktype_code`,`banktype_desc`)values(rand_string(36),'ICBC_CREDIT', '工商银行(信用卡)');

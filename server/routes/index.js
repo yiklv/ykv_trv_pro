@@ -40,7 +40,7 @@ router.get('/message', controllers.message.get);
 router.post('/message', controllers.message.post);
 
 routes.forEach(item => {
-    const service = require(`../controllers/${item.service}`)
+    const service = require(`../controllers/${item.service}`);
     router[item.method](item.path, service[item.action])
 })
 module.exports = router

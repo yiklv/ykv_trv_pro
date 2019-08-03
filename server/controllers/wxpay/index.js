@@ -6,9 +6,11 @@ const m = model([
     // 'add',
     // 'update',
     // 'del',
-    'keyLists'
-], 'search')
+    'queryWepayPrepayUrl',
+    'setUnifiedOrder',
+    'updateOrderInfo',
+], 'wxpay')
 
 module.exports = {
     ...m,
-}
+}  

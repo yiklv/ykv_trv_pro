@@ -10,5 +10,5 @@
         </view>
     </view>
     <template is="wxSearch" data="{{wxSearchData}}" />
-
+<!--  -->
 </view>

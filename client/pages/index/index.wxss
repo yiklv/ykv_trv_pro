@@ -1,174 +1,180 @@
 /**index.wxss**/
 
 page {
-    height: 100%;
-	color: #333;
-  	display: flex;
-  	flex-direction: column;
- 	font-family:;
- 	font: normal 30rpx/1.68 -apple-system-font, 'Helvetica Neue', Helvetica, 'Microsoft YaHei', sans-serif;
-    background: #f6f6f6;
-    justify-content: flex-start;
+  height: 100%;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  /*font-family: ;*/
+  font: normal 30rpx/1.68 -apple-system-font,
+          'Helvetica Neue',
+          Helvetica,
+          'Microsoft YaHei',
+          sans-serif;
+  background: #f6f6f6;
+  justify-content: flex-start;
 }
 
 /***/
-.view_adv{
-    position:relative;
-    z-index:13;
-    margin-top:0;
-    transition:all 0.3s;
+
+.view_adv {
+  position: relative;
+  z-index: 13;
+  margin-top: 0;
+  transition: all 0.3s;
 }
-.view_adv.tophide{
-	margin-top: -320rpx;
+
+.view_adv.tophide {
+  margin-top: -320rpx;
 }
+
 .view_swiper {
-    width: 97%;
-    
-    border-radius: 5%;
-    overflow: hidden;
-    margin: 10rpx 10rpx;
+  width: 97%;
+  border-radius: 5%;
+  overflow: hidden;
+  margin: 10rpx 10rpx;
 }
 
 .swiper_clz {
-    
 }
 
 .slide-image {
-    width: 100%;
-    height: 350rpx!important;
+  width: 100%;
+  height: 350rpx !important;
 }
 
 /*******************************************search css*********************************************/
 
 view.search {
-    display: flex;
-    flex-direction: row;
-    height: 98rpx;
-    background: #efeff4;
-    align-items: center;
-    width: 100%;
+  display: flex;
+  flex-direction: row;
+  height: 98rpx;
+  background: #efeff4;
+  align-items: center;
+  width: 100%;
 }
 
 view.searchItem {
-    display: flex;
-    width: 100%;
-    background: #fff;
-    flex-direction: row;
-    border-radius: 10rpx;
-    margin-right: 20rpx;
-    margin-left: 20rpx;
+  display: flex;
+  width: 100%;
+  background: #fff;
+  flex-direction: row;
+  border-radius: 10rpx;
+  margin-right: 20rpx;
+  margin-left: 20rpx;
 }
 
 view.searchItem image {
-    height: 42rpx;
-    width: 42rpx;
-    align-self: center;
-    margin-left: 10rpx;
-    margin-right: 20rpx;
+  height: 42rpx;
+  width: 42rpx;
+  align-self: center;
+  margin-left: 10rpx;
+  margin-right: 20rpx;
 }
 
 view.searchItem input {
-    flex: 1;
-    font-size: 30rpx;
-    height: 72rpx;
+  flex: 1;
+  font-size: 30rpx;
+  height: 72rpx;
 }
 
 /*******************************************search css end *********************************************/
-.container-body{
-	flex: 1;
-	overflow-y: auto;
-	overflow-x: hidden;
+
+.container-body {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
+
 .service-list {
-    padding: 0 20rpx;
+  padding: 0 20rpx;
 }
 
 .service-item {
-    display: flex;
-    padding: 20rpx 0;
-    border-bottom: 1rpx solid #e8e8e8;
+  display: flex;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #e8e8e8;
 }
 
 .service-img {
-    width: 220rpx;
-    height: 156rpx;
+  width: 220rpx;
+  height: 156rpx;
 }
 
 .service-item image {
-    width: 220rpx;
-    height: 156rpx;
+  width: 220rpx;
+  height: 156rpx;
 }
 
 .service-text {
-    flex: 1;
-    margin-left: 20rpx;
-    width: 475rpx;
+  flex: 1;
+  margin-left: 20rpx;
+  width: 475rpx;
 }
 
 .service-text .service-tite {
-    color: #333;
-    width: 100%;
-    font-size: 34rpx;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: block;
+  color: #333;
+  width: 100%;
+  font-size: 34rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
 }
 
 .service-tags {
-    margin: 6rpx 0;
-    display: flex;
-    flex-direction: row;
-    justify-content:space-between;
+  margin: 6rpx 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .service-pnew {
-    color: #ff4500;
-    text-align: right;
+  color: #ff4500;
+  text-align: right;
 }
-.service-pnew .price-sign{
-    font-size: 20rpx;
+
+.service-pnew .price-sign {
+  font-size: 20rpx;
 }
 
 .service-pold {
-    color: #A9A9A9;
-    font-size: 24rpx;
-    float:right;
-    text-decoration:line-through;
+  color: #a9a9a9;
+  font-size: 24rpx;
+  float: right;
+  text-decoration: line-through;
 }
 
 .service-tags .tag-text {
-    padding: 6rpx 16rpx;
-    border: 1rpx solid #09f;
-    line-height: 1;
-    color: #09f;
-    font-size: 24rpx;
-    border-radius: 4rpx;
-    margin-right: 10rpx;
-    margin-top: 10rpx;
-    white-space: nowrap;
+  padding: 6rpx 16rpx;
+  border: 1rpx solid #09f;
+  line-height: 1;
+  color: #09f;
+  font-size: 24rpx;
+  border-radius: 4rpx;
+  margin-right: 10rpx;
+  margin-top: 10rpx;
+  white-space: nowrap;
 }
 
 .service-city {
-    color: #666;
-    font-size: 28rpx;
+  color: #666;
+  font-size: 28rpx;
 }
 
-.gototop{
-	width: 70rpx;
-	height: 70rpx;
-	/* background: url(../../images/up.png) no-repeat 50% 50% / 100% auto; */
-	position: fixed;
-	bottom: 20rpx;
-	right: 20rpx;
-	transition: all 0.3s;
-	opacity: 0;
-	transform: translateY(200rpx);
-}
-.gototop.active{
-	opacity: 1;
-	transform: translateY(0);
+.gototop {
+  width: 70rpx;
+  height: 70rpx;
+  /* background: url(../../images/up.png) no-repeat 50% 50% / 100% auto; */
+  position: fixed;
+  bottom: 20rpx;
+  right: 20rpx;
+  transition: all 0.3s;
+  opacity: 0;
+  transform: translateY(200rpx);
 }
 
-
-
+.gototop.active {
+  opacity: 1;
+  transform: translateY(0);
+}

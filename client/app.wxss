@@ -1,14 +1,17 @@
 /**app.wxss**/
 
-
 page {
- 	font-family:"Arial","Microsoft YaHei","黑体","宋体",sans-serif;
- 	font: normal 30rpx/1.68 -apple-system-font, 'Helvetica Neue', Helvetica, 'Microsoft YaHei', sans-serif;
+  font-family: "Arial", "Microsoft YaHei", "黑体", "宋体", sans-serif;
+  font: normal 30rpx/1.68 -apple-system-font,
+          'Helvetica Neue',
+          Helvetica,
+          'Microsoft YaHei',
+          sans-serif;
 }
 
 .container {
-	flex: 1;
-  	display: flex;
-  	flex-direction: column;
- 	box-sizing: border-box;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
 }
