@@ -16,6 +16,7 @@
 
 SET NAMES utf8;
 SET FOREIGN_KEY_CHECKS = 0;
+SET GLOBAL EVENT_SCHEDULER = 1;
 
 -- ----------------------------
 --  Table structure for `cSessionInfo`
@@ -233,9 +234,10 @@ CREATE TABLE `trv_spot_order` (
 	`sum_price` DECIMAL (18, 2) NOT NULL COMMENT '总价',
 	`time_start` VARCHAR (16) NOT NULL COMMENT '交易起始时间',
 	`time_expire` VARCHAR (16) NOT NULL COMMENT '交易结束时间',
-	`order_desc` text NOT NULL COMMENT '订单报文详情',
+	`order_req_xml` TEXT NOT NULL COMMENT '订单报文详情',
 	`order_status` VARCHAR (5) NOT NULL COMMENT '订单状态  1 待支付， 2 已支付， 3 已取消， 4 已失效， ',
 	`order_end_time` VARCHAR (16) COMMENT '订单支付完成时间',
+	`order_unified_xml` TEXT NOT NULL COMMENT '统一支付返回报文',
 	`date_created` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	`created_by` VARCHAR (64) DEFAULT 'SYSTEM',
 	`date_updated` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -243,7 +245,9 @@ CREATE TABLE `trv_spot_order` (
 	PRIMARY KEY (`id_key`)
 ) ENGINE = INNODB DEFAULT CHARSET = utf8 COMMENT = '订单信息';
 
-CREATE INDEX `trv_spot_order_id` ON `trv_spot_order` (`order_id`);
+CREATE UNIQUE INDEX `trv_spot_order_id` ON `trv_spot_order` (`order_id`);
+CREATE INDEX `trv_spot_order_opid` ON `trv_spot_order` (`open_id`);
+CREATE INDEX `trv_spot_order_timeex` ON `trv_spot_order` (`time_expire`);
 
 DROP TABLE IF EXISTS `trv_spot_book_info`;
 

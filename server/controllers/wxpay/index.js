@@ -8,7 +8,10 @@ const m = model([
     // 'del',
     'queryWepayPrepayUrl',
     'setUnifiedOrder',
-    'updateOrderInfo',
+    'updateOrderInfoCancel',
+    'queryOrderPayInfo',
+    'queryOrderInfoById',
+    'queryOrderInfoByOpenid',
 ], 'wxpay')
 
 module.exports = {

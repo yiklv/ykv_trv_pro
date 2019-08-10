@@ -61,7 +61,6 @@ Page({
 
   getBookTktInfo: function(openId) {
     var that = this;
-
     qcloud.request({
       url: config.service.common.getBookTktInfo,
       login: true,
@@ -404,15 +403,14 @@ Page({
     }
     let tktId = _that.data.tktInfo.tktId;
     // let prepayUrl = _that.getPrepayUrl(tktId);
-    //_that.setUnifiedOrder(getTkt);
-    _that.updateOrderStatus();
+    _that.setUnifiedOrder(getTkt);
   },
   setUnifiedOrder: function(obj) {
     var that = this;
 
     qcloud.request({
       url: config.service.wxpay.setUnifiedOrderUrl,
-      login: false,
+      login: true,
       method: 'post',
       data: {
         body: '门票--' + that.data.tktInfo.tktName,
@@ -449,25 +447,26 @@ Page({
               var url = that.data.url;
               console.log('get url', url)
               if (res.errMsg == 'requestPayment:ok') {
-                wx.showModal({
-                  title: '提示',
-                  content: '充值成功'
-                });
-                if (url) {
-                  setTimeout(function() {
-                    wx.redirectTo({
-                      url: '/pages' + url
-                    });
-                  }, 2000);
-                } else {
-                  setTimeout(() => {
-                    wx.navigateBack()
-                  }, 2000)
-                }
+                util.showSuccess('支付成功');
+                // if (url) {
+                //   setTimeout(function() {
+                //     wx.redirectTo({
+                //       url: '/pages' + url
+                //     });
+                //   }, 2000);
+                // } else {
+                //   setTimeout(() => {
+                //     wx.navigateBack()
+                //   }, 2000)
+                // }
               } else if (res.errMsg == 'requestPayment:fail cancel') {
-
+                util.showSuccess('支付取消');
               }
-              return;
+              /**查询微信平台的订单支付情况 */
+              queryOrderPayInfo(payData.order_id);
+              wx.navigateTo({
+                url: '/pages/spot/spotBook/bookDetail/bookDetail?orderId=' + payData.order_id,
+              })
             }
           });
 
@@ -481,7 +480,33 @@ Page({
       }
     });
   },
+  /**
+   * 查询微信支付平台的订单状态
+   * @param orderId 订单号
+   */
+  queryOrderPayInfo:function(orderId){
+    qcloud.request({
+      url: config.service.wxpay.queryOrderPayInfo,
+      login: true,
+      method: 'get',
+      data: {
+        orderId: orderId,
+      },
+      success(result) {
+        let data = result.data;
+        if (data.retCode == '200') {
+          console.log(data);
 
+        } else {
+//          util.showModel('异常', data.msg);
+        }
+
+      },
+      fail(error) {
+//        util.showModel('请求失败', error);
+      }
+    });
+  },
   /**
    * 获取扫码支付的url
    */
@@ -566,46 +591,5 @@ Page({
    */
   onShareAppMessage: function() {
 
-  },
-  updateOrderStatus: function() {
-    var that = this;
-    let formData = `<xml><appid><![CDATA[wx2d499a770619d136]]></appid>
-  <attach><![CDATA[支付测试]]></attach>
-  <bank_type><![CDATA[CFT]]></bank_type>
-  <fee_type><![CDATA[CNY]]></fee_type>
-  <is_subscribe><![CDATA[Y]]></is_subscribe>
-  <mch_id><![CDATA[10000100]]></mch_id>
-  <nonce_str><![CDATA[5d2b6c2a8db53831f7eda20af46e531c]]></nonce_str>
-  <openid><![CDATA[o2x8o42ScywzwvHeWEXeacWphJHg]]></openid>
-  <out_trade_no><![CDATA[ORD20190728233420M99g8O2teu7fjT0]]></out_trade_no>
-  <result_code><![CDATA[SUCCESS]]></result_code>
-  <return_code><![CDATA[SUCCESS]]></return_code>
-  <sign><![CDATA[B552ED6B279343CB493C5DD0D78AB241]]></sign>
-  <time_end><![CDATA[20140903131540]]></time_end>
-  <total_fee>1</total_fee>
-  <coupon_fee><![CDATA[10]]></coupon_fee>
-  <coupon_count><![CDATA[1]]></coupon_count>
-  <coupon_type><![CDATA[CASH]]></coupon_type>
-  <coupon_id><![CDATA[10000]]></coupon_id>
-  <coupon_fee><![CDATA[100]]></coupon_fee>
-  <trade_type><![CDATA[JSAPI]]></trade_type>
-  <transaction_id><![CDATA[1004400740201409030005092168]]></transaction_id>
-</xml>`;
-
-    wx.request({
-      url: config.service.wxpay.updateOrderInfo,
-      method: "POST",
-      //dataType: 'JSON',
-      headers: {
-        "content-type": "application/json",
-      },
-      data: JSON.stringify(formData),
-      success: function(res) {
-        console.log(res);
-      },
-      fail: function(err) {
-
-      }
-    })
   }
 })

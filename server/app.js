@@ -29,6 +29,7 @@ app.use(async (ctx, next) => {
     if (ctx.path === '/weapp/wxpay/updateOrderInfo' && ctx.method === 'POST') {
     	let postData = await parsePostData(ctx);
     	let res = await wxpay.updateOrderInfo(postData);
+    	console.log('------------------------------------------',res);
     	ctx.body = res;
     }else{
     	await next();

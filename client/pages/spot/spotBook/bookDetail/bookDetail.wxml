@@ -1,0 +1,155 @@
+<!--pages/spot/spotBook/bookDetail/bookDetail.wxml-->
+<view class="container">
+  <view class="container-body container-gray">
+    <view class="group">
+      <view class="group-header group-order {{tktOrderInfo.order_status=='2'?'group-order-bg-green':'group-order-bg-grey'}}">
+        <view class="group_image">
+          <block wx:if="{{tktOrderInfo.order_status=='2'}}">
+            <image src='../../../../images/icons/btn_success_01.png'></image>
+            <span>成功</span>
+          </block>
+          <block wx:if="{{tktOrderInfo.order_status=='1'}}">
+            <image src='../../../../images/icons/btn_wait_01.png'></image>
+            <span>待支付</span>
+          </block>
+          <block wx:if="{{tktOrderInfo.order_status=='3'}}">
+            <image src='../../../../images/icons/btn_quit_01.png'></image>
+            <span>已取消</span>
+          </block>
+          <block wx:if="{{tktOrderInfo.order_status=='4'}}">
+            <image src='../../../../images/icons/btn_outtime_01.png'></image>
+            <span>已失效</span>
+          </block>
+        </view>
+      </view>
+      <view class="group-header">门票信息</view>
+      <view class="group-body">
+        <view class="input-list">
+          <view class="input-item">
+            <text class="input-item-label">门票内容：</text>
+            <view class="input-item-content">
+              <label>{{tktOrderInfo.tkt_name}}</label>
+            </view>
+          </view>
+          <view class="input-item">
+            <text class="input-item-label">出游日期：</text>
+            <view class="input-item-content">
+              <label>{{tktOrderInfo.trv_time}}</label>
+            </view>
+          </view>
+          <view class="input-item">
+            <text class="input-item-label">出游人数：</text>
+            <view class="input-item-content">
+              <label>{{tktOrderInfo.tkt_num}} 位</label>
+            </view>
+          </view>
+          <view class="input-item">
+            <text class="input-item-label">入园时间：</text>
+            <view class="input-item-content">
+              <label>{{tktOrderInfo.open_time_desc}}</label>
+            </view>
+          </view>
+          <view class="input-item">
+            <text class="input-item-label">入园地址：</text>
+            <view class="input-item-content">
+              <label>{{tktOrderInfo.spot_address}}</label>
+            </view>
+          </view>
+          <view class="input-item">
+            <text class="input-item-label">退票规则：</text>
+            <view class="input-item-content">
+              <label>本商品预定后不支持退改，敬请谅解</label>
+            </view>
+          </view>
+          <view class="input-item">
+            <text class="input-item-label">改期规则：</text>
+            <view class="input-item-content">
+              <label>本商品不可改期</label>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="group-header">景点信息</view>
+      <view class="group-body">
+        <view class="input-list">
+          <view class="input-item">
+            <text class="input-item-label">景点名称：</text>
+            <view class="input-item-content">
+              <label>{{tktOrderInfo.spot_name}}</label>
+            </view>
+          </view>
+          <view class="input-item">
+            <text class="input-item-label">景点地址：</text>
+            <view class="input-item-content">
+              <label>{{tktOrderInfo.spot_address}}</label>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="group-header">订单信息</view>
+      <view class="group-body">
+        <view class="input-list">
+          <view class="input-item">
+            <text class="input-item-label">取票人姓名：</text>
+            <view class="input-item-content">
+              <label>{{tktOrderInfo.real_name}}</label>
+            </view>
+          </view>
+          <view class="input-item">
+            <text class="input-item-label">取票人手机：</text>
+            <view class="input-item-content">
+              <label>{{tktOrderInfo.mobile_phone}}</label>
+            </view>
+          </view>
+          <view class="input-item">
+            <text class="input-item-label">订单编号：</text>
+            <view class="input-item-content">
+              <label>{{tktOrderInfo.order_id}}</label>
+            </view>
+          </view>
+          <view class="input-item">
+            <text class="input-item-label">订单金额：</text>
+            <view class="input-item-content">
+              <label>{{tktOrderInfo.order_price}}</label>
+            </view>
+          </view>
+          <view class="input-item">
+            <text class="input-item-label">下单时间：</text>
+            <view class="input-item-content">
+              <label>{{tktOrderInfo.order_time}}</label>
+            </view>
+          </view>
+        </view>
+      </view>
+
+    </view>
+    <!-- <view class="btn-submit">
+      <button class="btn-block btn-orange" bindtap="questionSubmit">确认提交</button>
+    </view>-->
+    <view class="question-text">
+      <text>如问题无法简单描述清楚</text>
+      <text>可以直接拨打电话</text>
+      <text>我们将第一时间为您答疑解惑</text>
+      <view>{{kefuPhone}}</view>
+    </view>
+  </view>
+  <view class="footer-tab footer-tab-widthicon">
+  <view class="footer-tab-item"></view>
+    <view class="footer-tab-item">
+      <!-- <image src="../../../../images/icons/{{showfootertab==0?'xinxifill':'xinxi'}}.png" mode="aspectFit"></image>
+      <text>问题反馈</text> -->
+      <block wx:if="{{tktOrderInfo.order_status=='2'}}">
+        <button bindtap="reOrderticket" data-spot-id="{{tktOrderInfo.spot_id}}">再次预订</button>
+      </block>
+      <block wx:if="{{tktOrderInfo.order_status=='1'}}">
+        <button bindtap="repayOrder" data-order-id="{{tktOrderInfo.order_id}}">立即支付</button>
+      </block>
+      <block wx:if="{{tktOrderInfo.order_status=='3'}}">
+        <button bindtap="reOrderticket" data-spot-id="{{tktOrderInfo.spot_id}}">再次预订</button>
+      </block>
+      <block wx:if="{{tktOrderInfo.order_status=='4'}}">
+        <button bindtap="reOrderticket" data-spot-id="{{tktOrderInfo.spot_id}}">再次预订</button>
+      </block>
+    </view>
+  </view>
+</view>

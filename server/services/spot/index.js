@@ -193,7 +193,14 @@ const queryTktDatePriceList = val => {
     }
     return query(sql_tkt_type, typeparam);
 }
-
+/**
+ *  查询取票人信息
+ *  @author yiklv_yanguo
+ *  @date    2019-08-10T23:02:45+0800
+ *  @version [version]
+ *  @param   {[type]}                 val [description]
+ *  @return  {[type]}                     [description]
+ */
 const queryBookTktInfo = val => {
     let openId = val.openId;
     let sql_tkt_type = `select tt.real_name as tktUserName, tt.mobilePhone as tktMobilephone,tt.id_no as tktIdNo from trv_spot_book_info tt where tt.open_id = ? `;

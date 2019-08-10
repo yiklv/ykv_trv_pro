@@ -17,6 +17,8 @@ var config = {
   weChatProName: "易途门票网",
   // 简称
   weChatShortName: "易途网",
+  // 联系人电话
+  kefuPhone:"135 XXXX XXXX",
   expireSessionSession: 30 * 60 * 1000,
   constant: {
     CONST_USER_INFO_KEY: "user_info_key"
@@ -72,6 +74,14 @@ var config = {
       setUnifiedOrderUrl: `${host}/${route_path}/wxpay/setUnifiedOrder`,
       // 更新订单信息
       updateOrderInfo: `${host}/${route_path}/wxpay/updateOrderInfo`,
+      // 更新订单信息
+      updateOrderInfoCancel: `${host}/${route_path}/wxpay/updateOrderInfoCancel`,
+      // 查询订单状态
+      queryOrderPayInfo: `${host}/${route_path}/wxpay/queryOrderPayInfo`,
+      // 根据订单号查询订单信息
+      queryOrderInfoById: `${host}/${route_path}/wxpay/queryOrderInfoById`,
+      // 根据客户查询订单信息
+      queryOrderInfoByOpenid: `${host}/${route_path}/wxpay/queryOrderInfoByOpenid`,
     }
   }
 };

@@ -1,15 +1,18 @@
 'use strict';
 const config = require('../../config');
 const constId = require('./common');
+
 const xml2js = require('xml2js'); //引入xml解析模块
 const fs = require('fs');
 const request = require('request');
 const md5 = require('md5');
 const WXPay = require('weixin-pay');
+
 const qrcode = require('../../utils/qrcodeutils');
 const stringutil = require('../../utils/stringutils');
 const dateutil = require('../../utils/dateutils');
 const serviceResponse = require('../response/response');
+const wxpayUtils = require('./wxpayUtils');
 
 const pool = require('../../db/mysql');
 
@@ -87,14 +90,14 @@ const setUnifiedOrder = async (val) => {
     let qry_unfinished_order = constId.query_order_unfinished_cnt;
     let parameters = [openid, '1'];
     // 未完成订单个数
-    let qryUnifinishedCnt;
+    /*let qryUnifinishedCnt;
     await pool.query(qry_unfinished_order, parameters).then(res => {
         qryUnifinishedCnt = res[0].cnt;
     });
     // 如果有未完成的订单需要完成。或者取消
     if (qryUnifinishedCnt > 0) {
         return serviceResponse.errResponse('您还有未完成的订单，请先完成订单或者取消订单');
-    }
+    }*/
 
     // 调用统一支付下单
     // 小程序appid
@@ -166,7 +169,7 @@ const setUnifiedOrder = async (val) => {
         detail: goodDetail_json,
         trade_type: 'JSAPI'
     }
-    let sign = createSign(params);
+    let sign = wxpayUtils.createSign(params);
 
     // 统一下单URL
     const reqUrl = constId.unifiedorderUrl;
@@ -211,16 +214,16 @@ const setUnifiedOrder = async (val) => {
                 console.log(resbody, '统一下单接口返回的数据'); // 请求成功的处理逻辑
                 // 测试用
 
-                resbody = `<xml><return_code><![CDATA[SUCCESS]]></return_code>
-                        <return_msg><![CDATA[OK]]></return_msg>
-                        <appid><![CDATA[wx2421b1c4370ec43b]]></appid>
-                        <mch_id><![CDATA[10000100]]></mch_id>
-                        <nonce_str><![CDATA[IITRi8Iabbblz1Jc]]></nonce_str>
-                        <openid><![CDATA[oUpF8uMuAJO_M2pxb1Q9zNjWeS6o]]></openid>
-                        <sign><![CDATA[7921E432F65EB8ED0CE9755F0E86D72F]]></sign>
-                        <result_code><![CDATA[SUCCESS]]></result_code>
-                        <prepay_id><![CDATA[wx201411101639507cbf6ffd8b0779950874]]></prepay_id>
-                        <trade_type><![CDATA[JSAPI]]></trade_type></xml>`;
+                // resbody = `<xml><return_code><![CDATA[SUCCESS]]></return_code>
+                //         <return_msg><![CDATA[OK]]></return_msg>
+                //         <appid><![CDATA[wx2421b1c4370ec43b]]></appid>
+                //         <mch_id><![CDATA[10000100]]></mch_id>
+                //         <nonce_str><![CDATA[IITRi8Iabbblz1Jc]]></nonce_str>
+                //         <openid><![CDATA[oUpF8uMuAJO_M2pxb1Q9zNjWeS6o]]></openid>
+                //         <sign><![CDATA[7921E432F65EB8ED0CE9755F0E86D72F]]></sign>
+                //         <result_code><![CDATA[SUCCESS]]></result_code>
+                //         <prepay_id><![CDATA[wx201411101639507cbf6ffd8b0779950874]]></prepay_id>
+                //         <trade_type><![CDATA[JSAPI]]></trade_type></xml>`;
 
                 // 解析json
                 xml2js.parseString(resbody, function(error, result) {
@@ -233,9 +236,10 @@ const setUnifiedOrder = async (val) => {
                             key: reData.sign[0],
                             appId: appid,
                             signType: 'MD5',
+                            order_id: order_id,
                         }
 
-                        responseData.paySign = createSignAgain(responseData);
+                        responseData.paySign = wxpayUtils.createSignAgain(responseData);
                         // 更新取票人信息
                         mergeTktBookInfoService(val);
 
@@ -252,6 +256,7 @@ const setUnifiedOrder = async (val) => {
                             dateStr: dateStr,
                             dateNextStr: dateNextStr,
                             formData: formData,
+                            resbody: resbody,
                             order_status: '1'
                         };
                         createTktOrderService(orderParam);
@@ -284,7 +289,7 @@ const updateOrderInfo = (val) => {
     xml = xml.replace(/\\n/g, '').replace(/\s/g, "").replace(/\"/g, '');
     // 解析json
     return new Promise((resolve, reject) => {
-        xml2js.parseString(xml, function(error, result) {
+        xml2js.parseString(xml, async (error, result) => {
             let xmlReturnStr = "";
             let reData = result.xml;
             if (reData.return_code && reData.return_code[0] == 'SUCCESS') {
@@ -292,21 +297,21 @@ const updateOrderInfo = (val) => {
                 if (reData.appid[0] == config.appId) {
                     let _orderId = reData.out_trade_no[0];
                     // 查询订单是否存在或者是否有效
-                    queryOrderInfoById(_orderId).then(res => {
+                    await queryOrderCntById(_orderId).then((res) => {
                         if (res[0].qryCnt === 0) {
-                            xmlReturnStr = wxpayReturnXml('FAIL', "out_trade_no is not exists");
+                            xmlReturnStr = wxpayUtils.wxpayReturnXml('FAIL', "out_trade_no is not exists");
                         } else {
                             // 更新状态为成功
-                            updateOrderById(_orderId, reData.time_end[0]);
-                            xmlReturnStr = wxpayReturnXml('SUCCESS', "OK");
+                            updateOrderById(_orderId, '2', reData.time_end[0]);
+                            xmlReturnStr = wxpayUtils.wxpayReturnXml('SUCCESS', "OK");
                         }
                     });
                 } else {
-                    xmlReturnStr = wxpayReturnXml('FAIL', "appid is not exists");
+                    xmlReturnStr = wxpayUtils.wxpayReturnXml('FAIL', "appid is not exists");
                 }
             } else {
                 console.log('wxpay.setUnifiedOrder response xml fail:', response);
-                xmlReturnStr = wxpayReturnXml('FAIL', reData.return_msg[0]);
+                xmlReturnStr = wxpayUtils.wxpayReturnXml('FAIL', reData.return_msg[0]);
             }
             resolve(xmlReturnStr);
         });
@@ -315,60 +320,214 @@ const updateOrderInfo = (val) => {
 }
 
 /**
- *  签名算法
+ *  取消订单
  *  @author yiklv_yanguo
- *  @date    2019-07-27T22:57:40+0800
- *  @version 1.0.0
- *  @param   {OBJECT}                 obj [description]
- *  @return  {String}                     [description]
- */
-function createSign(obj) { //签名算法（把所有的非空的参数，按字典顺序组合起来+key,然后md5加密，再把加密结果都转成大写的即可）
-    /*var stringA = 'appid=' + obj.appid + '&body=' + obj.body + '&mch_id=' + obj.mch_id + '&nonce_str=' + obj.nonce_str + '&notify_url=' + obj.notify_url +
-        '&openid=' + obj.openid + '&out_trade_no=' + obj.out_trade_no + '&spbill_create_ip=' + obj.spbill_create_ip + '&total_fee=' + obj.total_fee + '&trade_type=' + obj.trade_type;
-    let stringSignTemp = stringA + '&key=' + obj.partner_key;
-    */
-    let stringSignTemp = raw(obj);
-    stringSignTemp = md5(stringSignTemp);
-    let signValue = stringSignTemp.toUpperCase();
-    return signValue;
-}
-
-/**
- *  二次签名算法
- *  @author yiklv_yanguo
- *  @date    2019-07-27T22:57:40+0800
- *  @version 1.0.0
- *  @param   {OBJECT}                 obj [description]
- *  @return  {String}                     [description]
- *  appId=wxd678efh567hg6787&nonceStr=5K8264ILTKCH16CQ2502SI8ZNMTM67VS&package=prepay_id=wx2017033010242291fcfe0db70013231072&signType=MD5&timeStamp=1490840662&key=qazwsxedcrfvtgbyhnujmikolp111111
- */
-function createSignAgain(obj) { //签名算法（把所有的非空的参数，按字典顺序组合起来+key,然后md5加密，再把加密结果都转成大写的即可）
-    /*var stringA = 'appId=' + obj.appId + '&nonceStr=' + obj.nonceStr + '&package=' + obj.package + '&signType=' + obj.signType + '&timeStamp=' + obj.timeStamp ;
-    let stringSignTemp = stringA + '&key=' + obj.key;*/
-
-    let stringSignTemp = raw(obj);
-    stringSignTemp = md5(stringSignTemp);
-    let signValue = stringSignTemp.toUpperCase();
-    return signValue;
-}
-
-/**
- *  生成随机数
- *  @author yiklv_yanguo
- *  @date    2019-07-27T23:37:50+0800
+ *  @date    2019-08-03T20:11:09+0800
  *  @version [version]
- *  @return  {[type]}                 [description]
+ *  @param   {[type]}                 val [description]
+ *  @return  {[type]}                     [description]
  */
-function randomStr() { //产生一个32位随机字符串  
-    var str = "";
-    var arr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+const updateOrderInfoCancel = (val) => {
+    let orderId = val.orderId;
+    // 更新状态为成功
+    return new Promise((resolve, reject) => {
+        updateOrderById(_orderId, '3', '');
+        resolve([]);
+    });
 
-    for (var i = 1; i <= 32; i++) {
-        var random = Math.floor(Math.random() * arr.length);
-        str += arr[random];
-    }
+}
 
-    return str;
+/**
+ *  查询订单支付详情    
+ *  @author yiklv_yanguo
+ *  @date    2019-08-04T15:23:27+0800
+ *  @version 1.0.0
+ *  @param   val
+ *  @return  
+ */
+const queryOrderPayInfo = (val) => {
+    // 小程序appid
+    let appid = config.appId;
+    // 商户号
+    let mch_id = config.mch_id;
+    //随机字符串
+    let nonce_str = stringutil.random(32, { numbers: true, lettersUpper: true });
+
+    // 订单号
+    let order_id = val.orderId;
+
+    let params = {
+        appid: appid,
+        mch_id: mch_id,
+        nonce_str: nonce_str,
+        out_trade_no: order_id,
+    };
+    /** @type {string} MD5加密字符串 */
+    let sign = wxpayUtils.createSign(params);
+
+    let req_xml = `<xml><appid>${appid}</appid><mch_id>${mch_id}</mch_id><nonce_str>${nonce_str}</nonce_str><out_trade_no>${order_id}</out_trade_no><sign>${sign}</sign></xml>`;
+    console.log(req_xml);
+    return new Promise((resolve, reject) => {
+        request({
+            url: constId.orderQueryUrl,
+            method: "POST",
+            json: true,
+            headers: {
+                "content-type": "application/json",
+            },
+            body: req_xml
+        }, function(error, response, resbody) {
+            if (error) {
+                console.log('wxpay.queryOrderPayInfo error:', error);
+                // 接口异常
+                reject({ message: error });
+            } else if (response.statusCode != 200) {
+                console.log('wxpay.queryOrderPayInfo response error:', response);
+                // URL返回错误
+                reject({ message: response.statusMessage });
+            } else if (response.statusCode == 200) {
+
+                console.log(resbody, '微信支付订单的查询返回的数据'); // 请求成功的处理逻辑
+                // 测试用
+
+                resbody = `<xml>
+   <return_code><![CDATA[SUCCESS]]></return_code>
+   <return_msg><![CDATA[OK]]></return_msg>
+   <appid><![CDATA[wx2421b1c4370ec43b]]></appid>
+   <mch_id><![CDATA[10000100]]></mch_id>
+   <device_info><![CDATA[1000]]></device_info>
+   <nonce_str><![CDATA[TN55wO9Pba5yENl8]]></nonce_str>
+   <sign><![CDATA[BDF0099C15FF7BC6B1585FBB110AB635]]></sign>
+   <result_code><![CDATA[SUCCESS]]></result_code>
+   <openid><![CDATA[oUpF8uN95-Ptaags6E_roPHg7AG0]]></openid>
+   <is_subscribe><![CDATA[Y]]></is_subscribe>
+   <trade_type><![CDATA[MICROPAY]]></trade_type>
+   <bank_type><![CDATA[CCB_DEBIT]]></bank_type>
+   <total_fee>1</total_fee>
+   <fee_type><![CDATA[CNY]]></fee_type>
+   <transaction_id><![CDATA[1008450740201411110005820873]]></transaction_id>
+   <out_trade_no><![CDATA[1415757673]]></out_trade_no>
+   <attach><![CDATA[订单额外描述]]></attach>
+   <time_end><![CDATA[20141111170043]]></time_end>
+   <trade_state><![CDATA[SUCCESS]]></trade_state>
+</xml>`;
+
+                // 解析json
+                xml2js.parseString(resbody, function(error, result) {
+                    let reData = result.xml;
+                    // return_code 、result_code为SUCCESS
+                    if (reData.return_code && reData.return_code[0] == constId.TRADE_STATUS_SUCCESS) {
+                        if (reData.result_code && reData.result_code[0] == constId.TRADE_STATUS_SUCCESS) {
+                            let trade_state = reData.trade_state[0];
+                            let outTradeNo = reData.out_trade_no[0];
+                            if (outTradeNo == order_id) {
+                                let order_status = '';
+                                let order_end_time = '';
+                                //trade_state状态 SUCCESS—支付成功  REFUND—转入退款  NOTPAY—未支付  CLOSED—已关闭  REVOKED—已撤销（刷卡支付） USERPAYING--用户支付中  PAYERROR--支付失败(其他原因，如银行返回失败)
+                                if (constId.TRADE_STATUS_SUCCESS == trade_state) {
+                                    order_status = '2';
+                                    order_end_time = reData.time_end[0];
+                                } else if (constId.TRADE_STATUS_NOTPAY == trade_state) {
+                                    order_status = '1';
+                                } else if (constId.TRADE_STATUS_CLOSED == trade_state) {
+                                    order_status = '3';
+                                } else if (constId.TRADE_STATUS_REVOKED == trade_state) {
+                                    order_status = '2';
+                                } else {
+                                    order_status = '1';
+                                }
+                                updateOrderById(order_id, order_status, order_end_time);
+
+                            } else {
+                                console.log('wxpay.queryOrderPayInfo response xml fail:', '订单号不一致: 原订单号：' + order_id + ', 返回订单号：' + outTradeNo);
+                                // reject({ message: '订单号不一致'});
+                            }
+                        } else {
+                            console.log('wxpay.queryOrderPayInfo response xml fail:', '错误码:' + err_code + ',错误代码描述:' + err_code_des);
+                            // reject({ message: '错误码:'+ err_code+ ',错误代码描述:' + err_code_des});
+                        }
+                    } else {
+                        console.log('wxpay.queryOrderPayInfo response xml fail:', response);
+                        // reject({ message: reData.return_msg[0] });
+                    }
+                });
+            } else {
+                // resolve([]);
+            }
+        });
+    });
+}
+
+
+/**
+ *  根据订单号查询订单信息
+ *  @author yiklv_yanguo
+ *  @date    2019-08-04T22:00:05+0800
+ *  @version [version]
+ *  @param   {[type]}                 val [description]
+ *  @return  {[type]}                     [description]
+ */
+const queryOrderInfoById = (val) => {
+    let _orderId = val.orderId;
+    let query_order_info = constId.query_detail_info_by_id;
+    let param = [_orderId];
+    return pool.query(query_order_info, param);
+}
+
+/**
+ *  根据用户号查询订单信息
+ *  @author yiklv_yanguo
+ *  @date    2019-08-04T22:02:43+0800
+ *  @version [version]
+ *  @param   {[type]}                 val [description]
+ *  @return  {[type]}                     [description]
+ */
+const queryOrderInfoByOpenid = (val) => {
+    let _orderId = val.openId;
+    let _orderStatus = val.orderStatus;
+    let query_order_info_openid = constId.query_order_info_by_openid;
+    let param = [_orderId, _orderStatus];
+    return pool.query(query_order_info_openid, param);
+}
+
+/**
+ *  重新发起支付时查询订单信息
+ *  @author yiklv_yanguo
+ *  @date    2019-08-10T23:21:42+0800
+ *  @version [version]
+ *  @param   {[type]}                 val [description]
+ *  @return  {[type]}                     [description]
+ */
+const queryRepayOrderInfo = (val) => {
+    let _orderId = val.orderId;
+    let query_order_info = constId.query_order_info_by_id;
+    let param = [_orderId];
+    return new Promise((resolve, reject) => {
+        pool.query(query_order_info, param).then(result => {
+            let resXml = result.trv_spot_order;
+            xml2js.parseString(resXml, function(error, result) {
+                let reData = result.xml;
+                if (reData.return_code && reData.return_code[0] == 'SUCCESS') {
+                    let responseData = {
+                        timeStamp: new Date().getTime(),
+                        nonceStr: reData.nonce_str[0],
+                        package: 'prepay_id=' + reData.prepay_id[0],
+                        key: reData.sign[0],
+                        appId: config.appId,
+                        signType: 'MD5',
+                        order_id: _orderId,
+                    }
+
+                    responseData.paySign = wxpayUtils.createSignAgain(responseData);
+                    // 返回订单信息
+                    resolve(responseData);
+                } else {
+                    console.log('wxpay.setUnifiedOrder response xml fail:', response);
+                    reject({ message: reData.return_msg[0] });
+                }
+            });
+        });
+    });
 }
 
 /**
@@ -396,47 +555,10 @@ function mergeTktBookInfoService(val) {
  */
 function createTktOrderService(obj) {
     let sql_spot_order = constId.insert_order_unfinished;
-    let orderParam = [obj.order_id, obj.tkt_body_desc, obj.openid, obj.tktId, obj.trvDate, obj.tktPrice, obj.totalNum, obj.total_fee, obj.dateStr, obj.dateNextStr, obj.formData, obj.order_status];
+    let orderParam = [obj.order_id, obj.tkt_body_desc, obj.openid, obj.tktId, obj.trvDate, obj.tktPrice, obj.totalNum, obj.total_fee, obj.dateStr, obj.dateNextStr, obj.formData, obj.order_status, obj.resbody];
     pool.insert(sql_spot_order, orderParam);
 }
 
-/**
- *  object 转String
- *  @author yiklv_yanguo
- *  @date    2019-07-29T20:43:01+0800
- *  @version [version]
- *  @param   {[type]}                 args [description]
- *  @return  {[type]}                      [description]
- */
-function raw(args) {
-    var keys = Object.keys(args);
-    keys = keys.sort();
-    var newArgs = {};
-    keys.forEach(function(key) {
-        // newArgs[key.toLowerCase()] = args[key];
-        newArgs[key] = args[key];
-    });
-    var str = '';
-    for (var k in newArgs) {
-        str += '&' + k + '=' + newArgs[k];
-    }
-    str = str.substr(1);
-    console.log(str);
-    return str;
-}
-
-/**
- *  微信通知返回报文
- *  @author yiklv_yanguo
- *  @date    2019-08-01T21:59:02+0800
- *  @version [version]
- *  @param   {[type]}                 resCode SUCCESS/FAIL
- *  @param   {[type]}                 resMsg    返回信息，如非空，为错误原因：签名失败 参数格式校验错误
- *  @return  {[type]}                         [description]
- */
-function wxpayReturnXml(resCode, resMsg) {
-    return `<xml><return_code><![CDATA[${resCode}]]></return_code><return_msg><![CDATA[${resMsg}]]></return_msg></xml>`;
-}
 
 /**
  *  查询订单是否存在 或者是否过期
@@ -446,10 +568,10 @@ function wxpayReturnXml(resCode, resMsg) {
  *  @param   {[type]}                 orderId [description]
  *  @return  {[type]}                         [description]
  */
-function queryOrderInfoById(orderId) {
+function queryOrderCntById(orderId) {
 
     let _orderId = orderId;
-    let query_order_exists = constId.query_order_by_id_sql;
+    let query_order_exists = constId.query_order_cnt_by_id_sql;
     let param = [_orderId, '1'];
     return pool.query(query_order_exists, param);
 }
@@ -461,10 +583,10 @@ function queryOrderInfoById(orderId) {
  *  @param   {[type]}                 orderId [description]
  *  @return  {[type]}                         [description]
  */
-function updateOrderById(orderId, endTime) {
+function updateOrderById(orderId, orderStatus, endTime) {
     let _orderId = orderId;
     let update_order_id_sql = constId.update_order_id_sql;
-    let param = ['2', endTime, 'wxpay_return', _orderId];
+    let param = [orderStatus, endTime, 'wxpay_return', _orderId];
     return pool.update(update_order_id_sql, param);
 }
 
@@ -474,4 +596,8 @@ module.exports = {
     queryWepayPrepayUrl,
     setUnifiedOrder,
     updateOrderInfo,
+    updateOrderInfoCancel,
+    queryOrderPayInfo,
+    queryOrderInfoById,
+    queryOrderInfoByOpenid,
 }
