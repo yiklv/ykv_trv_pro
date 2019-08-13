@@ -24,77 +24,82 @@
         </block>
       </view>
     </view>
-
-    <view class='gap'></view>
+    <!-- <view class='gap'></view> -->
 
     <view class='content-body'>
-      <view class='gap'></view>
-      <view class='order-info'>
-        <view class='info-header'>
-          <view>我的订单</view>
-          <!-- <view class='all-order'>
-                        <view>全部订单</view>
-                        <image class='turn-right-icon' src='../../images/icons/turn-right.png'></image>
-                    </view> -->
-        </view>
-        <view class='order-content'>
-          <view class='order-item wait-pay'>
-            <image class='order-icon' src='../../images/icons/wait-pay.png'></image>
-            <view>待付款</view>
-          </view>
-          <!--
-                    <view class='wait-pay order-item'>
-                        <image class='order-icon' src='../../images/icons/wait-send.png'></image>
-                        <view>待发货</view>
-                    </view>
-                    <view class='wait-pay order-item'>
-                        <image class='order-icon' src='../../images/icons/send.png'></image>
-                        <view>配送中</view>
-                    </view> 
-                    -->
-          <view class='wait-pay order-item'>
-            <image class='order-icon' src='../../images/icons/tuikuang.png'></image>
-            <view>退款中</view>
-          </view>
-          <view class='wait-pay order-item'>
-            <image class='order-icon' src='../../images/icons/finish.png'></image>
-            <view>已完成</view>
-          </view>
-          <view class='wait-pay order-item'>
-            <image class='order-icon' src='../../images/icons/btn_all_01.png'></image>
-            <view>全部</view>
-          </view>
-        </view>
-      </view>
-
       <view class='service-content'>
-        <view class='service-item'>
+        <!-- <navigator url="../my/myorder/myorder?activeIndex=0"> -->
+        <view class='service-item' data-active-index='0' bindtap="bindOrderDetail">
           <view class='item-icon'>
-            <image class='service-icon' src='../../images/icons/comment.png'></image>
-            <view class='service-title'>优惠券</view>
+            <image class='service-icon' src='../../images/icons/btn_all_01.png'></image>
+            <view class='service-title'>全部</view>
           </view>
           <view class='direct'>
+            <block wx:if="{{logined}}">
+              <view class="reddot">{{myOrderNumList.order_all_num}}</view>
+            </block>
             <image class='direct-icon' src='../../images/icons/turn-right.png'></image>
           </view>
         </view>
-        <view class='service-item'>
+        <!-- </navigator>
+        <navigator url="../my/myorder/myorder?activeIndex=1"> -->
+        <view class='service-item' data-active-index='1' bindtap="bindOrderDetail">
           <view class='item-icon'>
-            <image class='service-icon' src='../../images/icons/view.png'></image>
-            <view class='service-title'>浏览历史</view>
+            <image class='service-icon' src='../../images/icons/wait-pay.png'></image>
+            <view class='service-title'>待付款</view>
           </view>
           <view class='direct'>
+            <block wx:if="{{logined}}">
+              <view class="reddot">{{myOrderNumList.order_wait_num}}</view>
+            </block>
             <image class='direct-icon' src='../../images/icons/turn-right.png'></image>
           </view>
         </view>
-        <view class='service-item'>
+        <!-- </navigator>
+        <navigator url="../my/myorder/myorder?activeIndex=2"> -->
+        <view class='service-item' data-active-index='2' bindtap="bindOrderDetail">
           <view class='item-icon'>
-            <image class='service-icon' src='../../images/icons/address.png'></image>
-            <view class='service-title'>地址管理</view>
+            <image class='service-icon' src='../../images/icons/tuikuang.png'></image>
+            <view class='service-title'>退款中</view>
           </view>
           <view class='direct'>
+            <block wx:if="{{logined}}">
+              <view class="reddot">{{myOrderNumList.order_back_num}}</view>
+            </block>
             <image class='direct-icon' src='../../images/icons/turn-right.png'></image>
           </view>
         </view>
+        <!-- </navigator>
+        <navigator url="../my/myorder/myorder?activeIndex=3"> -->
+        <view class='service-item' data-active-index='3' bindtap="bindOrderDetail">
+          <view class='item-icon'>
+            <image class='service-icon' src='../../images/icons/finish.png'></image>
+            <view class='service-title'>已完成</view>
+          </view>
+          <view class='direct'>
+            <block wx:if="{{logined}}">
+              <view class="reddot">{{myOrderNumList.order_finish_num}}</view>
+            </block>
+            <image class='direct-icon' src='../../images/icons/turn-right.png'></image>
+          </view>
+        </view>
+        <!-- </navigator>
+        <navigator url="../my/myorder/myorder?activeIndex=4"> -->
+        <view class='service-item' data-active-index='4' bindtap="bindOrderDetail">
+          <view class='item-icon'>
+            <image class='service-icon' src='../../images/icons/quit_01.png'></image>
+            <view class='service-title'>已取消</view>
+          </view>
+          <view class='direct'>
+            <block wx:if="{{logined}}">
+              <view class="reddot">{{myOrderNumList.order_quit_num}}</view>
+            </block>
+            <image class='direct-icon' src='../../images/icons/turn-right.png'></image>
+          </view>
+        </view>
+        <!-- </navigator> -->
+      </view>
+      <view class='service-content'>
         <view class='service-item'>
           <view class='item-icon'>
             <image class='service-icon' src='../../images/icons/servicer.png'></image>
@@ -105,8 +110,6 @@
           </view>
         </view>
       </view>
-
     </view>
-
   </view>
 </view>

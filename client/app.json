@@ -3,6 +3,7 @@
     "pages/index/index",
     "pages/search/search",
     "pages/my/my",
+    "pages/my/myorder/myorder",
     "pages/spot/spotdetail/spotdetail",
     "pages/spot/spotBook/spotBook",
     "pages/spot/spotBook/bookDetail/bookDetail",

@@ -14,6 +14,7 @@ Page({
     canIUse: wx.canIUse('button.open-type.getUserInfo'), // 判断是否支持微信button登录
     logined: false,
     userInfo: {},
+    myOrderNumList:{}, //详细订单个数
   },
 
   /**
@@ -30,7 +31,8 @@ Page({
           that.setData({
             userInfo: result.data.data,
             logined: true
-          })
+          });
+          that.queryMyOrderNumList(that.data.userInfo.openId);
         },
 
         fail(error) {
@@ -58,7 +60,8 @@ Page({
           that.setData({
             userInfo: result,
             logined: true
-          })
+          });
+          that.queryMyOrderNumList(that.data.userInfo.openId);
         }
       },
 
@@ -67,6 +70,46 @@ Page({
         console.log('登录失败', error)
       }
     })
+  },
+  /**
+   * 跳转详细订单
+   */
+  bindOrderDetail:function(event){
+    let _that = this;
+    let logined = _that.data.logined;
+    let activeIndex = event.currentTarget.dataset.activeIndex;
+    console.log(activeIndex);
+    if(logined){
+      wx.navigateTo({
+        url: '../my/myorder/myorder?activeIndex=' + activeIndex,
+      })
+    }
+  },
+  /**
+   * 查询所有订单对应个数
+   */
+  queryMyOrderNumList:function(openId){
+    let that = this;
+    qcloud.request({
+      url: config.service.order.queryMyOrderNumList,
+      login: true,
+      data: { openId: openId},
+      success(result) {
+        var data = result.data;
+        if (data.retCode == '200') {
+          that.setData({
+            myOrderNumList: data.retValue[0],
+          });
+        } else {
+          util.showModel('异常', data.msg);
+        }
+      },
+      fail(error) {
+        util.showModel('请求失败', error)
+        console.log('request fail', error)
+      },
+
+    });
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

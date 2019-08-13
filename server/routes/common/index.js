@@ -15,4 +15,5 @@ module.exports = (config => {
     'search',  /**搜索信息*/
     'spot' ,   /**景点路由*/
     'wxpay' ,   /**微信支付*/
+    'order',   /**订单*/
 ])

@@ -82,6 +82,12 @@ var config = {
       queryOrderInfoById: `${host}/${route_path}/wxpay/queryOrderInfoById`,
       // 根据客户查询订单信息
       queryOrderInfoByOpenid: `${host}/${route_path}/wxpay/queryOrderInfoByOpenid`,
+    },
+    order:{
+      // 查询订单的数量
+      queryMyOrderNumList: `${host}/${route_path}/order/queryMyOrderNumList`,
+      // 查询订单列表
+      queryMyOrderList: `${host}/${route_path}/order/queryMyOrderList`,
     }
   }
 };

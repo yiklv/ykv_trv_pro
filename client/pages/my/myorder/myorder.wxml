@@ -1,0 +1,74 @@
+<!--陈列订单信息的模版Start-->
+<template name="order-template">
+  <view wx:if="{{data.length > 0}}" class="has-order">
+    <view wx:for="{{data}}" wx:key="*this" id="{{item.order_id}}" bindtap="showOrderDetail">
+      <view class="order-head">
+        <view class="status-price">
+          <view wx:if="{{item.order_status == '1'}}">状态:
+            <text class="unpaid-color">待支付</text>
+          </view>
+          <view wx:elif="{{item.order_status == '2'}}">状态:
+            <text>已完成</text>
+          </view>
+          <view wx:elif="{{item.order_status == '3'}}">状态:
+            <text>已取消</text>
+          </view>
+          <view wx:elif="{{item.order_status == '4'}}">状态:
+            <text>已取消</text>
+          </view>
+          <view wx:elif="{{item.order_status == '5'}}">状态:
+            <text>已退款</text>
+          </view>
+          <!-- <view wx:else>状态: <text>已支付</text></view> -->
+          <view>总价:
+            <text>￥{{item.sum_price}}</text>
+          </view>
+        </view>
+        <view wx:if="{{item.order_status == '1'}}" class="to-pay-btn">
+          <button>去支付</button>
+        </view>
+      </view>
+      <view class="goods-content">
+        <!-- wx:for="{{item.order_goods}}" wx:key="*this" -->
+        <view class="goods-info">
+          <image src="{{host}}/{{item.img_url}}"></image>
+          <view>
+            <text>{{item.order_info}}</text>
+            <text class="goods-quantity">{{item.tkt_num}} 张</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view wx:else class="no-order">您暂时还没有该类订单</view>
+</template>
+<!--陈列订单信息的模版End-->
+<view class="my-container">
+  <view class="head-nav">
+    <block wx:for="{{navTabs}}" wx:key="*this">
+      <view class="{{activeIndex == index ? 'active-item':''}}" id="{{index}}" bindtap="tapNavItem">{{item}}</view>
+    </block>
+  </view>
+  <view>
+    <!--全部订单部分-->
+    <view hidden="{{activeIndex != 0}}">
+      <template is="order-template" data="{{data:allOrder, host}}"></template>
+    </view>
+    <!--待付款部分-->
+    <view hidden="{{activeIndex != 1}}">
+      <template is="order-template" data="{{data:payOrder, host}}"></template>
+    </view>
+    <!--退款中部分-->
+    <view hidden="{{activeIndex != 2}}">
+      <template is="order-template" data="{{data:backOrder, host}}"></template>
+    </view>
+    <!--已完成部分-->
+    <view hidden="{{activeIndex != 3}}">
+      <template is="order-template" data="{{data:finishOrder, host}}"></template>
+    </view>
+    <!--已取消部分-->
+    <view hidden="{{activeIndex != 4}}">
+      <template is="order-template" data="{{data:quitOrder, host}}"></template>
+    </view>
+  </view>
+</view>
